@@ -10,14 +10,20 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    protected $table = 'users';
-
     protected $fillable = [
         'email',
         'password',
     ];
 
     protected $hidden = [
-        'password', // Ocultar password al convertir a JSON
+        'password',
     ];
+
+    // Relación 1 a 1
+    public function profile()
+    {
+        return $this->hasOne(Profile::class);
+        // usa user_id por convención
+    }
 }
+

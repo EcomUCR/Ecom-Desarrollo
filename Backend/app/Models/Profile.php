@@ -7,21 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Profile extends Model
 {
-    protected $table = 'profiles'; // Nombre de la tabla
+    use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'username',
         'name',
         'last_name',
-        'email',
-        'password',
         'type',
         'image',
     ];
 
-    protected $hidden = [
-        'password', // Ocultar password en JSON
-    ];
-
-    // 🔗 Aquí puedes añadir relaciones después si tienes usuarios, vendedores, etc.
+    // Relación inversa
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
+
