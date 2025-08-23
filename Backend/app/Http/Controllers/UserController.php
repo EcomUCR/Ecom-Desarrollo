@@ -60,6 +60,9 @@ class UserController extends Controller
     {
         // Show user and profile by user id
         $user = User::with('profile')->findOrFail($id);
+        // Example: update last_login_at (simulate login)
+        $user->last_login_at = now();
+        $user->save();
         return response()->json($user);
     }
 

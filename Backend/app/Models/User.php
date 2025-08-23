@@ -13,10 +13,15 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'last_login_at',
     ];
 
     protected $hidden = [
         'password',
+    ];
+
+    protected $casts = [
+        'last_login_at' => 'datetime',
     ];
 
     // Relación 1 a 1
