@@ -20,8 +20,7 @@ class UserController extends Controller
 
     public function create()
     {
-        // Return a view or data for creating a user (API: not needed)
-        return response()->json(['message' => 'Display user creation form']);
+      
     }
 
 
