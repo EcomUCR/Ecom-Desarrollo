@@ -4,8 +4,8 @@ import useEmblaCarousel, {
 } from "embla-carousel-react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { cn } from "../../lib/utils"
+import { Button } from "./button"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -136,13 +136,13 @@ function CarouselContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden"
+      className="overflow-hidden "
       data-slot="carousel-content"
     >
       <div
         className={cn(
           "flex py-10",
-          orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
+          orientation === "horizontal" ? "ml-8" : "-mt-4 flex-col",
           className
         )}
         {...props}
@@ -160,8 +160,8 @@ function CarouselItem({ className, ...props }: React.ComponentProps<"div">) {
       aria-roledescription="slide"
       data-slot="carousel-item"
       className={cn(
-        "min-w-0 shrink-0 grow-0 basis-xs ",
-        orientation === "horizontal" ? "pl-4" : "pt-4",
+        "min-w-0 shrink-0 grow-0 basis-xs",
+        orientation === "horizontal" ? "pl-7" : "pt-4",
         className
       )}
       {...props}
@@ -183,9 +183,9 @@ function CarouselPrevious({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-9 rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -left-12 -translate-y-1/2"
+          ? "top-1/2 left-3 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -199,13 +199,47 @@ function CarouselPrevious({
   )
 }
 
+function CarouselStatus({ className }: React.ComponentProps<"div">) {
+  const { api } = useCarousel()
+  const [current, setCurrent] = React.useState(0)
+  const [count, setCount] = React.useState(0)
+
+  React.useEffect(() => {
+    if (!api) return
+    setCount(api.scrollSnapList().length)
+    setCurrent(api.selectedScrollSnap())
+
+    const onSelect = () => setCurrent(api.selectedScrollSnap())
+    api.on("select", onSelect)
+
+    return () => {
+      api.off("select", onSelect)
+    }
+  }, [api])
+
+  return (
+    <div className={cn("text-sm text-gray-500 mt-2", className)}>
+      {current + 1} / {count}
+    </div>
+  )
+}
+
 function CarouselNext({
   className,
   variant = "outline",
   size = "icon",
   ...props
 }: React.ComponentProps<typeof Button>) {
-  const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const { orientation, api } = useCarousel()
+
+  const handleClick = () => {
+    if (!api) return
+    if (api.canScrollNext()) {
+      api.scrollNext()
+    } else {
+      api.scrollTo(0) //vuelve al inicio cuando ya no hay más
+    }
+  }
 
   return (
     <Button
@@ -213,14 +247,13 @@ function CarouselNext({
       variant={variant}
       size={size}
       className={cn(
-        "absolute size-8 rounded-full",
+        "absolute size-9 rounded-full",
         orientation === "horizontal"
-          ? "top-1/2 -right-12 -translate-y-1/2"
+          ? "top-1/2  right-0 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
-      disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={handleClick}
       {...props}
     >
       <ArrowRight />
@@ -229,6 +262,7 @@ function CarouselNext({
   )
 }
 
+
 export {
   type CarouselApi,
   Carousel,
@@ -236,4 +270,5 @@ export {
   CarouselItem,
   CarouselPrevious,
   CarouselNext,
+  CarouselStatus
 }
