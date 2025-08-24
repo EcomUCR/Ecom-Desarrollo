@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import LandingHeader from "./LandingHeader";
+import LandingHeader from "./NavBarLanding";
 import logo from "../../img/logoT.png"; 
 
 function RegisterPage() {
