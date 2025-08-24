@@ -1,27 +1,31 @@
-<?php 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
+<?php
+
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-// Simple admin check closure
-function isAdmin() {
-	$user = auth()->user();
-	return $user && $user->profile && $user->profile->type === 'admin';
-}
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
-// List users with optional filters
-Route::get('/users', function(Request $request) {
-	return app(UserController::class)->index($request);
+// List profiles (for AdminUserPage)
+Route::get('/profiles', function() {
+    return app(ProfileController::class)->index();
 });
-// Get user details
-Route::get('/users/{id}', function($id) {
-	return app(UserController::class)->show($id);
+// Get profile details
+Route::get('/profiles/{id}', function($id) {
+    return app(ProfileController::class)->show($id);
 });
-// Edit user
+// Edit profile
+Route::put('/profiles/{id}', function(Request $request, $id) {
+    return app(ProfileController::class)->update($request, $id);
+});
+// Delete profile
+Route::delete('/profiles/{id}', function($id) {
+    return app(ProfileController::class)->destroy($id);
+});
+// Edit user (update password, etc)
 Route::put('/users/{id}', function(Request $request, $id) {
-	return app(UserController::class)->update($request, $id);
-});
-// Delete user
-Route::delete('/users/{id}', function($id) {
-	return app(UserController::class)->destroy($id);
+    return app(UserController::class)->update($request, $id);
 });
