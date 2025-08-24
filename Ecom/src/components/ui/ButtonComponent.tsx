@@ -1,13 +1,15 @@
 interface ButtonComponentProps{
     text: string;
     style: string;
-    onClick?: () => void;
+    action?: () => void;
 }
 export default function ButtonComponent(props: ButtonComponentProps){
-    if(props.onClick){
-        <button className={props.style} onClick={props.onClick}>
-            {props.text}
-        </button>
+    if(props.action){
+        return(
+            <button className={props.style} onClick={props.action}>
+                {props.text}
+            </button>
+        );
     }
     return(
         <div className={props.style}>
