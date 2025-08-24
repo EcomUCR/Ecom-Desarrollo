@@ -1,0 +1,40 @@
+import { Link } from "react-router-dom";
+import { IconUser } from "@tabler/icons-react";
+import { IconShoppingBag } from "@tabler/icons-react";
+import { IconMenu2 } from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
+
+import logo from "../../img/logoT.png";
+
+export default function NavBar() {
+  return (
+    <header className="flex items-center justify-between lg:flex-row bg-blue-main px-2 py-5 lg:px-20 lg:py-6">
+
+      <div className="flex w-[25%] items-center align-middle space-x-1">
+        <img src={logo} alt="Logo" className="lg:h-14 h-10 w-auto relative" />
+        <a href="/" className="text-white pt-1 font-fugaz text-xl lg:text-3xl">TucaShop</a>
+      </div>
+
+      <div className="hidden w-[50%] lg:flex lg:flex-1 lg:mx-6 shadow-[2px_3px_3px_rgba(0,0,0,0.3)] rounded-lg">
+        <input
+          type="text"
+          placeholder="Buscar productos..."
+          className="w-full px-6 py-2.5 rounded-l-lg outline-none bg-white"
+        />
+        <button className="px-2 rounded-r-lg bg-yellow-main flex items-center justify-center text-white">
+          <IconSearch className="w-5 h-5 lg:w-7 lg:h-7" />
+        </button>
+      </div>
+
+
+      <div className="flex lg:w-[25%] justify-end items-center space-x-4 lg:space-x-6 text-white">
+        <IconSearch className="lg:hidden" />
+        <Link to="/profile">
+          <IconUser className="lg:w-8 lg:h-8" />
+        </Link>
+        <IconShoppingBag className="lg:w-8 lg:h-8" />
+        <IconMenu2 className="lg:w-8 lg:h-8" />
+      </div>
+    </header>
+  );
+}
