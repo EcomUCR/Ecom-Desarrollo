@@ -3,7 +3,7 @@ import HeroBanner from "../ui/HeroBanner";
 import FeaturedProducts from "../ui/FeaturedProducts";
 import Categories from "../ui/Categories";
 import Explore from "../ui/Explore";
-//import Footer from "../ui/Footer";
+import Footer from "../ui/Footer";
 
 export default function HomePage() {
   return (
@@ -15,7 +15,7 @@ export default function HomePage() {
         <Categories />
         {<Explore />}
       </main>
-      {/*<Footer />*/}
+      {<Footer />}
     </div>
   );
 }

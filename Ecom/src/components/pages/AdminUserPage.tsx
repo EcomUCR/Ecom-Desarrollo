@@ -10,15 +10,15 @@ import {
     TableRow,
 } from "../ui/table"
 
-interface Users{
+/*interface Users{
     id: number;
     username: string;
     type: string;
     status: string;
-}
+}*/
 
 
-export default function AdminUserPage(props:Users) {
+export default function AdminUserPage() {
     return (
         <section className="">
             <NavBar />
