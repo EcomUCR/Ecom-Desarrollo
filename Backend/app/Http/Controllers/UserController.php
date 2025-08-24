@@ -10,10 +10,25 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
  
-    public function index()
+    public function index(Request $request)
     {
-        // List all users with their profiles
-        $users = User::with('profile')->get();
+        $query = User::with('profile');
+
+        // Filter by name or username
+        if ($request->has('name')) {
+            $name = $request->input('name');
+            $query->whereHas('profile', function($q) use ($name) {
+                $q->where('name', 'like', "%$name%")
+                  ->orWhere('username', 'like', "%$name%");
+            });
+        }
+
+        // Filter by recent activity (last_login_at in last 7 days)
+        if ($request->has('recent')) {
+            $query->where('last_login_at', '>=', now()->subDays(7));
+        }
+
+        $users = $query->get();
         return response()->json($users);
     }
 

@@ -10,8 +10,8 @@ export default function NavBar() {
   return (
     <header className="flex items-center justify-between lg:flex-row bg-blue-main px-2 py-5 lg:px-20 lg:py-6">
 
-      <div className="flex w-[25%] items-center align-middle space-x-1">
-        <img src={logo} alt="Logo" className="lg:h-14 h-10 w-auto relative" />
+      <div className="flex w-[25%] items-center align-middle space-x-2">
+        <img src={logo} alt="Logo" className=" h-10 w-auto relative" />
         <a href="/" className="text-white pt-1 font-fugaz text-xl lg:text-3xl">TucaShop</a>
       </div>
 

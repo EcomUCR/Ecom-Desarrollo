@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import LandingHeader from "../ui/NavBarLanding";
+import NavBarLanding from "../ui/NavBarLanding";
 import logo from "../../img/logoG.png";
 import ButtonComponent from "../ui/ButtonComponent";
 
@@ -9,28 +9,25 @@ function LandingPage() {
   return (
     <div className="min-h-screen flex flex-col">
 
-      <LandingHeader />
+      <NavBarLanding />
 
 
-      <div className="flex flex-1 items-center justify-center px-8 md:px-20">
-
-        <div className="max-w-lg mr-12">
-          <h1 className="text-4xl md:text-6xl font-quicksand  mb-6">
-            Un <span className="font-bold">mundo</span> de <span className="font-bold">productos</span> a un <span className="font-bold">click</span>
+      <div className="flex flex-col lg:flex-row items-center justify-center lg:space-x-20 px-10 lg:pt-0 pt-10">
+        <div className="flex flex-col max-w-lg space-y-6">
+          <h1 className=" lg:text-6xl font-quicksand mb-6 text-4xl lg:leading-20">
+            Un <span className="font-bold">mundo</span> de <span className="font-bold">productos,</span> a un <span className="font-bold">clic.</span>
           </h1>
           <ButtonComponent
             action={() => navigate("/home")}
-            style='bg-purple-main text-white font-semibold py-3 px-6 rounded-lg'
+            style='bg-purple-main text-white lg:w-[50%] font-quicksand font-semibold py-4 px-15 rounded-lg shadow-[1px_2px_3px_rgba(0,0,0,0.3)]'
             text='¡Comienza ya!'
           />
         </div>
-
-
         <div>
           <img
             src={logo}
             alt="Logo"
-            className="md:w-130 md:h-130"
+            className=""
           />
         </div>
       </div>

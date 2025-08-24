@@ -1,8 +1,8 @@
 import Header from "../ui/NavBar"
 import HeroBanner from "../ui/HeroBanner";
 import FeaturedProducts from "../ui/FeaturedProducts";
-//import Categories from "../ui/Categories";
-//import Explore from "../ui/Explore";
+import Categories from "../ui/Categories";
+import Explore from "../ui/Explore";
 import Footer from "../ui/Footer";
 
 export default function HomePage() {
@@ -12,10 +12,10 @@ export default function HomePage() {
       <HeroBanner />
       <main className=" w-full">
         <FeaturedProducts />
-      { /*<Categories />*/}
-        {/*<Explore />*/}
+        <Categories />
+        {<Explore />}
       </main>
-      <Footer />
+      {<Footer />}
     </div>
   );
 }
