@@ -19,7 +19,7 @@ function LandingPage() {
             Un <span className="font-bold">mundo</span> de <span className="font-bold">productos</span> a un <span className="font-bold">click</span>
           </h1>
           <ButtonComponent
-            onClick={() => navigate("/home")}
+            action={() => navigate("/home")}
             style='bg-purple-main text-white font-semibold py-3 px-6 rounded-lg'
             text='¡Comienza ya!'
           />
