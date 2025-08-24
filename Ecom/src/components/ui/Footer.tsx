@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="bg-blue-main text-white py-6 mt-10 flex flex-col items-center">
 
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <div>
           <p className="hidden lg:flex text-sm mr-60">Derechos reservados eCom</p>
         </div>
