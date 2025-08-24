@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/ui/LandingPage";
-import HomePage from "./components/ui/HomePage";
-import LoginPage from "./components/ui/LoginPage";
-import RegisterPage from "./components/ui/RegisterPage";
-import ProfilePage from "./components/ui/ProfilePage";
-import ChangeUsernamePage from "./components/ui/ChangeUsernamePage";
-import ChangePasswordPage from "./components/ui/ChangePasswordPage";
+import LandingPage from "./components/pages/LandingPage";
+import HomePage from "./components/pages/HomePage1";
+import LoginPage from "./components/pages/LoginPage";
+import RegisterPage from "./components/pages/RegisterPage";
+import ProfilePage from "./components/pages/ProfilePage";
+import ChangeUsernamePage from "./components/pages/ChangeUsernamePage";
+import ChangePasswordPage from "./components/pages/ChangePasswordPage";
+import AdminUserPage from "./components/pages/AdminUserPage";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/change-username" element={<ChangeUsernamePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
+        <Route path="/admin-users" element={<AdminUserPage />} />
       </Routes>
     </Router>
   );
