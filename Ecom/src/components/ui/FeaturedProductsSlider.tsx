@@ -9,10 +9,7 @@ const products = [
     { name: "Audífonos Gamer Razer", price: "₡26.950", img: audifonosImg },
     { name: "Chocolate amargo OKKO", price: "₡44.950", img: cacaoImg },
     { name: "Set cuchillos Telstar", price: "₡15.750", img: cuchillosImg },
-    { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg },
-    { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg },
-    { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg },
-    { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg },
+    { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg }
 ];
 
 export default function FeaturedProductsSlider() {

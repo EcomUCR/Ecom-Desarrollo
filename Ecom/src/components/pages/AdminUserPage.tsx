@@ -56,8 +56,6 @@ export default function AdminUserPage(props:Users) {
                             <p>Usuario seleccionado: <span>@user</span></p>
                         </div>
                         <div className="flex flex-col items-center py-5">
-                            <label htmlFor="">Contraseña actual</label>
-                            <input type="password" placeholder="" className="rounded-lg p-2 m-2 bg-white text-gray-main w-[90%] px-5" />
                             <label htmlFor="">Nueva contraseña</label>
                             <input type="password" placeholder="" className="rounded-lg p-2 m-2 bg-white text-gray-main w-[90%] px-5" />
                         </div>
