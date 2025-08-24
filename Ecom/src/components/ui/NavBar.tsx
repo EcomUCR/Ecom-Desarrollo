@@ -4,7 +4,7 @@ import { IconShoppingBag } from "@tabler/icons-react";
 import { IconMenu2 } from "@tabler/icons-react";
 import { IconSearch } from "@tabler/icons-react";
 
-import logo from "../../img/logoT.png";
+import logo from "../../img/tucaShopLogo.png";
 
 export default function NavBar() {
   return (

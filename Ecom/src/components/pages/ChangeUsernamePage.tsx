@@ -1,6 +1,6 @@
 // src/components/ui/ChangeUsernamePage.jsx
 import { Link } from 'react-router-dom';
-import LandingHeader from '../ui/LandingHeader';
+import LandingHeader from '../ui/NavBarLanding';
 
 const ChangeUsernamePage = () => {
   return (
