@@ -33,6 +33,7 @@ export default function AdminUserPage() {
     const [newPassword, setNewPassword] = useState("");
     const [updating, setUpdating] = useState(false);
     const [updateMsg, setUpdateMsg] = useState("");
+    const [updateStatus, setUpdateStatus] = useState(true);
 
     useEffect(() => {
         fetch("/api/profiles", { credentials: "include" })
@@ -117,7 +118,7 @@ export default function AdminUserPage() {
                                             <TableCell>{profile.last_name}</TableCell>
                                             <TableCell>{profile.user?.email || ""}</TableCell>
                                             <TableCell>{profile.user?.last_login_at ? new Date(profile.user.last_login_at).toLocaleString() : ""}</TableCell>
-                                            <TableCell>{profile.user?.status ? "Activo" : "Inactivo"}</TableCell>
+                                            <TableCell><input type="checkbox" checked={profile.user?.status} /></TableCell>
                                         </TableRow>
                                     ))
                                 )}
