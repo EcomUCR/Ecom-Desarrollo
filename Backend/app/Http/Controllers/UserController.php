@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -144,4 +146,28 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User deleted']);
     }
+
+    public function login(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email',
+        'password' => 'required|string|min:6',
+    ]);
+
+    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $user = Auth::user();
+
+        $user->last_login_at = now();
+        $user->save();
+
+        return response()->json([
+            'message' => 'Login exitoso',
+            'user' => $user
+        ]);
+    }
+
+    return response()->json([
+        'message' => 'Credenciales incorrectas'
+    ], 401);
+}
 }

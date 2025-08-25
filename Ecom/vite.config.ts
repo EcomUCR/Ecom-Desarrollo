@@ -16,7 +16,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost/ecomDB/Backend/public',
+        target: 'http://localhost/ecom/Backend/public',
         changeOrigin: true,
         secure: false,
       }

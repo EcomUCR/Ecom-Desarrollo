@@ -18,7 +18,7 @@ function LandingPage() {
             Un <span className="font-bold">mundo</span> de <span className="font-bold">productos,</span> a un <span className="font-bold">clic.</span>
           </h1>
           <ButtonComponent
-            action={() => navigate("/home")}
+            onClick={() => navigate("/home")}
             style='bg-purple-main text-white lg:w-[50%] font-quicksand font-semibold py-4 px-15 rounded-lg shadow-[1px_2px_3px_rgba(0,0,0,0.3)]'
             text='¡Comienza ya!'
           />
