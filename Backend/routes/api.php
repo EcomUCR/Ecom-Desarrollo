@@ -29,3 +29,7 @@ Route::delete('/profiles/{id}', function($id) {
 Route::put('/users/{id}', function(Request $request, $id) {
     return app(UserController::class)->update($request, $id);
 });
+// Crear usuario
+Route::post('/users', function(Request $request) {
+    return app(UserController::class)->store($request);
+});

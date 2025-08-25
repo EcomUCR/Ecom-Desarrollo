@@ -10,6 +10,7 @@ import {
     TableHeader,
     TableRow,
 } from "../ui/table";
+import NewUser from "../ui/NewUser";
 
 interface Profile {
     id: number;
@@ -34,6 +35,7 @@ export default function AdminUserPage() {
     const [updating, setUpdating] = useState(false);
     const [updateMsg, setUpdateMsg] = useState("");
     const [updateStatus, setUpdateStatus] = useState(true);
+    const [showNewUser, setShowNewUser] = useState(false);
 
     useEffect(() => {
         fetch("/api/profiles", { credentials: "include" })
@@ -75,14 +77,35 @@ export default function AdminUserPage() {
         }
     };
 
+    const refreshProfiles = () => {
+        setLoading(true);
+        fetch("/api/profiles", { credentials: "include" })
+            .then(res => res.json())
+            .then(data => {
+                setProfiles(data);
+                setLoading(false);
+            });
+    };
+
     return (
         <section className="">
             <NavBar />
             <div className="py-10 px-5 lg:px-20 ">
                 <div className="flex justify-between items-center ">
                     <h1 className="font-quicksand font-bold text-xl lg:text-4xl">Lista de Usuarios</h1>
-                    <ButtonComponent text="Crear nuevo usuario" style="bg-purple-main text-xs lg:text-xl p-4 font-fugaz text-white rounded-lg" />
+                    <ButtonComponent
+                        text={showNewUser ? "Volver" : "Crear nuevo usuario"}
+                        style="bg-purple-main text-xs lg:text-xl p-4 font-fugaz text-white rounded-lg"
+                        onClick={() => setShowNewUser(prev => !prev)}
+                    />
                 </div>
+                {showNewUser && (
+                    <NewUser onCreated={() => {
+                        setShowNewUser(false);
+                        refreshProfiles();
+                    }} />
+                )}
+                {!showNewUser && (
                 <div className="flex flex-col lg:flex-row w-full space-x-2 space-y-2 lg:space-y-0 py-10">
                     <div className="w-full h-auto lg:w-2/3 bg-purple-main/50 rounded-2xl px-5">
                         <Table>
@@ -118,7 +141,26 @@ export default function AdminUserPage() {
                                             <TableCell>{profile.last_name}</TableCell>
                                             <TableCell>{profile.user?.email || ""}</TableCell>
                                             <TableCell>{profile.user?.last_login_at ? new Date(profile.user.last_login_at).toLocaleString() : ""}</TableCell>
-                                            <TableCell><input type="checkbox" checked={profile.user?.status} /></TableCell>
+                                            <TableCell>
+                                                <input
+                                                    type="checkbox"
+                                                    checked={!!profile.status}
+                                                    onChange={async () => {
+                                                        let newStatus = profile.status ? 0 : 1;
+                                                        const res = await fetch(`/api/profiles/${profile.id}`, {
+                                                            method: "PUT",
+                                                            headers: { "Content-Type": "application/json" },
+                                                            credentials: "include",
+                                                            body: JSON.stringify({ status: newStatus })
+                                                        });
+                                                        if (res.ok) {
+                                                            refreshProfiles();
+                                                        } else {
+                                                            console.log("Error al actualizar estado", await res.json());
+                                                        }
+                                                    }}
+                                                />
+                                            </TableCell>
                                         </TableRow>
                                     ))
                                 )}
@@ -153,6 +195,7 @@ export default function AdminUserPage() {
                         </div>
                     </div>
                 </div>
+                )}
             </div>
         </section>
     );

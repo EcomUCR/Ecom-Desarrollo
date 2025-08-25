@@ -59,10 +59,11 @@ class ProfileController extends Controller
             'last_name' => 'sometimes',
             'type' => 'sometimes',
             'image' => 'nullable|string',
+            'status' => 'nullable',
         ]);
 
         $profile = Profile::findOrFail($id);
-        foreach (['username', 'name', 'last_name', 'type', 'image'] as $field) {
+        foreach (['username', 'name', 'last_name', 'type', 'image', 'status'] as $field) {
             if (isset($validated[$field])) {
                 $profile->$field = $validated[$field];
             }
