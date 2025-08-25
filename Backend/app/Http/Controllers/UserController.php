@@ -165,7 +165,7 @@ class UserController extends Controller
             'user' => $user
         ]);
     }
-
+//
     return response()->json([
         'message' => 'Credenciales incorrectas'
     ], 401);
