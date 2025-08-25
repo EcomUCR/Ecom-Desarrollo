@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
- 
     public function index(Request $request)
     {
         $query = User::with('profile');
@@ -32,13 +31,10 @@ class UserController extends Controller
         return response()->json($users);
     }
 
-
     public function create()
     {
-        // Return a view or data for creating a user (API: not needed)
         return response()->json(['message' => 'Display user creation form']);
     }
-
 
     public function store(Request $request)
     {
@@ -51,6 +47,7 @@ class UserController extends Controller
             'last_name' => 'required',
             'type' => 'required',
             'image' => 'nullable|string',
+            'status' => 'sometimes|boolean',
         ]);
 
         // Create user
@@ -67,6 +64,7 @@ class UserController extends Controller
             'last_name' => $validated['last_name'],
             'type' => $validated['type'],
             'image' => $validated['image'] ?? null,
+            'status' => $validated['status'] ?? true, // ✅ valor por defecto
         ]);
 
         return response()->json(['user' => $user, 'profile' => $profile], 201);
@@ -74,23 +72,16 @@ class UserController extends Controller
 
     public function show(string $id)
     {
-        // Show user and profile by user id
         $user = User::with('profile')->findOrFail($id);
-        // Example: update last_login_at (simulate login)
         $user->last_login_at = now();
         $user->save();
         return response()->json($user);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        // Return a view or data for editing a user (API: not needed)
         return response()->json(['message' => 'Display user edit form']);
     }
-
 
     public function update(Request $request, string $id)
     {
@@ -103,6 +94,7 @@ class UserController extends Controller
             'last_name' => 'sometimes',
             'type' => 'sometimes',
             'image' => 'nullable|string',
+            'status' => 'sometimes|boolean', // ✅ validar booleano
         ]);
 
         $user = User::findOrFail($id);
@@ -124,16 +116,19 @@ class UserController extends Controller
                     $profile->$field = $validated[$field];
                 }
             }
+
+            if (isset($validated['status'])) {
+                $profile->status = $validated['status'];
+            }
+
             $profile->save();
         }
 
         return response()->json(['user' => $user, 'profile' => $profile]);
     }
 
-   
     public function destroy(string $id)
     {
-        // Only allow destroy if authenticated user's profile type is 'admin'
         $authUser = auth()->user();
         if (!$authUser || $authUser->profile->type !== 'admin') {
             return response()->json(['error' => 'Unauthorized'], 403);

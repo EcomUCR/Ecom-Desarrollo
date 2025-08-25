@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('last_name', 50);
             $table->string('type', 1)->nullable();
             $table->text('image')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
             // 🔗 Foreign Key
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
