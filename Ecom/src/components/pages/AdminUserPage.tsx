@@ -17,6 +17,7 @@ interface Profile {
     name: string;
     last_name: string;
     type: string;
+    status: boolean;
     image?: string;
     user_id: number;
     user?: {
@@ -94,6 +95,7 @@ export default function AdminUserPage() {
                                     <TableHead>Apellido</TableHead>
                                     <TableHead>Email</TableHead>
                                     <TableHead>Ultima conexión</TableHead>
+                                    <TableHead>Estado</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
@@ -115,6 +117,7 @@ export default function AdminUserPage() {
                                             <TableCell>{profile.last_name}</TableCell>
                                             <TableCell>{profile.user?.email || ""}</TableCell>
                                             <TableCell>{profile.user?.last_login_at ? new Date(profile.user.last_login_at).toLocaleString() : ""}</TableCell>
+                                            <TableCell>{profile.user?.status ? "Activo" : "Inactivo"}</TableCell>
                                         </TableRow>
                                     ))
                                 )}
