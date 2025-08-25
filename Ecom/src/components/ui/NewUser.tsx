@@ -23,6 +23,16 @@ export default function NewUser({ onCreated }: { onCreated?: () => void }) {
             console.log("Campos vacíos", form);
             return;
         }
+        if (isNaN(Number(form.type))) {
+            setError("El rol debe ser un número");
+            console.log("Rol no es un número");
+            return;
+        }
+        if (form.password.length < 6) {
+            setError("La contraseña debe tener al menos 6 caracteres");
+            console.log("Contraseña muy corta");
+            return;
+        }
         if (form.password !== form.confirmPassword) {
             setError("Las contraseñas no coinciden");
             console.log("Contraseñas no coinciden");
@@ -41,7 +51,8 @@ export default function NewUser({ onCreated }: { onCreated?: () => void }) {
                     username: form.username,
                     name: form.firstName,
                     last_name: form.lastName,
-                    type: form.type
+                    type: form.type,
+                    status: 1
                 })
             });
             console.log("Respuesta del backend", res);

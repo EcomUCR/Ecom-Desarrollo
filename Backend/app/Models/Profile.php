@@ -16,6 +16,7 @@ class Profile extends Model
         'last_name',
         'type',
         'image',
+        'status',
     ];
 
     // Relación inversa
