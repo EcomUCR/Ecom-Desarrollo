@@ -13,9 +13,9 @@ export default function HomePage() {
       <main className=" w-full">
         <FeaturedProducts />
         <Categories />
-        {<Explore />}
+        <Explore />
       </main>
-      {<Footer />}
+      <Footer />
     </div>
   );
 }
