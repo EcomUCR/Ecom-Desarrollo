@@ -1,4 +1,7 @@
-import { Button } from "./button";
+import { Button } from '../ui/button';
+import SellerForm from '../ui/SellerForm';
+import ModalButton from './ModalButton';
+
 
 interface SellerConfigModalProps {
   onCancel?: () => void;
@@ -8,33 +11,31 @@ interface SellerConfigModalProps {
 const SellerConfigModal: React.FC<SellerConfigModalProps> = ({ onCancel, onSave }) => {
   return (
     <div className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-3xl shadow-lg p-10 w-full max-w-3xl min-h-[500px] flex flex-col justify-center items-center text-center">
-        <h2 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-8">
-          VER LAYER (MAUsuarios(ConfigSellerFullView))
-        </h2>
-        <p className="text-red-500 text-sm mb-12">
-          Every change will be notified to the account owner.
-        </p>
-
-        <div className="flex justify-center space-x-6">
+      
+      
+      <div className="bg-white rounded-3xl shadow-lg w-full max-w-5xl max-h-[80vh] overflow-y-auto flex flex-col">
+        
+       
+        <div className="flex items-center justify-between mb-6 p-8 relative">
           <Button
-            variant="default"
-            size="lg"
-            className="bg-gray-800 text-white px-8 py-3 rounded-full shadow-md hover:opacity-90"
+            variant="ghost"
+            className="flex items-center gap-2 cursor-pointer text-gray-700 font-medium"
             onClick={onCancel}
           >
-            Cancel
+            <span className="text-lg">&lt;</span>
+            Back
           </Button>
-
-          <Button
-            variant="default"
-            size="lg"
-            className="bg-[#2AC0E5] text-white px-8 py-3 rounded-full shadow-md hover:opacity-90"
-            onClick={onSave}
-          >
-            Save
-          </Button>
+          <h2 className="absolute left-1/2 transform -translate-x-1/2 text-3xl font-bold">
+            Modificar Vendedor
+          </h2>
         </div>
+
+      
+        <div className="px-8">
+          <SellerForm />
+           <ModalButton onCancel={onCancel} onSave={onSave} />
+        </div>
+
       </div>
     </div>
   );

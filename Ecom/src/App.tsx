@@ -8,8 +8,8 @@ import ChangeUsernamePage from "./components/pages/ChangeUsernamePage";
 import ChangePasswordPage from "./components/pages/ChangePasswordPage";
 import AdminUserPage from "./components/pages/AdminUserPage";
 import UserListPage from "./components/pages/UserListPage";
-import ModifySellerPage from "./components/pages/ModifySellerPage";
-import ModifyUserPage from "./components/pages/ModifyUserPage";
+import UserConfigModal from "./components/ui/UserConfigModal";
+import SellerConfigModal from "./components/ui/SellerConfidModal";
 
 
 function App() {
@@ -26,8 +26,8 @@ function App() {
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/admin-users" element={<AdminUserPage />} />
         <Route path="/user-list" element={<UserListPage />} />
-        <Route path="/ModifySeller" element={<ModifySellerPage />} />
-        <Route path="/ModifyUser" element={<ModifyUserPage />} />
+        <Route path="/user-config-modal" element={<UserConfigModal />} />
+        <Route path="/seller-config-modal" element={<SellerConfigModal />} />
       </Routes>
     </Router>
   );
