@@ -10,6 +10,11 @@ import AdminUserPage from "./components/pages/AdminUserPage";
 import UserListPage from "./components/pages/UserListPage";
 import UserConfigModal from "./components/ui/UserConfigModal";
 import SellerConfigModal from "./components/ui/SellerConfidModal";
+import SellerPage from "./components/pages/SellerPage";
+import SellerPageContact from "./components/pages/SellerPageContacts";
+import SellerPageProducts from "./components/pages/SellerPageProducts";
+import RegisterSellerPage from "./components/pages/RegisterSellerPage";
+
 
 
 function App() {
@@ -28,6 +33,10 @@ function App() {
         <Route path="/user-list" element={<UserListPage />} />
         <Route path="/user-config-modal" element={<UserConfigModal />} />
         <Route path="/seller-config-modal" element={<SellerConfigModal />} />
+        <Route path="/seller-page" element={<SellerPage />} />
+        <Route path="/seller-page-products" element={<SellerPageProducts />} />
+        <Route path="/seller-page-contacts" element={<SellerPageContact />} />
+        <Route path="/register-seller" element={<RegisterSellerPage />} />
       </Routes>
     </Router>
   );
