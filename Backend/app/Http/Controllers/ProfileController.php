@@ -2,87 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Profile;
-use App\Models\User;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    // List all profiles
+    /**
+     * List profiles with their users and vendor.
+     */
     public function index()
     {
-        $profiles = Profile::with('user')->get();
+        $profiles = Profile::with(['users', 'vendor'])->paginate(10);
         return response()->json($profiles);
     }
 
-    // Show form for creating (API: not needed)
-    public function create()
-    {
-        return response()->json(['message' => 'Display profile creation form']);
-    }
-
-    // Store a new profile
+    /**
+     * Create a new profile.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'username' => 'required|unique:profiles,username',
-            'name' => 'required',
-            'last_name' => 'required',
-            'type' => 'required',
-            'image' => 'nullable|string',
+            'username'   => 'required|string|max:50|unique:profiles,username',
+            'first_name' => 'required|string|max:50',
+            'last_name'  => 'required|string|max:50',
+            'email'      => 'required|email|unique:profiles,email',
+            'password'   => 'required|string|min:6',
+            'type'       => 'required|string|max:1',
+            'avatar'     => 'nullable|string',
         ]);
 
-        $profile = Profile::create($validated);
+        $profile = Profile::create([
+            ...$validated,
+            'password' => bcrypt($validated['password'])
+        ]);
+
         return response()->json($profile, 201);
     }
 
-    // Show a profile
-    public function show(string $id)
+    /**
+     * Show a profile.
+     */
+    public function show(Profile $profile)
     {
-        $profile = Profile::with('user')->findOrFail($id);
-        return response()->json($profile);
+        return response()->json($profile->load(['users', 'vendor']));
     }
 
-    // Show form for editing (API: not needed)
-    public function edit(string $id)
-    {
-        return response()->json(['message' => 'Display profile edit form']);
-    }
-
-    // Update a profile
-    public function update(Request $request, string $id)
+    /**
+     * Update a profile.
+     */
+    public function update(Request $request, Profile $profile)
     {
         $validated = $request->validate([
-            'username' => 'sometimes|unique:profiles,username,' . $id,
-            'name' => 'sometimes',
-            'last_name' => 'sometimes',
-            'type' => 'sometimes',
-            'image' => 'nullable|string',
-            'status' => 'nullable',
+            'first_name' => 'string|max:50',
+            'last_name'  => 'string|max:50',
+            'email'      => 'email|unique:profiles,email,' . $profile->username . ',username',
+            'password'   => 'nullable|string|min:6',
+            'type'       => 'string|max:1',
+            'avatar'     => 'nullable|string',
         ]);
 
-        $profile = Profile::findOrFail($id);
-        foreach (['username', 'name', 'last_name', 'type', 'image', 'status'] as $field) {
-            if (isset($validated[$field])) {
-                $profile->$field = $validated[$field];
-            }
+        if (isset($validated['password'])) {
+            $validated['password'] = bcrypt($validated['password']);
         }
-        $profile->save();
+
+        $profile->update($validated);
 
         return response()->json($profile);
     }
 
-    // Destroy a profile (admin only)
-    public function destroy(string $id)
+    /**
+     * Delete a profile.
+     */
+    public function destroy(Profile $profile)
     {
-        $authUser = auth()->user();
-        if (!$authUser || $authUser->profile->type !== 'admin') {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $profile = Profile::findOrFail($id);
         $profile->delete();
-        return response()->json(['message' => 'Profile deleted']);
+        return response()->json(null, 204);
     }
 }

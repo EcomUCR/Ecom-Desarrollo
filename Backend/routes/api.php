@@ -19,44 +19,28 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::post('/login', [UserController::class, 'login']);
 
-// List profiles (for AdminUserPage)
-Route::get('/profiles', function() {
-    return app(ProfileController::class)->index();
-});
-// Get profile details
-Route::get('/profiles/{id}', function($id) {
-    return app(ProfileController::class)->show($id);
-});
-// Edit profile
-Route::put('/profiles/{id}', function(Request $request, $id) {
-    return app(ProfileController::class)->update($request, $id);
-});
-// Delete profile
-Route::delete('/profiles/{id}', function($id) {
-    return app(ProfileController::class)->destroy($id);
-});
-// Edit user (update password, etc)
-Route::put('/users/{id}', function(Request $request, $id) {
-    return app(UserController::class)->update($request, $id);
-});
-// Crear usuario
-Route::post('/users', function(Request $request) {
-    return app(UserController::class)->store($request);
-});
+// User CRUD
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::post('/users', [UserController::class, 'store']);
+Route::put('/users/{id}', [UserController::class, 'update']);
+Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+// Profile CRUD
+Route::get('/profiles', [ProfileController::class, 'index']);
+Route::get('/profiles/{id}', [ProfileController::class, 'show']);
+Route::post('/profiles', [ProfileController::class, 'store']);
+Route::put('/profiles/{id}', [ProfileController::class, 'update']);
+Route::delete('/profiles/{id}', [ProfileController::class, 'destroy']);
 
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     ->middleware('guest')
     ->name('password.store');
 
-    Route::post('/reset-password', [NewPasswordController::class, 'store'])
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.update');
 
-   // Route::post('/login', [AuthenticatedSessionController::class, 'store']);
-/*Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-    ->middleware('guest')
-    ->name('login');
-*/
 Route::post('/register', [RegisteredUserController::class, 'store'])
     ->middleware('guest')
     ->name('register');
@@ -72,19 +56,3 @@ Route::post('/email/verification-notification', [EmailVerificationNotificationCo
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
     ->middleware('auth:sanctum')
     ->name('logout');
-
-
-
-/*Route::post('/test-forgot-password', function (Request $request) {
-    $request->validate(['email' => 'required|email']);
-
-    $status = Password::sendResetLink(
-        $request->only('email') // Esto es exactamente lo que hace Breeze
-    );
-
-    return $status === Password::RESET_LINK_SENT
-        ? response()->json(['status' => ($status)], 200)
-        : response()->json(['email' => ($status)], 400);
-});
-
-*/

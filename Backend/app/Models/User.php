@@ -2,33 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // para autenticación
-use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasFactory, Notifiable;
+    protected $primaryKey = 'email';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    protected $fillable = ['email', 'password'];
 
-    protected $fillable = [
-        'email',
-        'password',
-        'last_login_at',
-    ];
-
-    protected $hidden = [
-        'password',
-    ];
-
-    protected $casts = [
-        'last_login_at' => 'datetime',
-    ];
-
-    // Relación 1 a 1
-    public function profile()
+    public function profiles(): BelongsToMany
     {
-        return $this->hasOne(Profile::class);
-        // usa user_id por convención
+        return $this->belongsToMany(Profile::class, 'user_profile', 'email', 'username');
     }
 }
 

@@ -2,172 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Profile;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    /**
+     * Display a listing of users with profiles.
+     */
+    public function index()
     {
-        $query = User::with('profile');
-
-        // Filter by name or username
-        if ($request->has('name')) {
-            $name = $request->input('name');
-            $query->whereHas('profile', function($q) use ($name) {
-                $q->where('name', 'like', "%$name%")
-                  ->orWhere('username', 'like', "%$name%");
-            });
-        }
-
-        // Filter by recent activity (last_login_at in last 7 days)
-        if ($request->has('recent')) {
-            $query->where('last_login_at', '>=', now()->subDays(7));
-        }
-
-        $users = $query->get();
+        $users = User::with('profiles')->paginate(10);
         return response()->json($users);
     }
 
-    public function create()
-    {
-        return response()->json(['message' => 'Display user creation form']);
-    }
-
+    /**
+     * Store a new user.
+     */
     public function store(Request $request)
     {
-        // Validate input
         $validated = $request->validate([
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6',
-            'username' => 'required|unique:profiles,username',
-            'name' => 'required',
-            'last_name' => 'required',
-            'type' => 'required',
-            'image' => 'nullable|string',
-            'status' => 'sometimes|boolean',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'profiles' => 'array',
+            'profiles.*' => 'exists:profiles,username'
         ]);
 
-        // Create user
         $user = User::create([
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
+            'email'    => $validated['email'],
+            'password' => bcrypt($validated['password']),
         ]);
 
-        // Create profile
-        $profile = Profile::create([
-            'user_id' => $user->id,
-            'username' => $validated['username'],
-            'name' => $validated['name'],
-            'last_name' => $validated['last_name'],
-            'type' => $validated['type'],
-            'image' => $validated['image'] ?? null,
-            'status' => $validated['status'] ?? true, // ✅ valor por defecto
-        ]);
+        if (!empty($validated['profiles'])) {
+            $user->profiles()->attach($validated['profiles']);
+        }
 
-        return response()->json(['user' => $user, 'profile' => $profile], 201);
+        return response()->json($user->load('profiles'), 201);
     }
 
-    public function show(string $id)
+    /**
+     * Display a specific user.
+     */
+    public function show(User $user)
     {
-        $user = User::with('profile')->findOrFail($id);
-        $user->last_login_at = now();
-        $user->save();
-        return response()->json($user);
+        return response()->json($user->load('profiles'));
     }
 
-    public function edit(string $id)
+    /**
+     * Update a user.
+     */
+    public function update(Request $request, User $user)
     {
-        return response()->json(['message' => 'Display user edit form']);
-    }
-
-    public function update(Request $request, string $id)
-    {
-        // Validate input
         $validated = $request->validate([
-            'email' => 'sometimes|email|unique:users,email,' . $id,
-            'password' => 'sometimes|min:6',
-            'username' => 'sometimes|unique:profiles,username',
-            'name' => 'sometimes',
-            'last_name' => 'sometimes',
-            'type' => 'sometimes',
-            'image' => 'nullable|string',
-            'status' => 'sometimes|boolean', // ✅ validar booleano
+            'password' => 'string|min:6',
+            'profiles' => 'array',
+            'profiles.*' => 'exists:profiles,username'
         ]);
 
-        $user = User::findOrFail($id);
-        $profile = $user->profile;
-
-        // Update user
-        if (isset($validated['email'])) {
-            $user->email = $validated['email'];
-        }
         if (isset($validated['password'])) {
-            $user->password = Hash::make($validated['password']);
-        }
-        $user->save();
-
-        // Update profile
-        if ($profile) {
-            foreach (['username', 'name', 'last_name', 'type', 'image'] as $field) {
-                if (isset($validated[$field])) {
-                    $profile->$field = $validated[$field];
-                }
-            }
-
-            if (isset($validated['status'])) {
-                $profile->status = $validated['status'];
-            }
-
-            $profile->save();
+            $user->update(['password' => bcrypt($validated['password'])]);
         }
 
-        return response()->json(['user' => $user, 'profile' => $profile]);
+        if (isset($validated['profiles'])) {
+            $user->profiles()->sync($validated['profiles']);
+        }
+
+        return response()->json($user->load('profiles'));
     }
 
-    public function destroy(string $id)
+    /**
+     * Delete a user.
+     */
+    public function destroy(User $user)
     {
-        $authUser = auth()->user();
-        if (!$authUser || $authUser->profile->type !== 'admin') {
-            return response()->json(['error' => 'Unauthorized'], 403);
-        }
-
-        $user = User::findOrFail($id);
-        $profile = $user->profile;
-
-        if ($profile) {
-            $profile->delete();
-        }
         $user->delete();
-
-        return response()->json(['message' => 'User deleted']);
+        return response()->json(null, 204);
     }
-
-    public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required|string|min:6',
-    ]);
-
-    if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-        $user = Auth::user();
-
-        $user->last_login_at = now();
-        $user->save();
-
-        return response()->json([
-            'message' => 'Login exitoso',
-            'user' => $user
-        ]);
-    }
-//
-    return response()->json([
-        'message' => 'Credenciales incorrectas'
-    ], 401);
 }
-}
+        
