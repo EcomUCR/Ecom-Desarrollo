@@ -1,51 +1,41 @@
 import { Link, useNavigate } from "react-router-dom";
 import LandingHeader from "../ui/NavBarLanding";
 import logo from "../../img/logoT.png"; 
-import { useState } from 'react';
+import { useState } from "react";
 
-export default function RegisterPage({ onCreated }: { onCreated?: () => void }) {
+export default function RegisterSellerPage({ onCreated }: { onCreated?: () => void }) {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
     email: "",
-    username: "",
     password: "",
-    confirmPassword: ""
+    name: "",
+    description: "",
+    phoneNumber: ""
   });
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm({ ...form, [e.target.id]: e.target.value });
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (!form.firstName || !form.lastName || !form.email || !form.username || !form.password || !form.confirmPassword) {
+    if (!form.email || !form.password || !form.name || !form.description || !form.phoneNumber) {
       setError("Todos los campos son obligatorios");
-      console.log("Campos vacíos", form);
       return;
     }
 
     if (form.password.length < 6) {
       setError("La contraseña debe tener al menos 6 caracteres");
-      console.log("Contraseña muy corta");
-      return;
-    }
-
-    if (form.password !== form.confirmPassword) {
-      setError("Las contraseñas no coinciden");
-      console.log("Contraseñas no coinciden");
       return;
     }
 
     setLoading(true);
-    console.log("Enviando datos al backend", form);
 
     try {
       const res = await fetch("/api/users", {
@@ -55,31 +45,30 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
         body: JSON.stringify({
           email: form.email,
           password: form.password,
-          username: form.username,
-          name: form.firstName,
-          last_name: form.lastName
+          name: form.name,
+          description: form.description,
+          phone_number: form.phoneNumber
         })
       });
 
-      console.log("Respuesta del backend", res);
-
       if (res.ok) {
         const data = await res.json();
-        console.log("Usuario creado", data);
-        setForm({ firstName: "", lastName: "", email: "", username: "", password: "", confirmPassword: "" });
+        console.log("Vendedor creado", data);
+
+        setForm({ email: "", password: "", name: "", description: "", phoneNumber: "" });
         if (onCreated) onCreated();
         navigate("/home");
       } else {
-        let data = {};
+        let data: { error?: string } = {};
         try {
           data = await res.json();
         } catch {}
-        setError(data.error || "Error al crear usuario");
-        console.log("Error al crear usuario", data);
+        setError(data.error ?? "Error al crear vendedor");
+        console.error("Error al crear vendedor", data);
       }
     } catch (err) {
       setError("Error de conexión con el backend");
-      console.log("Error de conexión", err);
+      console.error("Error de conexión", err);
     }
 
     setLoading(false);
@@ -89,7 +78,6 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
     <div className="flex flex-col min-h-screen animate-fade-in">
       <LandingHeader />
       <div className="flex flex-1">
-       
         <div className="hidden lg:flex w-1/3 bg-[#5C2E92] items-center justify-center p-8 relative rounded-r-[5rem]">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
             <Link to="/login">
@@ -103,7 +91,6 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
           </div>
         </div>
 
-        
         <div className="w-full lg:w-2/3 bg-white flex flex-col items-center justify-center p-8">
           <div className="flex flex-col items-center mb-12">
             <img
@@ -116,34 +103,6 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
 
           <form className="w-full max-w-2xl" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-              <div>
-                <label className="block text-blue-main mb-2" htmlFor="firstName">
-                  Nombre
-                </label>
-                <input
-                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
-                  id="firstName"
-                  type="text"
-                  placeholder=" "
-                  value={form.firstName}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <label className="block text-blue-main mb-2" htmlFor="lastName">
-                  Apellido
-                </label>
-                <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
-                  id="lastName"
-                  type="text"
-                  placeholder=" "
-                  value={form.lastName}
-                  onChange={handleChange}
-                />
-              </div>
-
               <div className="md:col-span-2">
                 <label className="block text-gray-600 mb-2" htmlFor="email">
                   Email
@@ -151,6 +110,7 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
                 <input
                   className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
                   id="email"
+                  name="email"
                   type="email"
                   placeholder=" "
                   value={form.email}
@@ -159,26 +119,13 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="username">
-                  Nombre de usuario
-                </label>
-                <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
-                  id="username"
-                  type="text"
-                  placeholder=" "
-                  value={form.username}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
                 <label className="block text-gray-600 mb-2" htmlFor="password">
                   Contraseña
                 </label>
                 <input
                   className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
                   id="password"
+                  name="password"
                   type="password"
                   placeholder=" "
                   value={form.password}
@@ -186,44 +133,62 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
                 />
               </div>
 
-              <div>
-                <label className="block text-gray-600 mb-2" htmlFor="confirmPassword">
-                  Confirmar contraseña
+              <div className="md:col-span-2">
+                <label className="block text-gray-600 mb-2" htmlFor="name">
+                  Nombre
                 </label>
                 <input
                   className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
-                  id="confirmPassword"
-                  type="password"
+                  id="name"
+                  name="name"
+                  type="text"
                   placeholder=" "
-                  value={form.confirmPassword}
+                  value={form.name}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-gray-600 mb-2" htmlFor="description">
+                  Descripción
+                </label>
+                <textarea
+                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  id="description"
+                  name="description"
+                  placeholder=" "
+                  value={form.description}
+                  onChange={handleChange}
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-gray-600 mb-2" htmlFor="phoneNumber">
+                  Número de teléfono
+                </label>
+                <input
+                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  id="phoneNumber"
+                  name="phoneNumber"
+                  type="text"
+                  placeholder=" "
+                  value={form.phoneNumber}
                   onChange={handleChange}
                 />
               </div>
             </div>
 
-            {error && <p className="text-red-500 mt-4">{error}</p>}
+            {error && <p className="text-red-500 mt-4 text-center">{error}</p>}
 
-            
-            <div className="flex items-center justify-center mt-6">
-              <Link
-                to="/register-seller"
-                className="text-blue-main font-semibold hover:underline"
-              >
-                ¿Quieres ser vendedor?
-              </Link>
-            </div>
-
-           
-            <div className="flex items-center justify-center mt-6">
+            <div className="flex items-center justify-center mt-12">
               <button
                 className="w-full md:w-1/2 bg-[#5C2E92] text-white font-bold py-3 px-4 rounded-full shadow-md"
                 type="submit"
                 disabled={loading}
               >
-                {loading ? "Creando..." : "Crear usuario"}
+                {loading ? "Creando..." : "Crear vendedor"}
               </button>
             </div>
-
           </form>
         </div>
       </div>
