@@ -1,34 +1,26 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable; // para autenticación
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasApiTokens, Notifiable, CanResetPassword;
 
-    protected $fillable = [
-        'email',
-        'password',
-        'last_login_at',
-    ];
+    protected $fillable = ['email', 'password'];
+    protected $hidden = ['password'];
 
-    protected $hidden = [
-        'password',
-    ];
-
-    protected $casts = [
-        'last_login_at' => 'datetime',
-    ];
-
-    // Relación 1 a 1
-    public function profile()
+    public function client()
     {
-        return $this->hasOne(Profile::class);
-        // usa user_id por convención
+        return $this->hasOne(Client::class);
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
     }
 }
 

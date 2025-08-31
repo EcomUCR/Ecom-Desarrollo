@@ -16,6 +16,7 @@ return new class extends Migration {
             $table->string('password', 300);
             $table->timestamps();
             $table->timestamp('last_login_at')->nullable();
+            $table->rememberToken();
         });
 
     }
@@ -25,6 +26,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('remember_token');
+        });
     }
 };

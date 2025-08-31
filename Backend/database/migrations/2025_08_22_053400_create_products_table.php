@@ -10,23 +10,21 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void {
-        Schema::create('products', function (Blueprint $table) {
-            $table->id(); // serial
+       Schema::create('products', function (Blueprint $table) {
+            $table->id();
             $table->string('sku', 30)->unique();
-            $table->timestamp('creation_date')->useCurrent();
-            $table->timestamp('update_date')->useCurrent()->useCurrentOnUpdate();
-            $table->text('image')->nullable();
+            $table->timestamp('created_at_custom')->useCurrent();
+            $table->timestamp('updated_at_custom')->useCurrent()->useCurrentOnUpdate();
             $table->string('name', 50);
             $table->text('description')->nullable();
             $table->integer('discount')->default(0);
             $table->integer('stock')->default(0);
             $table->decimal('price', 10, 2);
-            $table->boolean('visible')->default(true);// Para mostrar u ocultar el producto desde el perfil del seller al publico
-
-            // FK con vendedores
-            $table->foreignId('seller_id')->constrained('sellers')->onDelete('cascade');
-
+            $table->boolean('status')->default(true);
+            $table->unsignedBigInteger('vendor_id');
             $table->timestamps();
+
+            $table->foreign('vendor_id')->references('id')->on('vendors')->cascadeOnDelete();
         });
     }
 

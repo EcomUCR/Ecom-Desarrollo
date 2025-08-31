@@ -1,31 +1,25 @@
 <?php
 
 namespace App\Models;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
-    protected $table = 'products'; // nombre de la tabla
+    protected $fillable = ['sku', 'name', 'description', 'discount', 'stock', 'price', 'status', 'vendor_id'];
 
-    protected $fillable = [
-        'sku',
-        'creation_date',
-        'update_date',
-        'image',
-        'name',
-        'description',
-        'discount',
-        'stock',
-        'price',
-        'visible',
-        'seller_id',
-    ];
-
-    // 🔗 Relación: un producto pertenece a un vendedor
-    public function seller()
+    public function vendor()
     {
-        return $this->belongsTo(Seller::class, 'seller_id');
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(ProductImage::class);
+    }
+
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(Category::class, 'product_category');
     }
 }
