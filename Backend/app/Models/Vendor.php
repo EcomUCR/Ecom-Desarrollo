@@ -2,15 +2,27 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Vendor extends Model
 {
-    protected $fillable = ['name', 'description', 'address', 'phone_number', 'logo', 'profile_image', 'banner_image', 'profile_id'];
+    use HasFactory;
 
-    public function profile()
+    protected $fillable = [
+        'user_id',
+        'name',
+        'description',
+        'address',
+        'phone_number',
+        'logo',
+        'profile_image',
+        'banner_image',
+    ];
+
+    public function user()
     {
-        return $this->belongsTo(Profile::class, 'profile_id', 'username');
+        return $this->belongsTo(User::class);
     }
 
     public function socialMedia()

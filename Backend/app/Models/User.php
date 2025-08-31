@@ -1,20 +1,26 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Auth\Passwords\CanResetPassword;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
-class User extends Model
+class User extends Authenticatable
 {
-    protected $primaryKey = 'email';
-    public $incrementing = false;
-    protected $keyType = 'string';
-    protected $fillable = ['email', 'password'];
+    use HasApiTokens, Notifiable, CanResetPassword;
 
-    public function profiles(): BelongsToMany
+    protected $fillable = ['email', 'password'];
+    protected $hidden = ['password'];
+
+    public function client()
     {
-        return $this->belongsToMany(Profile::class, 'user_profile', 'email', 'username');
+        return $this->hasOne(Client::class);
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
     }
 }
 

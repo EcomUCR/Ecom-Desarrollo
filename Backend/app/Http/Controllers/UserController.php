@@ -2,82 +2,80 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-use App\Models\Profile;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Client;
+use App\Models\Vendor;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of users with profiles.
-     */
-    public function index()
+    // Register User as Client or Vendor
+    public function register(Request $request)
     {
-        $users = User::with('profiles')->paginate(10);
-        return response()->json($users);
-    }
-
-    /**
-     * Store a new user.
-     */
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:6',
-            'profiles' => 'array',
-            'profiles.*' => 'exists:profiles,username'
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6',
+            'type' => 'required|in:client,vendor',
         ]);
 
         $user = User::create([
-            'email'    => $validated['email'],
-            'password' => bcrypt($validated['password']),
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
         ]);
 
-        if (!empty($validated['profiles'])) {
-            $user->profiles()->attach($validated['profiles']);
+        if ($request->type === 'client') {
+            Client::create([
+                'user_id' => $user->id,
+                'username' => $request->username,
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'address' => $request->address ?? null,
+            ]);
+        } else {
+            Vendor::create([
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'description' => $request->description ?? null,
+                'address' => $request->address ?? null,
+                'phone_number' => $request->phone_number ?? null,
+            ]);
         }
 
-        return response()->json($user->load('profiles'), 201);
+        return response()->json(['message' => 'Registered successfully']);
     }
 
-    /**
-     * Display a specific user.
-     */
-    public function show(User $user)
+    // Login
+    public function login(Request $request)
     {
-        return response()->json($user->load('profiles'));
-    }
-
-    /**
-     * Update a user.
-     */
-    public function update(Request $request, User $user)
-    {
-        $validated = $request->validate([
-            'password' => 'string|min:6',
-            'profiles' => 'array',
-            'profiles.*' => 'exists:profiles,username'
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
-        if (isset($validated['password'])) {
-            $user->update(['password' => bcrypt($validated['password'])]);
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages(['email' => 'Invalid credentials']);
         }
 
-        if (isset($validated['profiles'])) {
-            $user->profiles()->sync($validated['profiles']);
-        }
+        $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json($user->load('profiles'));
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
     }
 
-    /**
-     * Delete a user.
-     */
-    public function destroy(User $user)
+    // Get logged-in user info
+    public function me(Request $request)
     {
-        $user->delete();
-        return response()->json(null, 204);
+        $user = $request->user();
+        $client = $user->client;
+        $vendor = $user->vendor;
+
+        return response()->json([
+            'user' => $user,
+            'client' => $client,
+            'vendor' => $vendor,
+        ]);
     }
 }
-        

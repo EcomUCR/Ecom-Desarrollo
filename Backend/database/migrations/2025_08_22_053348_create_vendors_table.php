@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('vendors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->unique()->constrained('users')->cascadeOnDelete();
             $table->string('name', 32);
             $table->text('description')->nullable();
             $table->string('address', 150)->nullable();
@@ -19,10 +20,7 @@ return new class extends Migration {
             $table->text('logo')->nullable();
             $table->text('profile_image')->nullable();
             $table->text('banner_image')->nullable();
-            $table->string('profile_id', 50);
             $table->timestamps();
-
-            $table->foreign('profile_id')->references('username')->on('profiles')->cascadeOnDelete();
         });
     }
 

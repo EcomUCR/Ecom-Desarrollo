@@ -1,58 +1,31 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\NewPasswordController;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\RegisteredUserController;
-use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-
-
+use Illuminate\Http\Request;
 
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/login', [UserController::class, 'login']);
+// ---------------------
+// Public routes
+// ---------------------
 
-// User CRUD
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{id}', [UserController::class, 'show']);
-Route::post('/users', [UserController::class, 'store']);
-Route::put('/users/{id}', [UserController::class, 'update']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
+// Register a user (client or vendor)
+Route::post('/register', [UserController::class, 'register']);
 
-// Profile CRUD
-Route::get('/profiles', [ProfileController::class, 'index']);
-Route::get('/profiles/{id}', [ProfileController::class, 'show']);
-Route::post('/profiles', [ProfileController::class, 'store']);
-Route::put('/profiles/{id}', [ProfileController::class, 'update']);
-Route::delete('/profiles/{id}', [ProfileController::class, 'destroy']);
+// Login
+//Route::post('/login', [UserController::class, 'login']);
 
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-    ->middleware('guest')
-    ->name('password.store');
+// ---------------------
+// Protected routes
+// ---------------------
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->middleware('guest')
-    ->name('password.update');
+    // Get logged-in user info
+    Route::get('/me', [UserController::class, 'me']);
 
-Route::post('/register', [RegisteredUserController::class, 'store'])
-    ->middleware('guest')
-    ->name('register');
-
-Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-    ->middleware(['auth:sanctum', 'signed', 'throttle:6,1'])
-    ->name('verification.verify');
-
-Route::post('/email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-    ->middleware(['auth:sanctum', 'throttle:6,1'])
-    ->name('verification.send');
-
-Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-    ->middleware('auth:sanctum')
-    ->name('logout');
+    // You could add more protected routes here, e.g. logout, update profile, etc.
+});
+// 
