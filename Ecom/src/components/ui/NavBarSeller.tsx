@@ -37,9 +37,6 @@ const NavBarSeller = () => {
                         Contacto
                     </Link>
                 </nav>
-
-
-
                 <div className="flex">
                     <input
                         type="text"
@@ -48,12 +45,11 @@ const NavBarSeller = () => {
                     />
                     <Button
                         type="submit"
-                        className="bg-purple-main rounded-r-lg py-2 px-4 transition-colors duration-200 hover:bg-purple-dark"
+                        className="bg-purple-main rounded-r-lg py-2 px-4 transition-colors duration-200"
                     >
                         <img className="h-5 w-5" src={searchIcon} alt="Search" />
                     </Button>
                 </div>
-
 
             </div>
         </div>

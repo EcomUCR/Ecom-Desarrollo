@@ -14,13 +14,7 @@ const exploreProducts = [
 
 export default function Explore() {
   return (
-    <section className="my-10 px-4 lg:px-20">
-
-      <div className="flex items-center my-6">
-        <h2 className="text-xl lg:text-4xl font-quicksand mr-4">Explora</h2>
-        <div className="flex-1 lg:h-1 h-0.5 bg-yellow-main rounded"></div>
-      </div>
-
+    <section className="my-10 px-4">
       <div className="flex lg:flex-row flex-wrap justify-between mx-4 lg:mx-10 mb-6">
         {exploreProducts.map((p, i) => (
           <div className="flex lg:h-95 h-60 w-38 my-2 lg:w-65" key={i}>

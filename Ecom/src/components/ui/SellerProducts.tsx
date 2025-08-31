@@ -40,7 +40,6 @@ export default function SellerProducts() {
           </div>
         ))}
       </div>
-
       
       <div className="grid lg:grid-cols-4 grid-cols-2 gap-6 mb-6">
         {sellerProducts.slice(4,8).map((p, i) => (

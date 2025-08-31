@@ -1,7 +1,8 @@
 import logo from "../../img/tucaShopLogo.png";
-import menuIcon from "../../img/menuIcon.png";
+import {IconMenu2} from "@tabler/icons-react";
 
-function LandingHeader() {
+
+export default function LandingHeader() {
   return (
     <header className="flex justify-between items-center shadow-md bg-blue-main px-5 py-5 lg:px-20 lg:py-6">
 
@@ -13,10 +14,9 @@ function LandingHeader() {
 
 
       <div className="flex items-center">
-        <img src={menuIcon} alt="Menu" className="h-8 w-8 cursor-pointer" />
+        <IconMenu2 className="h-8 w-8 cursor-pointer text-white" />
       </div>
     </header>
   );
 }
 
-export default LandingHeader;
