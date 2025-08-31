@@ -2,30 +2,26 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
-use Illuminate\Http\Request;
-
-Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
-    return $request->user();
-});
+use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\NewPasswordController;
 
 // ---------------------
 // Public routes
 // ---------------------
 
-// Register a user (client or vendor)
 Route::post('/register', [UserController::class, 'register']);
+Route::post('/login', [UserController::class, 'login']);
 
-// Login
-//Route::post('/login', [UserController::class, 'login']);
+// Password reset routes (API-friendly)
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
+    ->middleware('guest');
+Route::post('/reset-password', [NewPasswordController::class, 'store'])
+    ->middleware('guest');
 
 // ---------------------
-// Protected routes
+// Protected routes (requires token)
 // ---------------------
 Route::middleware('auth:sanctum')->group(function () {
-
-    // Get logged-in user info
     Route::get('/me', [UserController::class, 'me']);
-
-    // You could add more protected routes here, e.g. logout, update profile, etc.
+    Route::post('/logout', [UserController::class, 'logout']);
 });
-// 

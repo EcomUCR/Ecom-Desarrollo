@@ -78,4 +78,13 @@ class UserController extends Controller
             'vendor' => $vendor,
         ]);
     }
+    public function logout(Request $request)
+    {
+        // Delete the current access token
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logged out successfully'
+        ]);
+    }
 }
