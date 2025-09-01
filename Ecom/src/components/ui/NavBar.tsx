@@ -1,8 +1,5 @@
 import { Link } from "react-router-dom";
-import { IconUser } from "@tabler/icons-react";
-import { IconShoppingBag } from "@tabler/icons-react";
-import { IconMenu2 } from "@tabler/icons-react";
-import { IconSearch } from "@tabler/icons-react";
+import { IconUser,IconShoppingBag,IconMenu2,IconSearch } from "@tabler/icons-react";
 
 import logo from "../../img/tucaShopLogo.png";
 

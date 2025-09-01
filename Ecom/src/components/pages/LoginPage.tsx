@@ -9,7 +9,7 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e ) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Evita recargar la página
 
     try {

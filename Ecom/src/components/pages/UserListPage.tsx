@@ -4,6 +4,7 @@ import searchIcon from "../../img/searchIcon.png";
 import UserTable from "../ui/UserTable";
 import NavBar from "../ui/NavBarUser";
 
+
 export default class UserListPage extends React.Component {
   render() {
     return (
