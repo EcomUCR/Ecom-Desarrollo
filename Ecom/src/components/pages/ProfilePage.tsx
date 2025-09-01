@@ -19,17 +19,27 @@ const ProfilePage = () => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
 
+    
+    // ✅ Obtener token e ID desde sessionStorage
+    const token = localStorage.getItem("token");
     const userId = localStorage.getItem("userId");
 
+
     useEffect(() => {
-        if (!userId) {
+        // ✅ Si no hay token => redirigir al login
+        if (!token) {
             navigate("/login");
             return;
         }
+        
 
         const fetchProfile = async () => {
             try {
                 const res = await fetch(`/api/profiles/${userId}`, {
+                    headers: {
+                        "Authorization": `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    },
                     credentials: "include",
                 });
 
@@ -48,6 +58,7 @@ const ProfilePage = () => {
                 setLoading(false);
             }
         };
+
 
         fetchProfile();
     }, [userId, navigate]);

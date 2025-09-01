@@ -62,7 +62,7 @@ class UserController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user]);
     }
 
     // Get logged-in user info
@@ -87,4 +87,5 @@ class UserController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
+    
 }
