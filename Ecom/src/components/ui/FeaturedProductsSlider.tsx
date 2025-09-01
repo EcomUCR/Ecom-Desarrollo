@@ -7,6 +7,7 @@ import parlanteImg from "../../img/parlante.png";
 import React from "react";
 
 const products = [
+    
     { name: "Audífonos Gamer Razer", price: "₡26.950", img: audifonosImg },
     { name: "Parlante bluetooth JBL", price: "₡24.500", img: parlanteImg },
     { name: "Chocolate amargo OKKO", price: "₡44.950", img: cacaoImg },

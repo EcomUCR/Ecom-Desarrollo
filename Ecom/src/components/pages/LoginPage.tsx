@@ -10,7 +10,7 @@ function LoginPage() {
   const [message, setMessage] = useState("");
 
   const handleSubmit = async (e ) => {
-    e.preventDefault(); // Evita recargar la página
+    e.preventDefault(); 
 
     try {
       const response = await fetch("/api/login", {
@@ -19,7 +19,7 @@ function LoginPage() {
           "Accept": "application/json",
           "Content-Type": "application/json",
         },
-        credentials: "include", // ⚡ Muy importante para guardar la sesión
+        credentials: "include", 
         body: JSON.stringify({ email, password }),
       });
 
@@ -64,11 +64,11 @@ function LoginPage() {
 
           <form className="w-full max-w-lg" onSubmit={handleSubmit}>
             <div className="mb-6">
-              <label className="block text-gray-600 mb-2" htmlFor="email">
+              <label className="block text-blue-main mb-2" htmlFor="email">
                 Email
               </label>
               <input
-                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#FFDD44]"
+                className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#FFDD44]"
                 id="email"
                 type="email"
                 placeholder=" "
@@ -78,11 +78,11 @@ function LoginPage() {
               />
             </div>
             <div className="mb-6">
-              <label className="block text-gray-600 mb-2" htmlFor="password">
+              <label className="block text-blue-main mb-2" htmlFor="password">
                 Contraseña
               </label>
               <input
-                className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#FFDD44]"
+                className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#FFDD44]"
                 id="password"
                 type="password"
                 placeholder=" "

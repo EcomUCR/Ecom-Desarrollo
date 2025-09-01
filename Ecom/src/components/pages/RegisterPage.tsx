@@ -135,7 +135,7 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
                   Apellido
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
                   id="lastName"
                   type="text"
                   placeholder=" "
@@ -145,11 +145,11 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="email">
+                <label className="block text-blue-main mb-2" htmlFor="email">
                   Email
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
                   id="email"
                   type="email"
                   placeholder=" "
@@ -159,11 +159,11 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="username">
+                <label className="block text-blue-main mb-2" htmlFor="username">
                   Nombre de usuario
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
                   id="username"
                   type="text"
                   placeholder=" "
@@ -173,11 +173,11 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
               </div>
 
               <div>
-                <label className="block text-gray-600 mb-2" htmlFor="password">
+                <label className="block text-blue-main mb-2" htmlFor="password">
                   Contraseña
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
                   id="password"
                   type="password"
                   placeholder=" "
@@ -187,11 +187,11 @@ export default function RegisterPage({ onCreated }: { onCreated?: () => void }) 
               </div>
 
               <div>
-                <label className="block text-gray-600 mb-2" htmlFor="confirmPassword">
+                <label className="block text-blue-main mb-2" htmlFor="confirmPassword">
                   Confirmar contraseña
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none focus:border-[#5C2E92]"
                   id="confirmPassword"
                   type="password"
                   placeholder=" "

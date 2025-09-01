@@ -3,6 +3,8 @@ import SellerBaner from "../ui/SellerBaner";
 import Footer from "../ui/Footer";
 import NavBarSeller from "../ui/NavBarSeller";
 import SellerProducts from "../ui/SellerProducts";
+import SellerOfers from "../ui/SellerOfers";
+
 
 
 export default function SellerPage() {
@@ -16,6 +18,7 @@ export default function SellerPage() {
        
         
         <SellerProducts />
+        <SellerOfers />
       </main>
       <Footer />
     </div>
