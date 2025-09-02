@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LandingHeader from "../ui/NavBarLanding";
+import LandingHeader from "../ui/NavBarAdmin";
 import logo from "../../img/logoT.png";
 
 function LoginPage() {
@@ -19,7 +19,7 @@ function LoginPage() {
           "Accept": "application/json",
           "Content-Type": "application/json",
         },
-        credentials: "include", // ⚡ Muy importante para guardar la sesión
+        credentials: "include",
         body: JSON.stringify({ email, password }),
       });
 

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LandingHeader from '../ui/NavBarLanding';
+import LandingHeader from '../ui/NavBarAdmin';
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();

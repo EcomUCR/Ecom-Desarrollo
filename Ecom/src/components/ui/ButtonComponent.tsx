@@ -1,8 +1,10 @@
 interface ButtonComponentProps{
-    text: string;
+    text?: string;
     style: string;
     onClick?: () => void;
     disabled?: boolean;
+    icon?: React.ComponentType<{ className?: string }>;
+    iconStyle?: string;
 }
 export default function ButtonComponent(props: ButtonComponentProps){
     return(
@@ -12,6 +14,7 @@ export default function ButtonComponent(props: ButtonComponentProps){
             disabled={props.disabled}
         >
             {props.text}
+            {props.icon && <props.icon className={props.iconStyle} />}
         </button>
     );
 }
