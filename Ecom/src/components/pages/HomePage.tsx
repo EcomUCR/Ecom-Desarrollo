@@ -10,7 +10,7 @@ export default function HomePage() {
     <section>
       <NavBar />
       <div className="bg-white mx-auto max-w-[90rem]">
-        <section className="w-full">
+        <section className="">
           <HeroBanner />
         </section>
         <section className="my-10 px-10 lg:mr-4 flex flex-col ">
