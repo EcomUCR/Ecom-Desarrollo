@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./components/pages/LandingPage";
 import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
@@ -12,8 +11,15 @@ import UserConfigModal from "./components/ui/UserConfigModal";
 import SellerConfigModal from "./components/ui/SellerConfidModal";
 import SellerPage from "./components/pages/SellerPage";
 import SellerPageContact from "./components/pages/SellerPageContacts";
-import SellerPageProducts from "./components/pages/SellerPageProducts";
 import RegisterSellerPage from "./components/pages/RegisterSellerPage";
+import ProfileUserPage from "./components/pages/ProfileUserPage";
+import ProfileSellerPage from "./components/pages/ProfileSellerPage";
+import ProfileSellerProductsPage from "./components/pages/ProfileSellerProductsPage";
+import CrudProductsPage from "./components/pages/CrudProductsPage";
+import ProductView from "./components/pages/ProductView";
+import ForgotPassword from "./components/pages/ForgotPassword";
+import ResetPassword from "./components/pages/ResetPassword";
+
 
 
 
@@ -21,9 +27,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/landing" element={<LandingPage />} />
-        <Route path="/home" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/profile" element={<ProfilePage />} />
@@ -34,9 +38,15 @@ function App() {
         <Route path="/user-config-modal" element={<UserConfigModal />} />
         <Route path="/seller-config-modal" element={<SellerConfigModal />} />
         <Route path="/seller-page" element={<SellerPage />} />
-        <Route path="/seller-page-products" element={<SellerPageProducts />} />
         <Route path="/seller-page-contacts" element={<SellerPageContact />} />
         <Route path="/register-seller" element={<RegisterSellerPage />} />
+        <Route path="/profile-user-page" element={<ProfileUserPage />} />
+        <Route path="/profile-seller-page" element={<ProfileSellerPage />} />
+        <Route path="/profile-seller-products-page" element={<ProfileSellerProductsPage />} />
+        <Route path="/crud-products-page" element={<CrudProductsPage />} />
+        <Route path="/product-view" element={<ProductView />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </Router>
   );

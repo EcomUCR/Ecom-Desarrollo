@@ -2,34 +2,30 @@ import explore1Img from "../../img/au.png";
 import explore2Img from "../../img/guantes.png";
 import explore3Img from "../../img/grapas.png";
 import explore4Img from "../../img/manga.png";
+import ProductCard from "./ProductCard";
+import ButtonComponent from "./ButtonComponent";
 
 const exploreProducts = [
-  { name: "Audífonos Razer Blackshark V2 X", price: "₡26.950", img: explore1Img },
-  { name: "Caja de grapas Facela", price: "₡950", img: explore3Img },
-  { name: "Guantes de Boxeo Premium", price: "₡52.725", img: explore2Img },
-  { name: "Audífonos Razer Blackshark V2 X", price: "₡26.950", img: explore1Img },
-  { name: "Caja de grapas Facela", price: "₡950", img: explore3Img },
-  { name: "Manga Land Of The Lustrus", price: "₡16.000", img: explore4Img },
+  { name: "Parlante bluetooth JBL dssadasda dasdasda dawed", brand: "JBL", discountPrice: "₡20.000", price: "₡24.500", img: explore4Img },
+    { name: "Audífonos Gamer Razer", brand: "Razer", price: "₡26.950", img: explore1Img },
+    { name: "Parlante bluetooth JBL", brand: "JBL", price: "₡24.500", img: explore2Img },
+    { name: "Chocolate amargo OKKO 200mg", brand: "OKKO", price: "₡44.950", img: explore3Img },
+    { name: "Set cuchillos Telstar", brand: "Telstar", price: "₡15.750", img: explore1Img },
 ];
 
 export default function Explore() {
   return (
-    <section className="my-10 px-4">
-      <div className="flex lg:flex-row flex-wrap justify-between mx-4 lg:mx-10 mb-6">
-        {exploreProducts.map((p, i) => (
-          <div className="flex lg:h-95 h-60 w-38 my-2 lg:w-65" key={i}>
-            <div className="w-38 lg:w-full h-full rounded-xl flex flex-col shadow-[1px_2px_5px_rgba(0,0,0,0.2)] items-center text-center p-2 lg:p-3">
-              <div className="w-full h-60 mb-2 flex items-center justify-center rounded-xl overflow-hidden shadow-[1px_1px_4px_rgba(0,0,0,0.1)]">
-                <img src={p.img} alt={p.name} className="w-full h-full object-center object-cover rounded-2xl" />
-              </div>
-              <div className="lg:w-full w-35 h-20 lg:h-10 flex flex-col items-center justify-center space-y-2 lg:pt-20 ">
-                <h3 className="text-xs lg:text-sm font-medium">{p.name}</h3>
-                <p className="text-xs text-cyan-600 font-bold">{p.price}</p>
-              </div>
-            </div>
+    <section className="my-10 px-4 lg:px-20">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1  gap-10 mb-6 justify-items-center">
+            {exploreProducts.slice(0, 9).map((p, i) => (
+              <ProductCard key={i} name={p.name} imageSrc={p.img} brand={p.brand} price={p.price} discountPrice={p.discountPrice} />
+            ))}
           </div>
-        ))}
-      </div>
+          <div className="flex justify-center ">
+            <ButtonComponent 
+                    style="bg-yellow-main font-quicksand px-25 py-3 rounded-lg font-bold text-lg text-white shadow-[1px_2px_5px_rgba(0,0,0,0.2)] hover:bg-blue-main transition cursor-pointer duration-500"
+                    text="Ver más"/>
+          </div>
     </section>
   );
 }
