@@ -16,7 +16,7 @@ function LoginPage() {
       const response = await fetch("/api/login", {
         method: "POST",
         headers: {
-          "Accept": "application/json",
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         credentials: "include", 
@@ -24,13 +24,25 @@ function LoginPage() {
       });
 
       const data = await response.json();
+      console.log("Respuesta del servidor:", data);
 
       if (response.ok) {
         setMessage("Login exitoso ✅");
         console.log("Login exitoso:", data.message);
+
+        // Guarda el token en localStorage
+        if (data.access_token) {
+          localStorage.setItem("token", data.access_token);
+          console.log("Token almacenado:", data.access_token);
+        }
+
+        // Guarda también el userId en localStorage
+        if (data.user.id) {
+          localStorage.setItem("userId", data.user.id.toString());
+          console.log("User ID almacenado:", data.user.id);
+        }
+
         navigate("/home");
-        localStorage.setItem("userId", data.user.id.toString());
-        console.log("User ID almacenado:", data.user.id);
       } else {
         setMessage("Error: " + (data.email || "Credenciales incorrectas"));
       }
@@ -38,7 +50,7 @@ function LoginPage() {
       setMessage("Error de conexión");
     }
   };
-  
+
   return (
     <div className="flex flex-col min-h-screen animate-fade-in">
       <LandingHeader />
@@ -58,7 +70,11 @@ function LoginPage() {
 
         <div className="w-full lg:w-2/3 bg-white flex flex-col items-center justify-center p-8">
           <div className="flex flex-col items-center mb-12">
-            <img src={logo} alt="Logo" className="w-40 h-40 object-contain mb-4" />
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-40 h-40 object-contain mb-4"
+            />
             <h1 className="text-4xl font-bold">TucaShop</h1>
           </div>
 
@@ -102,11 +118,16 @@ function LoginPage() {
             </div>
 
             {message && (
-              <div className="flex justify-center mt-4 text-red-600">{message}</div>
+              <div className="flex justify-center mt-4 text-red-600">
+                {message}
+              </div>
             )}
 
             <div className="flex justify-center mt-4">
-              <Link to="/forgot-password" className="text-gray-600 text-sm hover:underline">
+              <Link
+                to="/forgot-password"
+                className="text-gray-600 text-sm hover:underline"
+              >
                 ¿Olvidaste la contraseña?
               </Link>
             </div>
