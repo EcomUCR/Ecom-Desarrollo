@@ -19,6 +19,7 @@ import CrudProductsPage from "./components/pages/CrudProductsPage";
 import ProductView from "./components/pages/ProductView";
 import ForgotPassword from "./components/pages/ForgotPassword";
 import ResetPassword from "./components/pages/ResetPassword";
+import SellerOffersPage from "./components/pages/SellerOffersPage";
 
 
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/user-config-modal" element={<UserConfigModal />} />
         <Route path="/seller-config-modal" element={<SellerConfigModal />} />
         <Route path="/seller-page" element={<SellerPage />} />
+        <Route path="/seller-offers-page" element={<SellerOffersPage />} />
         <Route path="/seller-page-contacts" element={<SellerPageContact />} />
         <Route path="/register-seller" element={<RegisterSellerPage />} />
         <Route path="/profile-user-page" element={<ProfileUserPage />} />

@@ -1,31 +1,19 @@
 import { Button } from "../ui/button";
 import perfil from "../../img/perfil.png";
-import userIcon from "../../img/userIconW.png";
-import latterIcon from "../../img/latter.png";
+
 import PencilIcon from "../../img/editIcon.png";
+import { Collapsible, CollapsibleContent } from "../ui/collapsible"
+import { Checkbox } from "../ui/checkbox"
+import { useState } from "react";
+import ButtonComponent from "./ButtonComponent";
 
 function UserProfile() {
+
+  const [open, setOpen] = useState(false)
   return (
-    <div className="bg-white p-8 rounded-lg flex">
-      <div className="w-1/4 pr-8">
-        <h2 className="text-3xl font-semibold mb-6">Mi perfil</h2>
-        <div className="space-y-4">
-          <Button className="bg-purple-main gap-2">
-            <img src={userIcon} alt="User" className="w-5 h-5" />
-            <span>Información de la cuenta</span>
-          </Button>
-          <Button className="bg-white text-black  gap-2">
-            <img src={latterIcon} alt="Historial" className="w-5 h-5" />
-            <span>Historial de compra</span>
-          </Button>
-        </div>
-      </div>
-
-    
-      <div className="w-3/4 pl-8">
+    <div className="flex w-full flex-col gap-6 p-10 bg-white min-h-screen h-full font-quicksand">
+      <div className="">
         <h2 className="text-2xl mb-6">Información de la cuenta</h2>
-
-       
         <div className="flex justify-center mb-8">
           <div className="relative">
             <img
@@ -38,88 +26,59 @@ function UserProfile() {
             </Button>
           </div>
         </div>
-
-       
         <div className="grid grid-cols-2 gap-6">
-         
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Fullname <span className="text-red-500">*</span>
-            </label>
+            <label htmlFor="fullname">Nombre completo <span className="text-red-500">*</span></label>
             <input
               type="text"
-              className="mt-1 block w-full rounded-md bg-gray-200 p-2"
+              id="fullname"
+              className="mt-1 block w-full rounded-md bg-white-main p-2"
             />
           </div>
-
-         
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Correo 
-            </label>
+            <label htmlFor="email">Correo electrónico</label>
             <input
               type="email"
-              className="mt-1 block w-full rounded-md bg-gray-200 p-2"
+              id="email"
+              className="mt-1 block w-full rounded-md bg-white-main p-2"
+            disabled
             />
           </div>
-
-         
-          <div className="col-span-2">
-            <label className="block text-sm font-medium text-gray-700">
-              Username <span className="text-red-500">*</span>
-            </label>
+          <div>
+            <label htmlFor="username">Nombre de usuario<span className="text-red-500">*</span></label>
             <input
               type="text"
-              className="mt-1 block px-34 rounded-md bg-gray-200 p-2"
+              id="username"
+              className="mt-1 block w-full rounded-md bg-white-main p-2"
             />
           </div>
-
-          
-          <div className="col-span-2 mt-4">
-            <div className="flex items-center space-x-2 text-gray-600 font-medium mb-4">
-              <span className="text-sm">Cambiar contraseña</span>
-            </div>
-
-            
-            <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700">
-                Contraseña actual <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="password"
-                className="mt-1 block px-34 rounded-md bg-gray-200 p-2"
-              />
-            </div>
-
-            
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Nueva contraseña <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="password"
-                  className="mt-1 block w-full rounded-md bg-gray-200 p-2"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Confirmar nueva contraseña <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="password"
-                  className="mt-1 block w-full rounded-md bg-gray-200 p-2"
-                />
-              </div>
-            </div>
-          </div>
         </div>
-
-        
-        <div className="mt-10 flex justify-start">
-          <Button className="px-50 py-2 bg-purple-main text-white rounded-lg">
-            Guardar
-          </Button>
+        <div className="grid grid-cols-2 gap-6 mt-10">
+          <Collapsible open={open} onOpenChange={setOpen}>
+            <div className="flex items-center space-x-2 rounded-sm">
+              <Checkbox id="changePassword" className="w-4 h-4 bg-white-main border border-purple-main rounded-sm text-gray-main" checked={open} onCheckedChange={(checked) => setOpen(!!checked)} />
+              <label htmlFor="changePassword">Cambiar contraseña</label>
+            </div>
+            <CollapsibleContent className="mt-8 space-y-2">
+              <form className="space-y-2 rounded-lg">
+                <div>
+                  <label htmlFor="old">Contraseña actual<span className="text-red-500">*</span></label>
+                  <input id="old" type="password" className="mt-1 block w-full rounded-md bg-white-main p-2" />
+                </div>
+                <div>
+                  <label htmlFor="new">Nueva contraseña<span className="text-red-500">*</span></label>
+                  <input id="new" type="password" className="mt-1 block w-full rounded-md bg-white-main p-2" />
+                </div>
+                <div>
+                  <label htmlFor="confirm">Confirmar contraseña<span className="text-red-500">*</span></label>
+                  <input id="confirm" type="password" className="mt-1 block w-full rounded-md bg-white-main p-2" />
+                </div>
+              </form>
+            </CollapsibleContent>
+          </Collapsible>
+        </div>
+        <div className="grid grid-cols-2 gap-6 mt-10">
+          <ButtonComponent style="w-full p-2 bg-purple-main text-white rounded-md" text="Guardar" />
         </div>
       </div>
     </div>

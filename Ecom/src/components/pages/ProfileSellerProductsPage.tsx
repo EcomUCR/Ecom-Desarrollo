@@ -17,10 +17,7 @@ export default function ProfileSellerProductsPage() {
   <ProfileSellerNav />
    <SellerProductsList />
  
-</div>
-       
-        
-        
+</div> 
       </main>
       <Footer />
     </div>

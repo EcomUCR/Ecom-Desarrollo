@@ -42,7 +42,7 @@ function LoginPage() {
           console.log("User ID almacenado:", data.user.id);
         }
 
-        navigate("/home");
+        navigate("/");
       } else {
         setMessage("Error: " + (data.email || "Credenciales incorrectas"));
       }
