@@ -78,14 +78,14 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
     <div className="flex flex-col min-h-screen animate-fade-in">
       <LandingHeader />
       <div className="flex flex-1">
-        <div className="hidden lg:flex w-1/3 bg-[#5C2E92] items-center justify-center p-8 relative rounded-r-[5rem]">
+        <div className="hidden lg:flex w-1/3 bg-purple-main items-center justify-center p-8 relative rounded-r-[5rem]">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
             <Link to="/login">
               <button className="text-xl font-bold text-white mb-8">
                 Iniciar Sesión
               </button>
             </Link>
-            <button className="text-xl font-bold text-[#5C2E92] bg-white rounded-full py-2 px-8 shadow-lg">
+            <button className="text-xl font-bold text-purple-main bg-white rounded-full py-2 px-8 ">
               Registrarse
             </button>
           </div>
@@ -104,11 +104,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
           <form className="w-full max-w-2xl" onSubmit={handleSubmit}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="email">
+                <label className="block text-blue-main mb-2" htmlFor="email">
                   Email
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none "
                   id="email"
                   name="email"
                   type="email"
@@ -119,11 +119,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="password">
+                <label className="block text-blue-main mb-2" htmlFor="password">
                   Contraseña
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none"
                   id="password"
                   name="password"
                   type="password"
@@ -134,11 +134,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="name">
+                <label className="block text-blue-main mb-2" htmlFor="name">
                   Nombre
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none"
                   id="name"
                   name="name"
                   type="text"
@@ -149,11 +149,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="description">
+                <label className="block text-blue-main mb-2" htmlFor="description">
                   Descripción
                 </label>
                 <textarea
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none "
                   id="description"
                   name="description"
                   placeholder=" "
@@ -163,11 +163,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
               </div>
 
               <div className="md:col-span-2">
-                <label className="block text-gray-600 mb-2" htmlFor="phoneNumber">
+                <label className="block text-blue-main mb-2" htmlFor="phoneNumber">
                   Número de teléfono
                 </label>
                 <input
-                  className="w-full px-3 py-2 border-b-2 border-gray-300 focus:outline-none focus:border-[#5C2E92]"
+                  className="w-full px-3 py-2 border-b-2 border-blue-main "
                   id="phoneNumber"
                   name="phoneNumber"
                   type="text"
@@ -182,7 +182,7 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
 
             <div className="flex items-center justify-center mt-12">
               <button
-                className="w-full md:w-1/2 bg-[#5C2E92] text-white font-bold py-3 px-4 rounded-full shadow-md"
+                className="w-full md:w-1/2 bg-[#5C2E92] text-white font-bold py-3 px-4 rounded-full "
                 type="submit"
                 disabled={loading}
               >

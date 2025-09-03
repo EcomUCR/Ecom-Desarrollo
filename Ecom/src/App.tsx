@@ -12,7 +12,14 @@ import SellerConfigModal from "./components/ui/SellerConfidModal";
 import SellerPage from "./components/pages/SellerPage";
 import SellerPageContact from "./components/pages/SellerPageContacts";
 import RegisterSellerPage from "./components/pages/RegisterSellerPage";
-import SellerOffersPage from "./components/pages/SellerOffersPage";
+import ProfileUserPage from "./components/pages/ProfileUserPage";
+import ProfileSellerPage from "./components/pages/ProfileSellerPage";
+import ProfileSellerProductsPage from "./components/pages/ProfileSellerProductsPage";
+import CrudProductsPage from "./components/pages/CrudProductsPage";
+import ProductView from "./components/pages/ProductView";
+import ForgotPassword from "./components/pages/ForgotPassword";
+import ResetPassword from "./components/pages/ResetPassword";
+
 
 
 
@@ -32,8 +39,14 @@ function App() {
         <Route path="/seller-config-modal" element={<SellerConfigModal />} />
         <Route path="/seller-page" element={<SellerPage />} />
         <Route path="/seller-page-contacts" element={<SellerPageContact />} />
-        <Route path="/seller-offers-page" element={<SellerOffersPage />} />
         <Route path="/register-seller" element={<RegisterSellerPage />} />
+        <Route path="/profile-user-page" element={<ProfileUserPage />} />
+        <Route path="/profile-seller-page" element={<ProfileSellerPage />} />
+        <Route path="/profile-seller-products-page" element={<ProfileSellerProductsPage />} />
+        <Route path="/crud-products-page" element={<CrudProductsPage />} />
+        <Route path="/product-view" element={<ProductView />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
