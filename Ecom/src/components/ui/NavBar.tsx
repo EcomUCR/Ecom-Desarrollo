@@ -30,7 +30,6 @@ export default function NavBar() {
           <IconUser className="lg:w-8 lg:h-8" />
         </Link>
         <IconShoppingBag className="lg:w-8 lg:h-8" />
-        <IconMenu2 className="lg:w-8 lg:h-8" />
       </div>
     </header>
   );

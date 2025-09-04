@@ -84,7 +84,7 @@ export default function RegisterPage({
         });
 
         if (onCreated) onCreated();
-        navigate("/home");
+        navigate("/");
       } else {
         let data = {};
         try {

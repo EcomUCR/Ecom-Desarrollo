@@ -13,8 +13,8 @@ export default function ButtonComponent(props: ButtonComponentProps){
             onClick={props.onClick}
             disabled={props.disabled}
         >
-            {props.text}
             {props.icon && <props.icon className={props.iconStyle} />}
+            {props.text}
         </button>
     );
 }

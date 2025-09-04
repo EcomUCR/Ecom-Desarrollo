@@ -11,7 +11,7 @@ function LoginPage() {
 
   const handleSubmit = async (e ) => {
     e.preventDefault(); 
-
+//test
     try {
       const response = await fetch("/api/login", {
         method: "POST",
@@ -42,7 +42,7 @@ function LoginPage() {
           console.log("User ID almacenado:", data.user.id);
         }
 
-        navigate("/home");
+        navigate("/");
       } else {
         setMessage("Error: " + (data.email || "Credenciales incorrectas"));
       }
