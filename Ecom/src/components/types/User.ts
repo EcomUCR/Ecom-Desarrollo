@@ -10,6 +10,7 @@ export interface Client {
   first_name: string;
   last_name: string;
   address?: string | null;
+  avatar?: string | null;
 }
 
 export interface Vendor {
