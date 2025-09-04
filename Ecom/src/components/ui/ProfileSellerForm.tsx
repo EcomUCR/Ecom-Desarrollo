@@ -6,17 +6,15 @@ import insta from "../../img/InstaIcon.png";
 import face from "../../img/FacebookIcon.png";
 import x from "../../img/XIcon.png";
 import linkIcon from "../../img/linkIcon.png";
+import ButtonComponent from "./ButtonComponent";
 
 const ProfileSellerForm = () => {
     return (
-        <div className="p-6 flex-1">
-            <h2 className="text-xl font-bold mb-6 text-gray-800">Información de la cuenta</h2>
-
-
-            <div className="flex justify-between mb-6">
-               
+        <div className="p-6 flex-1 font-quicksand">
+            <h2 className="text-xl font-bold mb-6 text-gray-main">Información de la cuenta</h2>
+            <div className="flex justify-between px-20 mb-6">
                 <div className="flex flex-col items-center">
-                    <h3 className="text-gray-600 font-semibold mb-2">Foto de perfil</h3>
+                    <h3 className="text-gray-main/50 font-semibold mb-2">Foto de perfil</h3>
                     <img src={logo} alt="Logo" className="w-40 h-auto object-contain" />
                     <div className="w-full flex justify-end mt-1">
                         <img
@@ -26,10 +24,8 @@ const ProfileSellerForm = () => {
                         />
                     </div>
                 </div>
-
-               
                 <div className="flex flex-col items-center">
-                    <h3 className="text-gray-600 font-semibold mb-2">Banner del perfil</h3>
+                    <h3 className="text-gray-main/50 font-semibold mb-2">Banner del perfil</h3>
                     <img src={bannerImage} alt="Banner" className="w-64 h-auto object-contain" />
                     <div className="w-full flex justify-end mt-1">
                         <img
@@ -41,8 +37,6 @@ const ProfileSellerForm = () => {
                 </div>
             </div>
 
-
-
             <div className="grid grid-cols-2 gap-x-12 gap-y-6">
 
                 <div>
@@ -52,7 +46,7 @@ const ProfileSellerForm = () => {
                     <input
                         type="text"
                         placeholder="Unstable Games"
-                        className="w-full p-2 bg-gray-200 text-black rounded-md border-none"
+                        className="w-full p-2 bg-white-main text-black rounded-md border-none"
                     />
                 </div>
 
@@ -64,7 +58,8 @@ const ProfileSellerForm = () => {
                     <input
                         type="email"
                         placeholder="unstable@example.com"
-                        className="w-full p-2 text-black"
+                        className="w-full p-2 text-black bg-white-main"
+                        disabled
                     />
                 </div>
 
@@ -75,7 +70,7 @@ const ProfileSellerForm = () => {
                     </label>
                     <input
                         type="text"
-                        className="w-full p-2 h-20 bg-gray-200 text-black rounded-md border-none"
+                        className="w-full p-2 h-20 bg-white-main text-black rounded-md border-none"
                     />
                 </div>
 
@@ -85,7 +80,7 @@ const ProfileSellerForm = () => {
                         Description
                     </label>
                     <textarea
-                        className="w-full p-2 h-20 bg-gray-200 text-black rounded-md border-none"
+                        className="w-full p-2 h-20 bg-white-main text-black rounded-md border-none"
                     ></textarea>
                 </div>
 
@@ -97,42 +92,42 @@ const ProfileSellerForm = () => {
 
                     <div className="grid grid-cols-2 gap-6">
 
-                        <div className="flex items-center bg-gray-200 rounded-md px-2 h-12">
+                        <div className="flex items-center bg-white-main rounded-md px-2 h-12">
                             <img src={insta} alt="Instagram" className="w-5 h-5 mr-5" />
                             <input
                                 type="text"
                                 placeholder="@unstable_games"
-                                className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                className="flex-1 bg-white-main text-black border-none focus:outline-none text-center px-2"
                             />
                         </div>
 
 
-                        <div className="flex items-center bg-gray-200 rounded-md px-2 h-12">
+                        <div className="flex items-center bg-white-main rounded-md px-2 h-12">
                             <img src={face} alt="Facebook" className="w-5 h-5 mr-5" />
                             <input
                                 type="text"
                                 placeholder="Unstable Games"
-                                className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                className="flex-1 bg-white-main text-black border-none focus:outline-none text-center px-2"
                             />
                         </div>
 
 
-                        <div className="flex items-center bg-gray-200 rounded-md px-2 h-12">
+                        <div className="flex items-center bg-white-main rounded-md px-2 h-12">
                             <img src={x} alt="X" className="w-5 h-5 mr-5" />
                             <input
                                 type="text"
                                 placeholder="@unstablegames"
-                                className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                className="flex-1 bg-white-main text-black border-none focus:outline-none text-center px-2"
                             />
                         </div>
 
 
-                        <div className="flex items-center bg-gray-200 rounded-md px-2 h-12">
+                        <div className="flex items-center bg-white-main rounded-md px-2 h-12">
                             <img src={linkIcon} alt="LinkedIn" className="w-5 h-5 mr-5" />
                             <input
                                 type="text"
                                 placeholder="linkedin.com/company/unstable"
-                                className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                className="flex-1 bg-white-main text-black border-none focus:outline-none text-center px-2"
                             />
                         </div>
                     </div>
@@ -146,7 +141,7 @@ const ProfileSellerForm = () => {
                     <input
                         type="text"
                         placeholder="+506 8888-8888"
-                        className="w-full p-2 bg-gray-200 text-black rounded-md border-none"
+                        className="w-full p-2 bg-white-main text-black rounded-md border-none"
                     />
                 </div>
             </div>
@@ -163,7 +158,7 @@ const ProfileSellerForm = () => {
                     </label>
                     <input
                         type="password"
-                        className="mt-1 block w-full rounded-md bg-gray-200 p-2"
+                        className="mt-1 block w-full rounded-md bg-white-main p-2"
                     />
                 </div>
 
@@ -174,7 +169,7 @@ const ProfileSellerForm = () => {
                         </label>
                         <input
                             type="password"
-                            className="mt-1 block w-full rounded-md bg-gray-200 p-2"
+                            className="mt-1 block w-full rounded-md bg-white-main p-2"
                         />
                     </div>
                     <div>
@@ -183,17 +178,14 @@ const ProfileSellerForm = () => {
                         </label>
                         <input
                             type="password"
-                            className="mt-1 block w-full rounded-md bg-gray-200 p-2"
+                            className="mt-1 block w-full rounded-md bg-white-main p-2"
                         />
                     </div>
                 </div>
             </div>
-
-
             <div className="mt-10 flex justify-start">
-                <Button className="px-50 py-2 bg-purple-main text-white rounded-lg">
-                    Guardar
-                </Button>
+                <ButtonComponent style="w-[48%] py-2 bg-purple-main text-white rounded-lg" text="Guardar cambios"/>
+                    
             </div>
         </div>
     );

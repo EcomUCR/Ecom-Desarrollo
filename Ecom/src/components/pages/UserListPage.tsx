@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "../ui/button";
 import UserTable from "../ui/UserTable";
 import NavBar from "../ui/NavBarUser";
 import { IconSearch } from "@tabler/icons-react";
