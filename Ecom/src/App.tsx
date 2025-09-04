@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./components/pages/HomePage";
 import LoginPage from "./components/pages/LoginPage";
 import RegisterPage from "./components/pages/RegisterPage";
-import ProfilePage from "./components/pages/ProfilePage";
 import ChangeUsernamePage from "./components/pages/ChangeUsernamePage";
 import ChangePasswordPage from "./components/pages/ChangePasswordPage";
 import AdminUserPage from "./components/pages/AdminUserPage";
@@ -31,7 +30,6 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
         <Route path="/change-username" element={<ChangeUsernamePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/admin-users" element={<AdminUserPage />} />
