@@ -17,8 +17,12 @@ Route::post('/login', [UserController::class, 'login']);
 // Password reset routes (API-friendly)
 Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
     ->middleware('guest');
+
+// Enviar nueva contraseña
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
-    ->middleware('guest');
+    ->middleware('guest')
+    ->name('password.update');
+
 
 // ---------------------
 // Protected routes (requires token)

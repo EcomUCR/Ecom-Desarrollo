@@ -33,12 +33,10 @@ class UserController extends Controller
                 'last_name' => $request->last_name,
                 'address' => $request->address ?? null,
             ]);
-        } else {
+        } else if ($request->type === 'vendor') {
             Vendor::create([
                 'user_id' => $user->id,
                 'name' => $request->name,
-                'description' => $request->description ?? null,
-                'address' => $request->address ?? null,
                 'phone_number' => $request->phone_number ?? null,
             ]);
         }
