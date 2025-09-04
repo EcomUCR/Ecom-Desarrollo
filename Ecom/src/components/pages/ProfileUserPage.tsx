@@ -20,8 +20,6 @@ export default function ProfileUserPage() {
           <UserProfile />
           </div>
         </section>
-        
-        
       </main>
       <Footer />
     </div>

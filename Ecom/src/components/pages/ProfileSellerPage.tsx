@@ -11,7 +11,7 @@ export default function ProfileSellerPage() {
   return (
     <div className="bg-white">
       <Header />
-      
+     
       <main>
        <div className="flex w-full">
   <ProfileSellerNav />
