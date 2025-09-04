@@ -1,5 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
-import { IconUser, IconShoppingBag, IconSearch, IconLogout } from "@tabler/icons-react";
+import {
+  IconUser,
+  IconShoppingBag,
+  IconSearch,
+  IconLogout,
+} from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import logo from "../../img/tucaShopLogo.png";
 import type { MeResponse } from "../types/User";
@@ -25,10 +30,16 @@ export default function NavBar() {
   const handleUserClick = () => {
     if (!userData) {
       navigate("/login");
+      return;
+    }
+    if (userData.staff) {
+      navigate("/user-list");
     } else if (userData.client) {
       navigate("/profile-user");
     } else if (userData.vendor) {
       navigate("/profile-vendor");
+    } else {
+      navigate("/login");
     }
   };
 

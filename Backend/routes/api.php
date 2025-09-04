@@ -28,7 +28,9 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 // Protected routes (requires token)
 // ---------------------
 Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/users', [UserController::class, 'listUsers']);
     Route::get('/me', [UserController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/profiles/{id}', [ProfileController::class, 'show']);
+
 });
