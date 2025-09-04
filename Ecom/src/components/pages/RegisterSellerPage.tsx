@@ -1,23 +1,28 @@
 import { Link, useNavigate } from "react-router-dom";
 import LandingHeader from "../ui/NavBarAdmin";
-import logo from "../../img/logoT.png"; 
+import logo from "../../img/logoT.png";
 import { useState } from "react";
 
-export default function RegisterSellerPage({ onCreated }: { onCreated?: () => void }) {
+export default function RegisterSellerPage({
+  onCreated,
+}: {
+  onCreated?: () => void;
+}) {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     email: "",
     password: "",
     name: "",
-    description: "",
-    phoneNumber: ""
+    phoneNumber: "",
   });
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -25,7 +30,7 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
     e.preventDefault();
     setError("");
 
-    if (!form.email || !form.password || !form.name || !form.description || !form.phoneNumber) {
+    if (!form.email || !form.password || !form.name || !form.phoneNumber) {
       setError("Todos los campos son obligatorios");
       return;
     }
@@ -38,7 +43,7 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
     setLoading(true);
 
     try {
-      const res = await fetch("/api/users", {
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -46,18 +51,18 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
           email: form.email,
           password: form.password,
           name: form.name,
-          description: form.description,
-          phone_number: form.phoneNumber
-        })
+          phone_number: form.phoneNumber,
+          type: "vendor",
+        }),
       });
 
       if (res.ok) {
         const data = await res.json();
         console.log("Vendedor creado", data);
 
-        setForm({ email: "", password: "", name: "", description: "", phoneNumber: "" });
+        setForm({ email: "", password: "", name: "", phoneNumber: "" });
         if (onCreated) onCreated();
-        navigate("/home");
+        navigate("/");
       } else {
         let data: { error?: string } = {};
         try {
@@ -94,7 +99,7 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
         <div className="w-full lg:w-2/3 bg-white flex flex-col items-center justify-center p-8">
           <div className="flex flex-col items-center mb-12">
             <img
-              src={logo} 
+              src={logo}
               alt="Logo"
               className="w-40 h-40 object-contain mb-4"
             />
@@ -147,23 +152,11 @@ export default function RegisterSellerPage({ onCreated }: { onCreated?: () => vo
                   onChange={handleChange}
                 />
               </div>
-
               <div className="md:col-span-2">
-                <label className="block text-blue-main mb-2" htmlFor="description">
-                  Descripción
-                </label>
-                <textarea
-                  className="w-full px-3 py-2 border-b-2 border-blue-main focus:outline-none "
-                  id="description"
-                  name="description"
-                  placeholder=" "
-                  value={form.description}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div className="md:col-span-2">
-                <label className="block text-blue-main mb-2" htmlFor="phoneNumber">
+                <label
+                  className="block text-blue-main mb-2"
+                  htmlFor="phoneNumber"
+                >
                   Número de teléfono
                 </label>
                 <input
