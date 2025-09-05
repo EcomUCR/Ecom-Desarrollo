@@ -8,9 +8,11 @@ use App\Models\Client;
 use App\Models\Vendor;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
-
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class UserController extends Controller
 {
+    use AuthorizesRequests;
     // Register User as Client or Vendor
     public function register(Request $request)
     {
@@ -69,11 +71,20 @@ class UserController extends Controller
         $user = $request->user();
         $client = $user->client;
         $vendor = $user->vendor;
+        $staff = $user->staff;
+
+        $clientData = $client ? $client->toArray() : null;
+        if ($client && $client->avatar) {
+            $clientData['avatar_url'] = Storage::url($client->avatar);
+        } elseif ($client) {
+            $clientData['avatar_url'] = null;
+        }
 
         return response()->json([
             'user' => $user,
             'client' => $client,
             'vendor' => $vendor,
+            'staff' => $staff,
         ]);
     }
     public function logout(Request $request)
@@ -85,5 +96,12 @@ class UserController extends Controller
             'message' => 'Logged out successfully'
         ]);
     }
-    
+    public function listUsers()
+    {
+        $this->authorize('viewAny', User::class); // optional if using policies
+
+        $users = User::with(['client', 'vendor', 'staff'])->get();
+
+        return response()->json($users);
+    }
 }

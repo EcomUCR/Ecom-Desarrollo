@@ -40,8 +40,8 @@ function App() {
         <Route path="/seller-offers-page" element={<SellerOffersPage />} />
         <Route path="/seller-page-contacts" element={<SellerPageContact />} />
         <Route path="/register-seller" element={<RegisterSellerPage />} />
-        <Route path="/profile-user-page" element={<ProfileUserPage />} />
-        <Route path="/profile-seller-page" element={<ProfileSellerPage />} />
+        <Route path="/profile-user" element={<ProfileUserPage />} />
+        <Route path="/profile-vendor" element={<ProfileSellerPage />} />
         <Route path="/profile-seller-products-page" element={<ProfileSellerProductsPage />} />
         <Route path="/crud-products-page" element={<CrudProductsPage />} />
         <Route path="/product-view" element={<ProductView />} />

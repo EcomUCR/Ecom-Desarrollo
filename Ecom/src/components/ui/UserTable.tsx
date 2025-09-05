@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StatusSwitch from "./StatusSwitch";
-import { IconReceipt2, IconSettings, IconUser } from "@tabler/icons-react";
+import userIcon from "../../img/UserIcon.png";
+import sellerIcon from "../../img/ShopIcon.png";
+import actionIcon from "../../img/toolswi.png";
 
 const UserTable: React.FC = () => {
     const [users] = useState([
@@ -11,7 +13,7 @@ const UserTable: React.FC = () => {
             type: "User",
             lastConnection: "12/10/2025 12:51:00",
             status: true,
-
+            icon: userIcon
         },
         {
             uuid: "2.1",
@@ -20,7 +22,7 @@ const UserTable: React.FC = () => {
             type: "Seller",
             lastConnection: "12/10/2025 12:51:00",
             status: false,
-
+            icon: sellerIcon
         },
         {
             uuid: "1.2",
@@ -29,7 +31,7 @@ const UserTable: React.FC = () => {
             type: "User",
             lastConnection: "12/10/2025 12:51:00",
             status: true,
-
+            icon: userIcon
         },
         {
             uuid: "1.3",
@@ -38,7 +40,7 @@ const UserTable: React.FC = () => {
             type: "User",
             lastConnection: "12/10/2025 12:51:00",
             status: true,
-
+            icon: userIcon
         }
     ]);
 
@@ -71,18 +73,19 @@ const UserTable: React.FC = () => {
                             <td className="px-4 py-2">{u.email}</td>
                             <td className="px-4 py-2 flex items-center gap-2">
                                 {u.type}
-                                {u.type === "User" ? <IconUser className="w-4 h-4 text-gray-500" /> : null}
-                                {u.type === "Seller" ? <IconReceipt2 className="w-4 h-4 text-gray-500" /> : null}
+                                <img src={u.icon} alt={u.type} className="w-4 h-4" />
                             </td>
                             <td className="px-4 py-2">{u.lastConnection}</td>
                             <td className="px-4 py-2 flex items-center gap-2">
                                 <StatusSwitch initial={u.status} />
-                                <IconSettings className="w-4 h-4 text-gray-500" />
+                                <img src={actionIcon} alt="action" className="w-5 h-5" />
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
+
+
             <div className="flex justify-between items-center mt-4 bg-gray-200 px-1  rounded">
                 <div className="text-sm">
                     Show{" "}
@@ -103,8 +106,9 @@ const UserTable: React.FC = () => {
                     <span className="px-3 py-1 rounded-full bg-white-main">6</span>
                 </div>
             </div>
-        </div>
-    );
+    </div>
+    
+  );
 };
 
 export default UserTable;
