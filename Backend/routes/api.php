@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
 
 // ---------------------
 // Public routes
@@ -24,6 +25,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.update');
 
 
+
 // ---------------------
 // Protected routes (requires token)
 // ---------------------
@@ -32,5 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/profiles/{id}', [ProfileController::class, 'show']);
+    Route::get('/vendor', [VendorController::class, 'index']);
 
 });

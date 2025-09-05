@@ -6,8 +6,67 @@ import insta from "../../img/InstaIcon.png";
 import face from "../../img/FacebookIcon.png";
 import x from "../../img/XIcon.png";
 import linkIcon from "../../img/linkIcon.png";
+import { useEffect, useState } from "react";
 
 const ProfileSellerForm = () => {
+    const [vendor, setVendor] = useState<any>(null);
+    const [loading, setLoading] = useState(true);
+    const [form, setForm] = useState<any>(null);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+    fetch("http://localhost/ecomdb/Backend/public/api/vendor", {
+        credentials: "include",
+    })
+        .then((res) => res.json())
+        .then((data) => {
+            setVendor(data);
+            setForm({
+                name: data?.name || "",
+                email: data?.email || "",
+                address: data?.address || "",
+                description: data?.description || "",
+                phone: data?.phone || "",
+                social: {
+                    instagram: data?.social?.instagram || "",
+                    facebook: data?.social?.facebook || "",
+                    x: data?.social?.x || "",
+                    linkedin: data?.social?.linkedin || "",
+                },
+            });
+            setLoading(false);
+        })
+        .catch(() => setLoading(false));
+}, []);
+
+    if (loading || !form) {
+        return <div className="p-6">Cargando...</div>;
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const { name, value } = e.target;
+        if (name.startsWith("social.")) {
+            const key = name.split(".")[1];
+            setForm((prev: any) => ({
+                ...prev,
+                social: { ...prev.social, [key]: value },
+            }));
+        } else {
+            setForm((prev: any) => ({ ...prev, [name]: value }));
+        }
+    };
+
+    const handleSave = async () => {
+    setSaving(true);
+    await fetch("http://localhost/ecomdb/Backend/public/api/vendor", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(form),
+    });
+    setSaving(false);
+};
+
     return (
         <div className="p-6 flex-1">
             <h2 className="text-xl font-bold mb-6 text-gray-800">Información de la cuenta</h2>
@@ -17,7 +76,7 @@ const ProfileSellerForm = () => {
                
                 <div className="flex flex-col items-center">
                     <h3 className="text-gray-600 font-semibold mb-2">Foto de perfil</h3>
-                    <img src={logo} alt="Logo" className="w-40 h-auto object-contain" />
+                    <img src={vendor?.logoUrl || logo} alt="Logo" className="w-40 h-auto object-contain" />
                     <div className="w-full flex justify-end mt-1">
                         <img
                             src={pencilIcon}
@@ -30,7 +89,7 @@ const ProfileSellerForm = () => {
                
                 <div className="flex flex-col items-center">
                     <h3 className="text-gray-600 font-semibold mb-2">Banner del perfil</h3>
-                    <img src={bannerImage} alt="Banner" className="w-64 h-auto object-contain" />
+                    <img src={vendor?.bannerUrl || bannerImage} alt="Banner" className="w-64 h-auto object-contain" />
                     <div className="w-full flex justify-end mt-1">
                         <img
                             src={pencilIcon}
@@ -53,6 +112,9 @@ const ProfileSellerForm = () => {
                         type="text"
                         placeholder="Unstable Games"
                         className="w-full p-2 bg-gray-200 text-black rounded-md border-none"
+                        name="name"
+                        value={form.name}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -65,6 +127,9 @@ const ProfileSellerForm = () => {
                         type="email"
                         placeholder="unstable@example.com"
                         className="w-full p-2 text-black"
+                        name="email"
+                        value={form.email}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -76,6 +141,9 @@ const ProfileSellerForm = () => {
                     <input
                         type="text"
                         className="w-full p-2 h-20 bg-gray-200 text-black rounded-md border-none"
+                        name="address"
+                        value={form.address}
+                        onChange={handleChange}
                     />
                 </div>
 
@@ -86,6 +154,9 @@ const ProfileSellerForm = () => {
                     </label>
                     <textarea
                         className="w-full p-2 h-20 bg-gray-200 text-black rounded-md border-none"
+                        name="description"
+                        value={form.description}
+                        onChange={handleChange}
                     ></textarea>
                 </div>
 
@@ -103,6 +174,9 @@ const ProfileSellerForm = () => {
                                 type="text"
                                 placeholder="@unstable_games"
                                 className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                name="social.instagram"
+                                value={form.social.instagram}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -113,6 +187,9 @@ const ProfileSellerForm = () => {
                                 type="text"
                                 placeholder="Unstable Games"
                                 className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                name="social.facebook"
+                                value={form.social.facebook}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -123,6 +200,9 @@ const ProfileSellerForm = () => {
                                 type="text"
                                 placeholder="@unstablegames"
                                 className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                name="social.x"
+                                value={form.social.x}
+                                onChange={handleChange}
                             />
                         </div>
 
@@ -133,6 +213,9 @@ const ProfileSellerForm = () => {
                                 type="text"
                                 placeholder="linkedin.com/company/unstable"
                                 className="flex-1 bg-gray-200 text-black border-none focus:outline-none text-center px-2"
+                                name="social.linkedin"
+                                value={form.social.linkedin}
+                                onChange={handleChange}
                             />
                         </div>
                     </div>
@@ -147,6 +230,9 @@ const ProfileSellerForm = () => {
                         type="text"
                         placeholder="+506 8888-8888"
                         className="w-full p-2 bg-gray-200 text-black rounded-md border-none"
+                        name="phone"
+                        value={form.phone}
+                        onChange={handleChange}
                     />
                 </div>
             </div>
@@ -191,8 +277,12 @@ const ProfileSellerForm = () => {
 
 
             <div className="mt-10 flex justify-start">
-                <Button className="px-50 py-2 bg-purple-main text-white rounded-lg">
-                    Guardar
+                <Button
+                    className="px-50 py-2 bg-purple-main text-white rounded-lg"
+                    onClick={handleSave}
+                    disabled={saving}
+                >
+                    {saving ? "Guardando..." : "Guardar"}
                 </Button>
             </div>
         </div>
