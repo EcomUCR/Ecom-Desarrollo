@@ -93,11 +93,7 @@ export default function NavBar() {
           <IconUser className="lg:w-8 lg:h-8" />
         </button>
 
-        <IconShoppingBag
-          className="lg:w-8 lg:h-8"
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/crud-products-page")}
-        />
+        <IconShoppingBag className="lg:w-8 lg:h-8"/>
 
         {/* Logout only if logged in */}
         {userData && (
