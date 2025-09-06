@@ -3,115 +3,72 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Category;
-use App\Models\ProductImage;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of products.
+     * Listar productos con su vendor e imágenes.
      */
     public function index()
     {
-        $products = Product::with(['vendor', 'categories', 'images'])->paginate(10);
+        $products = Product::with(['vendor', 'images'])->paginate(10);
         return response()->json($products);
     }
 
     /**
-     * Store a newly created product.
+     * Crear producto.
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'sku'        => 'required|string|max:30|unique:products',
-            'name'       => 'required|string|max:50',
-            'description'=> 'nullable|string',
-            'discount'   => 'nullable|integer|min:0',
-            'stock'      => 'nullable|integer|min:0',
-            'price'      => 'required|numeric|min:0',
-            'status'     => 'boolean',
-            'vendor_id'  => 'required|exists:vendors,id',
-            'categories' => 'array',
-            'categories.*' => 'exists:categories,id',
-            'images'     => 'array',
-            'images.*'   => 'url',
+            'sku'         => 'required|string|max:30|unique:products',
+            'name'        => 'required|string|max:50',
+            'description' => 'nullable|string',
+            'discount'    => 'integer|min:0',
+            'stock'       => 'integer|min:0',
+            'price'       => 'required|numeric|min:0',
+            'status'      => 'boolean',
+            'vendor_id'   => 'required|exists:vendors,id',
         ]);
 
-        // Create product
         $product = Product::create($validated);
 
-        // Attach categories (many-to-many)
-        if (!empty($validated['categories'])) {
-            $product->categories()->attach($validated['categories']);
-        }
-
-        // Save product images
-        if (!empty($validated['images'])) {
-            foreach ($validated['images'] as $index => $url) {
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'url'        => $url,
-                    'order'      => $index + 1
-                ]);
-            }
-        }
-
-        return response()->json($product->load(['categories', 'images']), 201);
+        return response()->json($product->load(['vendor', 'images']), 201);
     }
 
     /**
-     * Display the specified product.
+     * Ver un producto específico.
      */
     public function show(Product $product)
     {
-        return response()->json($product->load(['vendor', 'categories', 'images']));
+        return response()->json($product->load(['vendor', 'images']));
     }
 
     /**
-     * Update the specified product.
+     * Actualizar producto.
      */
     public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
-            'sku'        => 'string|max:30|unique:products,sku,' . $product->id,
-            'name'       => 'string|max:50',
-            'description'=> 'nullable|string',
-            'discount'   => 'nullable|integer|min:0',
-            'stock'      => 'nullable|integer|min:0',
-            'price'      => 'numeric|min:0',
-            'status'     => 'boolean',
-            'vendor_id'  => 'exists:vendors,id',
-            'categories' => 'array',
-            'categories.*' => 'exists:categories,id',
-            'images'     => 'array',
-            'images.*'   => 'url',
+            'sku'         => 'string|max:30|unique:products,sku,' . $product->id,
+            'name'        => 'string|max:50',
+            'description' => 'nullable|string',
+            'discount'    => 'integer|min:0',
+            'stock'       => 'integer|min:0',
+            'price'       => 'numeric|min:0',
+            'status'      => 'boolean',
+            'vendor_id'   => 'exists:vendors,id',
         ]);
 
         $product->update($validated);
 
-        // Sync categories if provided
-        if (isset($validated['categories'])) {
-            $product->categories()->sync($validated['categories']);
-        }
-
-        // Replace product images if provided
-        if (isset($validated['images'])) {
-            $product->images()->delete();
-            foreach ($validated['images'] as $index => $url) {
-                ProductImage::create([
-                    'product_id' => $product->id,
-                    'url'        => $url,
-                    'order'      => $index + 1
-                ]);
-            }
-        }
-
-        return response()->json($product->load(['categories', 'images']));
+        return response()->json($product->load(['vendor', 'images']));
     }
 
     /**
-     * Remove the specified product.
+     * Eliminar producto.
      */
     public function destroy(Product $product)
     {

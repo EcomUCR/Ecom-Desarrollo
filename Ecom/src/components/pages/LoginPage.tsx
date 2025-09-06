@@ -38,7 +38,7 @@ function LoginPage() {
           localStorage.setItem("vendorId", data.vendor_id.toString());
         }
 
-        navigate("/profile-vendor"); // 👈 lleva al formulario
+        navigate("/"); // 👈 lleva al formulario
       } else {
         setMessage("Error: " + (data.message || "Credenciales incorrectas"));
       }

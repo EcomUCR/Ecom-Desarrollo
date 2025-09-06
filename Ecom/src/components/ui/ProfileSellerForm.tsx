@@ -185,11 +185,10 @@ const ProfileSellerForm = () => {
           </label>
           <input
             type="email"
-            className="w-full p-2 text-black"
+            className="w-full p-2 bg-gray-200 text-black rounded-md border-none"
             name="email"
             value={form.email}
-            onChange={handleChange}
-            disabled
+            readOnly
           />
         </div>
 

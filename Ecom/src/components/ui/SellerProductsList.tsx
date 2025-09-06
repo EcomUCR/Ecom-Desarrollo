@@ -8,6 +8,7 @@ import product6 from "../../img/slayClaro.png";
 import product7 from "../../img/unicornio.png";
 import product8 from "../../img/productos.png";
 import editcIcon from "../../img/editIconw.png";
+import { Link } from "react-router-dom";
 
 const sellerProductsList = [
   { name: "Criaturas de las Sombras -Juego de mesa", brand: "Unstable Games", oldPrice: "₡30.900", price: "₡26.950 ", img: product1 },
@@ -27,7 +28,9 @@ export default function SellerProductsList() {
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-lg lg:text-xl font-bold text-black">Mi lista de productos</h2>
         <Button className="bg-purple-main text-white px-4 py-2 rounded-lg font-medium hover:opacity-90">
+          <Link to="/crud-products-page">
           Registrar nuevo producto
+          </Link>
         </Button>
       </div>
 

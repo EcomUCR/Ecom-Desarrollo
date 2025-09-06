@@ -7,12 +7,18 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
+    /**
+     * Listar vendors con user, redes sociales y productos.
+     */
     public function index()
     {
         $vendors = Vendor::with(['user', 'socialMedia', 'products'])->paginate(10);
         return response()->json($vendors);
     }
 
+    /**
+     * Crear un nuevo vendor.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -27,14 +33,22 @@ class VendorController extends Controller
         ]);
 
         $vendor = Vendor::create($validated);
+
         return response()->json($vendor->load(['user', 'socialMedia', 'products']), 201);
     }
 
+    /**
+     * Mostrar un vendor específico.
+     */
+    
     public function show(Vendor $vendor)
     {
         return response()->json($vendor->load(['user', 'socialMedia', 'products']));
     }
 
+    /**
+     * Actualizar un vendor.
+     */
     public function update(Request $request, Vendor $vendor)
     {
         $validated = $request->validate([
@@ -48,9 +62,13 @@ class VendorController extends Controller
         ]);
 
         $vendor->update($validated);
+
         return response()->json($vendor->load(['user', 'socialMedia', 'products']));
     }
 
+    /**
+     * Eliminar un vendor.
+     */
     public function destroy(Vendor $vendor)
     {
         $vendor->delete();
