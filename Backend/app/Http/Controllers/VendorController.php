@@ -7,21 +7,16 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    /**
-     * List vendors with profile, social media and products.
-     */
     public function index()
     {
-        $vendors = Vendor::with(['profile', 'socialMedia', 'products'])->paginate(10);
+        $vendors = Vendor::with(['user', 'socialMedia', 'products'])->paginate(10);
         return response()->json($vendors);
     }
 
-    /**
-     * Store a new vendor.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'user_id'       => 'required|exists:users,id',
             'name'          => 'required|string|max:32',
             'description'   => 'nullable|string',
             'address'       => 'nullable|string|max:150',
@@ -29,25 +24,17 @@ class VendorController extends Controller
             'logo'          => 'nullable|string',
             'profile_image' => 'nullable|string',
             'banner_image'  => 'nullable|string',
-            'profile_id'    => 'required|exists:profiles,username',
         ]);
 
         $vendor = Vendor::create($validated);
-
-        return response()->json($vendor->load(['profile']), 201);
+        return response()->json($vendor->load(['user', 'socialMedia', 'products']), 201);
     }
 
-    /**
-     * Show a vendor with relations.
-     */
     public function show(Vendor $vendor)
     {
-        return response()->json($vendor->load(['profile', 'socialMedia', 'products']));
+        return response()->json($vendor->load(['user', 'socialMedia', 'products']));
     }
 
-    /**
-     * Update a vendor.
-     */
     public function update(Request $request, Vendor $vendor)
     {
         $validated = $request->validate([
@@ -58,17 +45,12 @@ class VendorController extends Controller
             'logo'          => 'nullable|string',
             'profile_image' => 'nullable|string',
             'banner_image'  => 'nullable|string',
-            'profile_id'    => 'exists:profiles,username',
         ]);
 
         $vendor->update($validated);
-
-        return response()->json($vendor->load(['profile', 'socialMedia', 'products']));
+        return response()->json($vendor->load(['user', 'socialMedia', 'products']));
     }
 
-    /**
-     * Delete a vendor.
-     */
     public function destroy(Vendor $vendor)
     {
         $vendor->delete();

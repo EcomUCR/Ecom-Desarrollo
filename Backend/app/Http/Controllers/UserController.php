@@ -10,10 +10,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
 class UserController extends Controller
 {
     use AuthorizesRequests;
-    // Register User as Client or Vendor
+
+    // 🔹 Register User as Client or Vendor
     public function register(Request $request)
     {
         $request->validate([
@@ -46,7 +48,7 @@ class UserController extends Controller
         return response()->json(['message' => 'Registered successfully']);
     }
 
-    // Login
+    // 🔹 Login
     public function login(Request $request)
     {
         $request->validate([
@@ -54,7 +56,7 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->with('vendor')->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages(['email' => 'Invalid credentials']);
@@ -62,46 +64,38 @@ class UserController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        return response()->json(['access_token' => $token, 'token_type' => 'Bearer', 'user' => $user]);
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'Bearer',
+            'user' => $user,
+            'vendor_id' => $user->vendor ? $user->vendor->id : null, // 👈 se envía vendorId
+        ]);
     }
 
-    // Get logged-in user info
+    // 🔹 Get logged-in user info
     public function me(Request $request)
     {
         $user = $request->user();
-        $client = $user->client;
-        $vendor = $user->vendor;
-        $staff = $user->staff;
-
-        $clientData = $client ? $client->toArray() : null;
-        if ($client && $client->avatar) {
-            $clientData['avatar_url'] = Storage::url($client->avatar);
-        } elseif ($client) {
-            $clientData['avatar_url'] = null;
-        }
-
         return response()->json([
             'user' => $user,
-            'client' => $client,
-            'vendor' => $vendor,
-            'staff' => $staff,
+            'client' => $user->client,
+            'vendor' => $user->vendor,
+            'staff' => $user->staff,
         ]);
     }
+
+    // 🔹 Logout
     public function logout(Request $request)
     {
-        // Delete the current access token
         $request->user()->currentAccessToken()->delete();
-
-        return response()->json([
-            'message' => 'Logged out successfully'
-        ]);
+        return response()->json(['message' => 'Logged out successfully']);
     }
+
+    // 🔹 List Users
     public function listUsers()
     {
-        $this->authorize('viewAny', User::class); // optional if using policies
-
+        $this->authorize('viewAny', User::class);
         $users = User::with(['client', 'vendor', 'staff'])->get();
-
         return response()->json($users);
     }
 }

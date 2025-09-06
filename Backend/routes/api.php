@@ -34,6 +34,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::get('/profiles/{id}', [ProfileController::class, 'show']);
-    Route::get('/vendor', [VendorController::class, 'index']);
+    Route::get('/vendors/{vendorId}', [VendorController::class, 'index']);
 
 });
