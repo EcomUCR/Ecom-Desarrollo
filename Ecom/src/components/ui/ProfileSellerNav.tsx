@@ -10,7 +10,7 @@ const ProfileSellerNav = () => {
       <h2 className="text-3xl font-semibold mb-6">Mi perfil</h2>
       <div className="space-y-4">
       
-        <Link to="/profile-seller-page">
+        <Link to="/profile-vendor">
           <Button className="bg-purple-main gap-2 justify-start w-full px-4 py-2">
             <img src={userIcon} alt="User" className="w-5 h-5" />
             <span>Información de la cuenta</span>
