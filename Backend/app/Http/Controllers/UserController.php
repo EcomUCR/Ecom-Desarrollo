@@ -71,7 +71,33 @@ class UserController extends Controller
             'vendor_id' => $user->vendor ? $user->vendor->id : null, // 👈 se envía vendorId
         ]);
     }
+    // 🔹 Change Password
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:6|confirmed',
+            // "confirmed" => espera también new_password_confirmation
+        ]);
 
+        $user = $request->user();
+
+        // Verificar que la contraseña actual es correcta
+        if (!Hash::check($request->old_password, $user->password)) {
+            return response()->json([
+                'message' => 'La contraseña actual no es correcta'
+            ], 422);
+        }
+
+        // Actualizar la contraseña
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return response()->json([
+            'message' => 'Contraseña actualizada correctamente ✅'
+        ]);
+    }
+    
     // 🔹 Get logged-in user info
     public function me(Request $request)
     {

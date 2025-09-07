@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "../ui/button";
 import perfil from "../../img/perfil.png";
 import PencilIcon from "../../img/editIcon.png";
 import { Collapsible, CollapsibleContent } from "../ui/collapsible";
@@ -9,28 +8,46 @@ import ButtonComponent from "./ButtonComponent";
 import type { MeResponse } from "../types/User";
 
 function UserProfile() {
+  // password fields
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  // user data
   const [data, setData] = useState<MeResponse | null>(null);
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
 
-  // Load user profile
+  // form fields
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [username, setUsername] = useState("");
+
+    //Load user profile
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
     fetch("api/me", {
       headers: {
-        Authorization: `Bearer ${token}`, // ✅ correct
+        Authorization: `Bearer ${token}`,
         Accept: "application/json",
       },
     })
       .then((r) => r.json())
-      .then((d: MeResponse) => setData(d))
+      .then((d: MeResponse) => {
+        setData(d);
+        if (d.client) {
+          setFirstName(d.client.first_name || "");
+          setLastName(d.client.last_name || "");
+          setUsername(d.client.username || "");
+        }
+      })
       .catch(() => setData(null));
   }, []);
 
-  // Handle file selection
+  // 🔹 Handle file selection
   const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -38,62 +55,86 @@ function UserProfile() {
     setPreviewUrl(URL.createObjectURL(file));
   };
 
-  // Upload avatar
-  const uploadAvatar = async () => {
-    if (!avatarFile) return;
+  // 🔹 Save changes
+    // 🔹 Save changes (perfil + contraseña)
+  const handleSave = async () => {
+    if (!data?.client) return;
     const token = localStorage.getItem("token");
-    const fd = new FormData();
-    fd.append("avatar", avatarFile);
 
-    const res = await fetch("api/client/avatar", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
-      body: fd,
-    });
+    try {
+      // 1️⃣ Actualizar perfil
+      const res = await fetch(`api/clients/${data.client.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          first_name: firstName,
+          last_name: lastName,
+          username: username,
+          email: data.user?.email, // requerido para validación
+        }),
+      });
 
-    const json = await res.json();
-    if (res.ok) {
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.message || "Error al actualizar perfil");
+
+      // actualizar estado local
       setData((prev) =>
         prev
           ? {
               ...prev,
-              client: prev.client
-                ? { ...prev.client, avatar_url: json.avatar_url }
-                : prev.client,
+              client: {
+                ...prev.client!,
+                first_name: firstName,
+                last_name: lastName,
+                username: username,
+              },
             }
           : prev
       );
-      setPreviewUrl(null);
-      setAvatarFile(null);
-    } else {
-      console.error(json);
-      alert(json.message || "Upload failed");
-    }
-  };
 
-  // Remove avatar
-  const removeAvatar = async () => {
-    const token = localStorage.getItem("token");
-    const res = await fetch("api/client/avatar", {
-      method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+      // 2️⃣ Cambiar contraseña (si aplica)
+      if (open) {
+        if (!oldPassword || !newPassword || !confirmPassword) {
+          alert("Debes completar todos los campos de contraseña ❌");
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          alert("Las contraseñas no coinciden ❌");
+          return;
+        }
 
-    const json = await res.json();
-    if (res.ok) {
-      setData((prev) =>
-        prev
-          ? {
-              ...prev,
-              client: prev.client
-                ? { ...prev.client, avatar_url: null }
-                : prev.client,
-            }
-          : prev
-      );
-    } else {
-      console.error(json);
-      alert(json.message || "Delete failed");
+        const resPass = await fetch("api/change-password", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            old_password: oldPassword,
+            new_password: newPassword,
+            new_password_confirmation: confirmPassword,
+          }),
+        });
+
+        const passJson = await resPass.json();
+        if (!resPass.ok) throw new Error(passJson.message || "Error al cambiar contraseña");
+      }
+
+      alert("Cambios guardados correctamente ✅");
+      // limpiar campos de contraseña
+      setOldPassword("");
+      setNewPassword("");
+      setConfirmPassword("");
+      setOpen(false);
+
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message || "Error al guardar cambios ❌");
     }
   };
 
@@ -126,17 +167,13 @@ function UserProfile() {
         <div className="flex justify-center gap-3 mb-8">
           <button
             disabled={!avatarFile}
-            onClick={uploadAvatar}
             className="px-4 py-2 bg-purple-main text-white rounded-md disabled:opacity-50"
           >
             Subir
           </button>
 
           {data?.client?.avatar && (
-            <button
-              onClick={removeAvatar}
-              className="px-4 py-2 bg-gray-200 rounded-md"
-            >
+            <button className="px-4 py-2 bg-gray-200 rounded-md">
               Eliminar
             </button>
           )}
@@ -151,7 +188,8 @@ function UserProfile() {
             <input
               type="text"
               id="fullname"
-              defaultValue={data?.client?.first_name || ""}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
               className="mt-1 block w-full rounded-md bg-white-main p-2"
             />
           </div>
@@ -160,7 +198,7 @@ function UserProfile() {
             <input
               type="email"
               id="email"
-              defaultValue={data?.user?.email || ""}
+              value={data?.user?.email || ""}
               className="mt-1 block w-full rounded-md bg-white-main p-2"
               disabled
             />
@@ -172,7 +210,8 @@ function UserProfile() {
             <input
               type="text"
               id="username"
-              defaultValue={data?.client?.username || ""}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               className="mt-1 block w-full rounded-md bg-white-main p-2"
             />
           </div>
@@ -191,7 +230,10 @@ function UserProfile() {
               <label htmlFor="changePassword">Cambiar contraseña</label>
             </div>
             <CollapsibleContent className="mt-8 space-y-2">
-              <form className="space-y-2 rounded-lg">
+              <form
+                className="space-y-2 rounded-lg"
+                onSubmit={(e) => e.preventDefault()}
+              >
                 <div>
                   <label htmlFor="old">
                     Contraseña actual<span className="text-red-500">*</span>
@@ -199,6 +241,8 @@ function UserProfile() {
                   <input
                     id="old"
                     type="password"
+                    value={oldPassword}
+                    onChange={(e) => setOldPassword(e.target.value)}
                     className="mt-1 block w-full rounded-md bg-white-main p-2"
                   />
                 </div>
@@ -209,6 +253,8 @@ function UserProfile() {
                   <input
                     id="new"
                     type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                     className="mt-1 block w-full rounded-md bg-white-main p-2"
                   />
                 </div>
@@ -219,6 +265,8 @@ function UserProfile() {
                   <input
                     id="confirm"
                     type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     className="mt-1 block w-full rounded-md bg-white-main p-2"
                   />
                 </div>
@@ -232,6 +280,7 @@ function UserProfile() {
           <ButtonComponent
             style="w-full p-2 bg-purple-main text-white rounded-md"
             text="Guardar"
+            onClick={handleSave}
           />
         </div>
       </div>

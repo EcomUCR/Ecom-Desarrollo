@@ -27,7 +27,7 @@ const ProfileSellerForm = () => {
       return;
     }
 
-    fetch(`http://localhost/ecomdb/Backend/public/api/vendors/${vendorId}`, {
+    fetch(`api/vendors/${vendorId}`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -92,7 +92,7 @@ const ProfileSellerForm = () => {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost/ecomdb/Backend/public/api/vendors/${vendor.id}`,
+        `api/vendors/${vendor.id}`,
         {
           method: "PUT",
           headers: {

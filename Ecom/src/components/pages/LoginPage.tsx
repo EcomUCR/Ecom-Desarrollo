@@ -13,7 +13,7 @@ function LoginPage() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost/ecomdb/Backend/public/api/login", {
+      const response = await fetch("api/login", {
         method: "POST",
         headers: {
           Accept: "application/json",
