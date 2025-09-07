@@ -20,9 +20,6 @@ import ForgotPassword from "./components/pages/ForgotPassword";
 import ResetPassword from "./components/pages/ResetPassword";
 import SellerOffersPage from "./components/pages/SellerOffersPage";
 
-
-
-
 function App() {
   return (
     <Router>
@@ -43,7 +40,11 @@ function App() {
         <Route path="/profile-user" element={<ProfileUserPage />} />
         <Route path="/profile-vendor" element={<ProfileSellerPage />} />
         <Route path="/profile-seller-products-page" element={<ProfileSellerProductsPage />} />
-        <Route path="/crud-products-page" element={<CrudProductsPage />} />
+        
+        {/* Productos */}
+        <Route path="/crud-products-page" element={<CrudProductsPage />} /> {/* Crear */}
+        <Route path="/crud-products-page/:id" element={<CrudProductsPage />} /> {/* Editar */}
+        
         <Route path="/product-view" element={<ProductView />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />

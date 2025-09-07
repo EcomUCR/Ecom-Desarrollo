@@ -3,76 +3,149 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Vendor;
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
     /**
-     * Listar productos con su vendor e imágenes.
+     * Listar todos los productos
      */
     public function index()
     {
-        $products = Product::with(['vendor', 'images'])->paginate(10);
-        return response()->json($products);
+        return Product::with(['categories', 'images', 'vendor'])->get();
     }
 
     /**
-     * Crear producto.
+     * Mostrar un solo producto
+     */
+    public function show($id)
+    {
+        return Product::with(['categories', 'images', 'vendor'])->findOrFail($id);
+    }
+
+    /**
+     * Crear un producto
      */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'sku'         => 'required|string|max:30|unique:products',
-            'name'        => 'required|string|max:50',
+            'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'discount'    => 'integer|min:0',
-            'stock'       => 'integer|min:0',
-            'price'       => 'required|numeric|min:0',
-            'status'      => 'boolean',
-            'vendor_id'   => 'required|exists:vendors,id',
+            'price'       => 'required|numeric',
+            'discount'    => 'nullable|numeric',
+            'stock'       => 'required|integer',
+            'status'      => 'required|boolean',
+            'categories'  => 'array',
+            'categories.*'=> 'exists:categories,id',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $product = Product::create($validated);
+        $vendorId = Auth::user()->vendor->id;
 
-        return response()->json($product->load(['vendor', 'images']), 201);
+        $product = Product::create([
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'price'       => $validated['price'],
+            'discount'    => $validated['discount'] ?? 0,
+            'stock'       => $validated['stock'],
+            'status'      => $validated['status'],
+            'vendor_id'   => $vendorId,
+        ]);
+
+        // Categorías
+        if (!empty($validated['categories'])) {
+            $product->categories()->sync($validated['categories']);
+        }
+
+        // Imagen
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $product->images()->create([
+                'url'   => $path,
+                'order' => 1,
+            ]);
+        }
+
+        return response()->json($product->load(['categories', 'images']), 201);
     }
 
     /**
-     * Ver un producto específico.
+     * Actualizar un producto
      */
-    public function show(Product $product)
-    {
-        return response()->json($product->load(['vendor', 'images']));
-    }
-
-    /**
-     * Actualizar producto.
-     */
-    public function update(Request $request, Product $product)
+    public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'sku'         => 'string|max:30|unique:products,sku,' . $product->id,
-            'name'        => 'string|max:50',
+            'name'        => 'required|string|max:255',
             'description' => 'nullable|string',
-            'discount'    => 'integer|min:0',
-            'stock'       => 'integer|min:0',
-            'price'       => 'numeric|min:0',
-            'status'      => 'boolean',
-            'vendor_id'   => 'exists:vendors,id',
+            'price'       => 'required|numeric',
+            'discount'    => 'nullable|numeric',
+            'stock'       => 'required|integer',
+            'status'      => 'required|boolean',
+            'categories'  => 'array',
+            'categories.*'=> 'exists:categories,id',
+            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $product->update($validated);
+        $product = Product::findOrFail($id);
 
-        return response()->json($product->load(['vendor', 'images']));
+        $product->update([
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'price'       => $validated['price'],
+            'discount'    => $validated['discount'] ?? 0,
+            'stock'       => $validated['stock'],
+            'status'      => $validated['status'],
+        ]);
+
+        if (!empty($validated['categories'])) {
+            $product->categories()->sync($validated['categories']);
+        }
+
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('products', 'public');
+            $product->images()->create([
+                'url'   => $path,
+                'order' => 1,
+            ]);
+        }
+
+        return response()->json($product->load(['categories', 'images']), 200);
     }
 
     /**
-     * Eliminar producto.
+     * Eliminar un producto
      */
-    public function destroy(Product $product)
+    public function destroy($id)
     {
+        $product = Product::findOrFail($id);
         $product->delete();
-        return response()->json(null, 204);
+
+        return response()->json(['message' => 'Producto eliminado correctamente']);
+    }
+
+    /**
+     * Buscar productos por nombre
+     */
+    public function search(Request $request)
+    {
+        $query = Product::query();
+
+        if ($search = $request->input('q')) {
+            $query->where('name', 'like', "%$search%");
+        }
+
+        return $query->with(['categories', 'images'])->get();
+    }
+
+    /**
+     * Productos por vendor
+     */
+    public function byVendor($vendorId)
+    {
+        return Product::with(['categories', 'images'])
+            ->where('vendor_id', $vendorId)
+            ->get();
     }
 }

@@ -1,40 +1,63 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 
-// ---------------------
-// Public routes
-// ---------------------
+/*
+|--------------------------------------------------------------------------
+| Public Routes
+|--------------------------------------------------------------------------
+| Rutas que no requieren autenticación
+*/
 
+// Registro y login
 Route::post('/register', [UserController::class, 'register']);
 Route::post('/login', [UserController::class, 'login']);
 
-// Password reset routes (API-friendly)
-Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])
-    ->middleware('guest');
+// Categorías
+Route::get('/categories', [CategoryController::class, 'index']);
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
-// Enviar nueva contraseña
+// Password reset
+Route::post('/forgot-password', [PasswordResetLinkController::class, 'store'])->middleware('guest');
 Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->middleware('guest')
     ->name('password.update');
 
+// Productos públicos (solo lectura)
+Route::get('/products', [ProductController::class, 'index']);              // todos los productos
+Route::get('/products/search', [ProductController::class, 'search']);      // buscar
+Route::get('/products/{id}', [ProductController::class, 'show']);          // detalle
+Route::get('/products/vendor/{vendorId}', [ProductController::class, 'byVendor']); // productos por vendor
 
 
-// ---------------------
-// Protected routes (requires token)
-// ---------------------
+/*
+|--------------------------------------------------------------------------
+| Protected Routes
+|--------------------------------------------------------------------------
+| Rutas que requieren token de autenticación con Sanctum
+*/
 Route::middleware('auth:sanctum')->group(function () {
+    // Usuario
     Route::get('/users', [UserController::class, 'listUsers']);
     Route::get('/me', [UserController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
-    Route::get('/profiles/{id}', [ProfileController::class, 'show']);
-    Route::apiResource('vendors', VendorController::class);
-    Route::apiResource('products', ProductController::class);
 
+    // Perfiles
+    Route::get('/profiles/{id}', [ProfileController::class, 'show']);
+
+    // Vendors (CRUD + productos de un vendor)
+    Route::apiResource('vendors', VendorController::class);
+    Route::get('/vendors/{id}/products', [VendorController::class, 'products']);
+
+    // Productos (CRUD completo)
+    Route::post('/products', [ProductController::class, 'store']);
+    Route::put('/products/{id}', [ProductController::class, 'update']);
+    Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 });

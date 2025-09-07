@@ -5,9 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-
-    public function up(): void
-    {
+    public function up(): void {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
@@ -15,12 +13,13 @@ return new class extends Migration {
             $table->integer('order')->default(1);
             $table->timestamps();
 
-            $table->foreign('product_id')->references('id')->on('products')->cascadeOnDelete();
+            $table->foreign('product_id')
+                  ->references('id')->on('products')
+                  ->cascadeOnDelete();
         });
     }
 
-    public function down(): void
-    {
+    public function down(): void {
         Schema::dropIfExists('product_images');
     }
 };
