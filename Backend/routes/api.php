@@ -50,7 +50,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
     Route::post('/logout', [UserController::class, 'logout']);
     Route::put('/clients/{id}', [ClientController::class, 'update']);
+    Route::get('/users/{id}', [UserController::class, 'show']);
     Route::put('/change-password', [UserController::class, 'changePassword']);
+    Route::delete('/users/{id}', [UserController::class, 'destroy']);
 
     // Perfiles
     Route::get('/profiles/{id}', [ProfileController::class, 'show']);

@@ -62,15 +62,20 @@ class UserController extends Controller
             throw ValidationException::withMessages(['email' => 'Invalid credentials']);
         }
 
+        // 🔹 Update last login timestamp
+        $user->last_login_at = now();
+        $user->save();
+
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
             'access_token' => $token,
             'token_type' => 'Bearer',
             'user' => $user,
-            'vendor_id' => $user->vendor ? $user->vendor->id : null, // 👈 se envía vendorId
+            'vendor_id' => $user->vendor ? $user->vendor->id : null,
         ]);
     }
+
     // 🔹 Change Password
     public function changePassword(Request $request)
     {
@@ -97,7 +102,7 @@ class UserController extends Controller
             'message' => 'Contraseña actualizada correctamente ✅'
         ]);
     }
-    
+
     // 🔹 Get logged-in user info
     public function me(Request $request)
     {
@@ -115,6 +120,29 @@ class UserController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logged out successfully']);
+    }
+    // 🔹 Show User by ID
+    public function show($id)
+    {
+        $user = User::with(['client', 'vendor', 'staff'])->findOrFail($id);
+        return response()->json($user);
+    }
+    // 🔹 Delete a user by ID
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Optional: you can also delete related client/vendor/staff
+        if ($user->client)
+            $user->client->delete();
+        if ($user->vendor)
+            $user->vendor->delete();
+        if ($user->staff)
+            $user->staff->delete();
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted successfully']);
     }
 
     // 🔹 List Users
