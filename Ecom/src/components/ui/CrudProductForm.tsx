@@ -50,6 +50,28 @@ const CrudProductForm = () => {
       .then((data) => setCategories(data))
       .catch((err) => console.error("Error cargando categorías:", err));
   }, [token]);
+  const handleGenerateDescription = async () => {
+    if (!form.name) return alert("Escribe primero el nombre del producto");
+
+    try {
+      const res = await fetch("/api/openai/product-description", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ product_name: form.name }),
+      });
+
+      if (!res.ok) throw new Error("Failed to generate description");
+
+      const data = await res.json();
+      setForm((prev) => ({ ...prev, description: data.description }));
+    } catch (err) {
+      console.error(err);
+      alert("No se pudo generar la descripción");
+    }
+  };
 
   // 🔹 Si hay id → cargar producto
   useEffect(() => {
@@ -86,7 +108,10 @@ const CrudProductForm = () => {
 
   // 🔹 Manejo de categorías múltiples
   const handleCategoriesChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const values = Array.from(e.target.selectedOptions, (option) => option.value);
+    const values = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
     setForm((prev) => ({ ...prev, categories: values }));
   };
 
@@ -163,7 +188,10 @@ const CrudProductForm = () => {
         <h1 className="text-4xl font-semibold border-b-2 border-purple-main">
           {id ? "Editar Producto" : "Nuevo Producto"}
         </h1>
-        <span className="text-black text-2xl"> - Administrador de Productos</span>
+        <span className="text-black text-2xl">
+          {" "}
+          - Administrador de Productos
+        </span>
       </div>
 
       <div className="flex justify-between">
@@ -208,6 +236,7 @@ const CrudProductForm = () => {
             <label className="block text-gray-700 text-sm font-bold mb-2">
               Sobre este producto*
             </label>
+
             <textarea
               rows={5}
               name="description"
@@ -216,6 +245,13 @@ const CrudProductForm = () => {
               className="w-full px-3 py-2 border rounded-md text-gray-700"
               placeholder="Descripción del producto..."
             />
+            <Button
+              onClick={handleGenerateDescription}
+              className="bg-purple-main text-white px-4 py-2 rounded-md mt-2"
+            >
+              Generar descripción con IA
+            </Button>
+            
           </div>
 
           {/* 🔹 Subir imagen */}
@@ -228,7 +264,11 @@ const CrudProductForm = () => {
               htmlFor="file-upload"
               className="bg-gray-100 rounded-md p-20 flex flex-col items-center justify-center cursor-pointer w-full"
             >
-              <img src={uploadIcon} alt="Subir imagen" className="w-8 h-8 mb-2" />
+              <img
+                src={uploadIcon}
+                alt="Subir imagen"
+                className="w-8 h-8 mb-2"
+              />
               <span className="text-gray-500 text-sm border border-blue-main rounded-md px-2 py-1">
                 Subir imagen
               </span>
@@ -311,10 +351,16 @@ const CrudProductForm = () => {
 
           {/* 🔹 Vista previa */}
           <div className="flex flex-col items-center w-64">
-            <h2 className="text-xl font-bold mb-2 self-start ml-2">Vista previa</h2>
+            <h2 className="text-xl font-bold mb-2 self-start ml-2">
+              Vista previa
+            </h2>
             <div className="bg-gray-100 p-6 rounded-md shadow-inner flex flex-col items-center text-center w-full">
               <img
-                src={form.image ? URL.createObjectURL(form.image) : mainProductImage}
+                src={
+                  form.image
+                    ? URL.createObjectURL(form.image)
+                    : mainProductImage
+                }
                 alt="Preview"
                 className="w-40 h-auto mb-4 rounded-md"
               />
