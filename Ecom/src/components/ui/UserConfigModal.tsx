@@ -44,13 +44,12 @@ const UserConfigModal: React.FC<UserConfigModalProps> = ({
   return (
     <div
       className="fixed inset-0 bg-gray-600/50 flex items-center justify-center p-4 z-50"
-      onClick={onCancel} // 🔹 close if you click outside
+      onClick={onCancel}
     >
       <div
         className="bg-white rounded-3xl shadow-lg w-full max-w-4xl max-h-[80vh] overflow-y-auto p-8 flex flex-col"
-        onClick={(e) => e.stopPropagation()} // 🔹 prevent close when clicking inside
+        onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
         <div className="flex items-center justify-between mb-6 relative">
           <Button
             onClick={onCancel}
@@ -64,7 +63,6 @@ const UserConfigModal: React.FC<UserConfigModalProps> = ({
           </h2>
         </div>
 
-        {/* Content */}
         {loading ? (
           <p>Cargando usuario...</p>
         ) : user ? (
@@ -105,7 +103,6 @@ const UserConfigModal: React.FC<UserConfigModalProps> = ({
           <p>No se pudo cargar el usuario ❌</p>
         )}
 
-        {/* Footer */}
         <ModalButton onCancel={onCancel} onSave={onSave} />
       </div>
     </div>

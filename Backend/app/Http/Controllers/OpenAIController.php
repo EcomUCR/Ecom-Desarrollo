@@ -15,7 +15,6 @@ class OpenAIController extends Controller
 
         $productName = $request->product_name;
 
-        // Instancia del cliente con tu API key
         $client = \OpenAI::client(env('OPENAI_API_KEY'));
 
 

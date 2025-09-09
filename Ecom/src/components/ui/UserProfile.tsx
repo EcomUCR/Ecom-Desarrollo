@@ -47,7 +47,6 @@ function UserProfile() {
       .catch(() => setData(null));
   }, []);
 
-  // 🔹 Handle file selection
   const onPickFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -55,14 +54,11 @@ function UserProfile() {
     setPreviewUrl(URL.createObjectURL(file));
   };
 
-  // 🔹 Save changes
-    // 🔹 Save changes (perfil + contraseña)
   const handleSave = async () => {
     if (!data?.client) return;
     const token = localStorage.getItem("token");
 
     try {
-      // 1️⃣ Actualizar perfil
       const res = await fetch(`api/clients/${data.client.id}`, {
         method: "PUT",
         headers: {
@@ -96,7 +92,6 @@ function UserProfile() {
           : prev
       );
 
-      // 2️⃣ Cambiar contraseña (si aplica)
       if (open) {
         if (!oldPassword || !newPassword || !confirmPassword) {
           alert("Debes completar todos los campos de contraseña ❌");
@@ -126,7 +121,6 @@ function UserProfile() {
       }
 
       alert("Cambios guardados correctamente ✅");
-      // limpiar campos de contraseña
       setOldPassword("");
       setNewPassword("");
       setConfirmPassword("");
@@ -143,7 +137,6 @@ function UserProfile() {
       <div>
         <h2 className="text-2xl mb-6">Información de la cuenta</h2>
 
-        {/* Profile Picture */}
         <div className="flex justify-center mb-8">
           <div className="relative">
             <img
@@ -163,7 +156,6 @@ function UserProfile() {
           </div>
         </div>
 
-        {/* Avatar actions */}
         <div className="flex justify-center gap-3 mb-8">
           <button
             disabled={!avatarFile}
@@ -179,7 +171,6 @@ function UserProfile() {
           )}
         </div>
 
-        {/* User Info Fields */}
         <div className="grid grid-cols-2 gap-6">
           <div>
             <label htmlFor="fullname">
@@ -217,7 +208,6 @@ function UserProfile() {
           </div>
         </div>
 
-        {/* Change Password */}
         <div className="grid grid-cols-2 gap-6 mt-10">
           <Collapsible open={open} onOpenChange={setOpen}>
             <div className="flex items-center space-x-2 rounded-sm">
@@ -275,7 +265,6 @@ function UserProfile() {
           </Collapsible>
         </div>
 
-        {/* Save Button */}
         <div className="grid grid-cols-2 gap-6 mt-10">
           <ButtonComponent
             style="w-full p-2 bg-purple-main text-white rounded-md"

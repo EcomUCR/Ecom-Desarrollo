@@ -15,7 +15,6 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    // 🔹 Register User as Client or Vendor
     public function register(Request $request)
     {
         $request->validate([
@@ -48,7 +47,6 @@ class UserController extends Controller
         return response()->json(['message' => 'Registered successfully']);
     }
 
-    // 🔹 Login
     public function login(Request $request)
     {
         $request->validate([
@@ -62,7 +60,6 @@ class UserController extends Controller
             throw ValidationException::withMessages(['email' => 'Invalid credentials']);
         }
 
-        // 🔹 Update last login timestamp
         $user->last_login_at = now();
         $user->save();
 
@@ -76,7 +73,6 @@ class UserController extends Controller
         ]);
     }
 
-    // 🔹 Change Password
     public function changePassword(Request $request)
     {
         $request->validate([

@@ -48,7 +48,7 @@ export default function ProductsSlider() {
     return (
         <div className="flex items-center justify-center overflow-hidden w-full">
             <div className="max-w-full">
-                <Carousel opts={{ loop: isSmall /*true*/  }}>
+                <Carousel opts={{ loop: isSmall }}>
                     <CarouselContent>
                         {products.map((p, i) => (
                             <CarouselItem className="h-95 w-10" key={i}>

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
 {
-    // 🔹 Update a Client + User
     public function update(Request $request, $id)
     {
         $client = Client::with('user')->findOrFail($id);
@@ -23,7 +22,6 @@ class ClientController extends Controller
             'address'    => 'nullable|string|max:255',
         ]);
 
-        // 🔹 Update User
         $user = $client->user;
         $user->email = $request->email;
         if ($request->filled('password')) {
@@ -31,7 +29,6 @@ class ClientController extends Controller
         }
         $user->save();
 
-        // 🔹 Update Client
         $client->update([
             'username'   => $request->username,
             'first_name' => $request->first_name,

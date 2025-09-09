@@ -41,7 +41,6 @@ const CrudProductForm = () => {
 
   const token = localStorage.getItem("token");
 
-  // 🔹 Cargar categorías
   useEffect(() => {
     fetch("/api/categories", {
       headers: { Authorization: `Bearer ${token}` },
@@ -73,7 +72,6 @@ const CrudProductForm = () => {
     }
   };
 
-  // 🔹 Si hay id → cargar producto
   useEffect(() => {
     if (id) {
       fetch(`/api/products/${id}`, {

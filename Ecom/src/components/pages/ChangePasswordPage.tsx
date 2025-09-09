@@ -36,7 +36,6 @@ const ChangePasswordPage = () => {
 
       if (res.ok) {
         setMessage("Contraseña actualizada ✅");
-        // Opcional: limpiar inputs
         navigate("/profile");
         setPassword("");
         setPasswordConfirm("");

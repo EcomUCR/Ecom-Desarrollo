@@ -19,9 +19,8 @@ interface Product {
 export default function SellerProductsList() {
   const [products, setProducts] = useState<Product[]>([]);
   const token = localStorage.getItem("token");
-  const vendorId = localStorage.getItem("vendorId"); // ⚡️ asumimos que lo guardaste en el login
+  const vendorId = localStorage.getItem("vendorId");
 
-  // 🔹 Traer productos del vendor
   useEffect(() => {
     if (!vendorId) {
       console.error("No se encontró vendorId en localStorage");

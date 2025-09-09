@@ -10,7 +10,7 @@ node_modules
 dist
 dist-ssr
 *.local
-
+estructura.txt
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

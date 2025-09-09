@@ -15,7 +15,6 @@ const ChangeUsernamePage = () => {
       return;
     }
 
-    // Opcional: cargar el username actual al abrir la página
     fetch(`/api/users/${userId}`, { credentials: "include" })
       .then(res => res.json())
       .then(data => setUsername(data.username || ""))

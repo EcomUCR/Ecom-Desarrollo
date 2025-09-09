@@ -101,7 +101,6 @@ const UserTable: React.FC<UserTableProps> = ({ search = "", filter = "" }) => {
         </tbody>
       </table>
 
-      {/* Pagination footer */}
       <div className="flex justify-between items-center mt-4 bg-gray-200 px-1 rounded">
         <div className="text-sm">
           Show{" "}

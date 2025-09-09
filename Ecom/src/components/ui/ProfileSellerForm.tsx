@@ -16,7 +16,6 @@ const ProfileSellerForm = () => {
   const [form, setForm] = useState<any>(null);
   const [saving, setSaving] = useState(false);
 
-  // 🔹 Traer datos del vendor
   useEffect(() => {
     const token = localStorage.getItem("token");
     const vendorId = localStorage.getItem("vendorId");
@@ -41,7 +40,6 @@ const ProfileSellerForm = () => {
       .then((data) => {
         setVendor(data);
 
-        // 🔹 Mapear redes sociales por tipo
         const socials: any = {};
         data.social_media?.forEach((sm: any) => {
           socials[sm.type.toLowerCase()] = sm.url;
@@ -69,7 +67,6 @@ const ProfileSellerForm = () => {
     return <div className="p-6">Cargando...</div>;
   }
 
-  // 🔹 Manejo de inputs
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -85,7 +82,6 @@ const ProfileSellerForm = () => {
     }
   };
 
-  // 🔹 Guardar cambios
   const handleSave = async () => {
     try {
       setSaving(true);
@@ -105,7 +101,6 @@ const ProfileSellerForm = () => {
             address: form.address,
             description: form.description,
             phone_number: form.phone,
-            // ⚠️ redes sociales deberían manejarse en otro endpoint
           }),
         }
       );
@@ -129,7 +124,6 @@ const ProfileSellerForm = () => {
         Información de la cuenta
       </h2>
 
-      {/* Fotos */}
       <div className="flex justify-between mb-6">
         <div className="flex flex-col items-center">
           <h3 className="text-gray-600 font-semibold mb-2">Foto de perfil</h3>
@@ -164,7 +158,6 @@ const ProfileSellerForm = () => {
         </div>
       </div>
 
-      {/* Formulario */}
       <div className="grid grid-cols-2 gap-x-12 gap-y-6">
         <div>
           <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -217,7 +210,6 @@ const ProfileSellerForm = () => {
           ></textarea>
         </div>
 
-        {/* Redes sociales */}
         <div className="col-span-2">
           <label className="block text-gray-700 text-sm font-bold mb-2">
             Social Media

@@ -6,7 +6,7 @@ import type { FullUser } from "../types/User";
 interface UserInfoPanelProps {
   user: FullUser;
   profileImageSrc?: string;
-  onDeleted?: () => void; // optional callback after deletion
+  onDeleted?: () => void; 
 }
 
 const UserInfoPanel: React.FC<UserInfoPanelProps> = ({ user, profileImageSrc = perfil, onDeleted }) => {
@@ -39,7 +39,7 @@ const UserInfoPanel: React.FC<UserInfoPanelProps> = ({ user, profileImageSrc = p
       if (!res.ok) throw new Error("Failed to delete user");
 
       alert("Usuario eliminado correctamente ✅");
-      if (onDeleted) onDeleted(); // optional callback to refresh table
+      if (onDeleted) onDeleted(); 
     } catch (err) {
       console.error(err);
       alert("Error eliminando el usuario ❌");
@@ -48,7 +48,6 @@ const UserInfoPanel: React.FC<UserInfoPanelProps> = ({ user, profileImageSrc = p
 
   return (
     <div className="w-full md:w-1/2 p-6 rounded-lg border border-blue-main flex flex-col">
-      {/* Profile image */}
       <div className="w-full flex justify-center mb-8">
         <img
           src={user.client?.avatar || profileImageSrc}
@@ -57,7 +56,6 @@ const UserInfoPanel: React.FC<UserInfoPanelProps> = ({ user, profileImageSrc = p
         />
       </div>
 
-      {/* User info */}
       <div className="space-y-4 flex-grow">
         <div className="flex flex-col">
           <label className="text-gray-500 text-sm">Fullname</label>
@@ -81,7 +79,6 @@ const UserInfoPanel: React.FC<UserInfoPanelProps> = ({ user, profileImageSrc = p
         </div>
       </div>
 
-      {/* Actions */}
       <div className="flex flex-col gap-4 mt-8">
         <Button
           variant="default"

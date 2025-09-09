@@ -1,0 +1,87 @@
+src/
+├── components/                
+│   ├── ui/                   # Low-level, reusable UI primitives
+│   │   ├── Button.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Input.tsx
+│   │   ├── Table.tsx
+│   │   └── Modal.tsx
+│   │
+│   ├── layout/               # Shared layout elements
+│   │   ├── Navbar/
+│   │   │   ├── Navbar.tsx
+│   │   │   ├── NavbarUser.tsx
+│   │   │   └── NavbarSeller.tsx
+│   │   ├── Sidebar.tsx
+│   │   └── Footer.tsx
+│   │
+│   ├── feedback/             # Alerts, banners, loaders
+│   │   ├── HeroBanner.tsx
+│   │   ├── SellerBanner.tsx
+│   │   └── StatusSwitch.tsx
+│   │
+│   ├── forms/                # Forms and form controls
+│   │   ├── CrudProductForm.tsx
+│   │   ├── SellerForm.tsx
+│   │   ├── ProfileSellerForm.tsx
+│   │   └── UserConfigModal.tsx
+│   │
+│   ├── data-display/          # Cards, lists, tables
+│   │   ├── ProductCard.tsx
+│   │   ├── ProductList.tsx
+│   │   ├── UserTable.tsx
+│   │   ├── SellerContacts.tsx
+│   │   └── CategoryCard.tsx
+│   │
+│   └── navigation/            # Buttons/links for navigation
+│       ├── ModalButton.tsx
+│       ├── NavBarAnim.tsx
+│       ├── Carousel.tsx
+│       └── SideBar.tsx
+│
+├── modules/                   # Feature-based organization
+│   ├── auth/                 
+│   │   ├── pages/
+│   │   │   ├── LoginPage.tsx
+│   │   │   ├── RegisterPage.tsx
+│   │   │   └── ResetPasswordPage.tsx
+│   │   └── services/
+│   │       └── authApi.ts
+│   │
+│   ├── profile/
+│   │   ├── pages/
+│   │   │   ├── ProfileUserPage.tsx
+│   │   │   ├── ProfileSellerPage.tsx
+│   │   │   └── ProfileSellerProductsPage.tsx
+│   │   └── services/
+│   │       └── profileApi.ts
+│   │
+│   ├── seller/
+│   │   ├── pages/
+│   │   │   ├── SellerPage.tsx
+│   │   │   ├── SellerOffersPage.tsx
+│   │   │   ├── SellerPageContacts.tsx
+│   │   │   └── RegisterSellerPage.tsx
+│   │   └── services/
+│   │       └── sellerApi.ts
+│   │
+│   └── users/
+│       ├── pages/
+│       │   └── UserListPage.tsx
+│       └── services/
+│           └── userApi.ts
+│
+├── hooks/                     # Shared hooks
+│   ├── useAuth.ts
+│   ├── useFetch.ts
+│   ├── useLocalStorage.ts
+│   ├── useModal.ts
+│   └── useDebounce.ts
+│
+├── types/
+│   └── User.ts
+│
+├── utils/
+│   └── validators.ts
+│
+└── main.tsx

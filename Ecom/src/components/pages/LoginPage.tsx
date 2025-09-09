@@ -38,7 +38,7 @@ function LoginPage() {
           localStorage.setItem("vendorId", data.vendor_id.toString());
         }
 
-        navigate("/"); // 👈 lleva al formulario
+        navigate("/");
       } else {
         setMessage("Error: " + (data.message || "Credenciales incorrectas"));
       }

@@ -14,7 +14,6 @@ const UserListPage: React.FC = () => {
       <div className="p-6 bg-white min-h-screen">
         <h1 className="text-4xl font-bold mb-4">Lista de usuarios</h1>
 
-        {/* Search and Filter */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="flex items-center border border-gray-300 rounded-lg overflow-hidden px-45 text-left">
@@ -58,7 +57,6 @@ const UserListPage: React.FC = () => {
           </Button>
         </div>
 
-        {/* Pass search & filter to UserTable */}
         <UserTable search={search} filter={filter} />
       </div>
     </>
