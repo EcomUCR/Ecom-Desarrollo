@@ -24,10 +24,7 @@ export default function SellerProducts() {
         <section className="my-10 px-4 lg:px-20">
 
 
-            <div className="flex items-center my-6">
-                <h2 className="text-xl lg:text-4xl font-quicksand mr-4">Productos -    Unstable Games</h2>
-                <div className="flex-1 lg:h-1 h-0.5 bg-yellow-main rounded"></div>
-            </div>
+           
 
 
             <div className="grid lg:grid-cols-4 grid-cols-2 gap-6 mb-6">

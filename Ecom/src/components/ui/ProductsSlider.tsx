@@ -44,10 +44,15 @@ function useMediaQuery(query: string) {
 
 export default function ProductsSlider() {
 
+
     const isSmall = useMediaQuery("(max-width: 640px)")
     return (
         <div className="flex items-center justify-center overflow-hidden w-full">
             <div className="max-w-full">
+                <div className=" flex items-center justify-start mb-6">
+                    <h2 className="text-xl lg:text-4xl font-quicksand mr-4">Productos destacados</h2>
+                    <div className="flex-1 lg:h-1 h-0.5 bg-yellow-main rounded"></div>
+                </div>
                 <Carousel opts={{ loop: isSmall }}>
                     <CarouselContent>
                         {products.map((p, i) => (

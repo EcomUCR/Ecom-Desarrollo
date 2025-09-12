@@ -1,6 +1,6 @@
+import ButtonComponent from '../ui/ButtonComponent';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LandingHeader from '../ui/NavBarAdmin';
 
 const ChangePasswordPage = () => {
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ const ChangePasswordPage = () => {
   const [message, setMessage] = useState("");
 
   if (!userId) {
-    // Si no hay usuario logueado, redirige a login
+
     navigate("/login");
     return null;
   }
@@ -50,7 +50,7 @@ const ChangePasswordPage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-[#2AC0E5] animate-fade-in">
-      <LandingHeader />
+
       <div className="flex flex-1 items-center justify-center p-8">
         <div className="bg-[#4A90E2] w-full max-w-lg p-10 rounded-[2rem] text-center shadow-lg">
           <h2 className="text-2xl font-bold text-white mb-2">Actualizar Contraseña</h2>
@@ -79,19 +79,18 @@ const ChangePasswordPage = () => {
           {message && <p className="mb-6 text-white">{message}</p>}
 
           <div className="flex justify-center space-x-4">
-            <button
+            <ButtonComponent
               onClick={() => navigate("/profile")}
-              className="bg-white text-gray-800 font-bold py-3 px-8 rounded-full shadow-md hover:bg-gray-200 transition"
-            >
-              Cancelar
-            </button>
+              style="bg-white text-gray-800 font-bold py-3 px-8 rounded-full shadow-md hover:bg-gray-200 transition"
+              text="Cancelar"
+            />
 
-            <button
+            <ButtonComponent
               onClick={handleUpdatePassword}
-              className="bg-[#5C2E92] text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-purple-800 transition"
-            >
-              Actualizar
-            </button>
+              style="bg-[#5C2E92] text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-purple-800 transition"
+              text="Actualizar"
+            />
+
           </div>
         </div>
       </div>

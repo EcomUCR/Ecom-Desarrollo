@@ -15,17 +15,32 @@ const exploreProducts = [
 
 export default function Explore() {
   return (
-    <section className="my-10 px-4 lg:px-20">
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1  gap-10 mb-6 justify-items-center">
-            {exploreProducts.slice(0, 9).map((p, i) => (
-              <ProductCard key={i} name={p.name} imageSrc={p.img} brand={p.brand} price={p.price} discountPrice={p.discountPrice} />
-            ))}
-          </div>
-          <div className="flex justify-center ">
-            <ButtonComponent 
-                    style="bg-yellow-main font-quicksand px-25 py-3 rounded-lg font-bold text-lg text-white shadow-[1px_2px_5px_rgba(0,0,0,0.2)] hover:bg-blue-main transition cursor-pointer duration-500"
-                    text="Ver más"/>
-          </div>
-    </section>
+    <>
+      <div className="flex items-center justify-start mb-6 px-10">
+        <h2 className="text-xl lg:text-4xl font-quicksand mr-4">Explorar</h2>
+        <div className="flex-1 lg:h-1 h-0.5 bg-yellow-main rounded"></div>
+      </div>
+
+      <section className="my-10 px-4 lg:px-20">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-10 mb-6 justify-items-center">
+          {exploreProducts.slice(0, 9).map((p, i) => (
+            <ProductCard
+              key={i}
+              name={p.name}
+              imageSrc={p.img}
+              brand={p.brand}
+              price={p.price}
+              discountPrice={p.discountPrice}
+            />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <ButtonComponent
+            style="bg-yellow-main font-quicksand px-25 py-3 rounded-lg font-bold text-lg text-white shadow-[1px_2px_5px_rgba(0,0,0,0.2)] hover:bg-blue-main transition cursor-pointer duration-500"
+            text="Ver más"
+          />
+        </div>
+      </section>
+    </>
   );
 }

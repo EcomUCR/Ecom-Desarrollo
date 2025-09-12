@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import LandingHeader from "../ui/NavBarAdmin";
 import logo from "../../img/logoT.png";
+import ButtonComponent from "../ui/ButtonComponent";
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -28,15 +28,9 @@ function LoginPage() {
       if (response.ok) {
         setMessage("Login exitoso ✅");
 
-        if (data.access_token) {
-          localStorage.setItem("token", data.access_token);
-        }
-        if (data.user?.id) {
-          localStorage.setItem("userId", data.user.id.toString());
-        }
-        if (data.vendor_id) {
-          localStorage.setItem("vendorId", data.vendor_id.toString());
-        }
+        if (data.access_token) localStorage.setItem("token", data.access_token);
+        if (data.user?.id) localStorage.setItem("userId", data.user.id.toString());
+        if (data.vendor_id) localStorage.setItem("vendorId", data.vendor_id.toString());
 
         navigate("/");
       } else {
@@ -49,23 +43,24 @@ function LoginPage() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <LandingHeader />
       <div className="flex flex-1">
-        {/* lado izquierdo */}
+
         <div className="hidden lg:flex w-1/3 bg-[#FFDD44] items-center justify-center p-8 relative rounded-r-[5rem]">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">
-            <button className="text-xl font-bold text-gray-800 bg-white rounded-full py-2 px-8 shadow-lg">
-              Iniciar Sesión
-            </button>
-            <Link to="/register">
-              <button className="mt-8 text-xl font-bold text-gray-800">
-                Registrarse
-              </button>
+            <ButtonComponent
+              text="Iniciar Sesión"
+              style="text-xl font-bold text-gray-800 bg-white rounded-full py-2 px-8 shadow-lg"
+            />
+            <Link to="/register" className="mt-8 w-full">
+              <ButtonComponent
+                text="Registrarse"
+                style="text-xl font-bold text-gray-800 bg-transparent hover:underline"
+              />
             </Link>
           </div>
         </div>
 
-        {/* lado derecho */}
+       
         <div className="w-full lg:w-2/3 bg-white flex flex-col items-center justify-center p-8">
           <div className="flex flex-col items-center mb-12">
             <img src={logo} alt="Logo" className="w-40 h-40 object-contain mb-4" />
@@ -101,12 +96,10 @@ function LoginPage() {
               />
             </div>
 
-            <button
-              className="w-full bg-[#FFDD44] text-gray-800 font-bold py-3 px-4 rounded-full shadow-md mt-12"
-              type="submit"
-            >
-              Iniciar Sesión
-            </button>
+            <ButtonComponent
+              text="Iniciar Sesión"
+              style="w-full bg-[#FFDD44] text-gray-800 font-bold py-3 px-4 rounded-full shadow-md mt-12"
+            />
 
             {message && <div className="flex justify-center mt-4 text-red-600">{message}</div>}
 

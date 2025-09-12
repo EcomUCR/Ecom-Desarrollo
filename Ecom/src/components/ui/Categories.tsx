@@ -30,18 +30,25 @@ const categories: Category[] = [
 
 export default function Categories() {
   return (
+    <>
+      <div className="flex items-center justify-start px-10 mb-6">
+        <h2 className="text-xl lg:text-4xl font-quicksand mr-4">Categorías</h2>
+        <div className="flex-1 lg:h-1 h-0.5 bg-yellow-main rounded"></div>
+      </div>
 
-    <section className="my-10 px-4 lg:px-20">
-              <div className="grid lg:grid-cols-6 grid-cols-2 gap-10 mb-6 justify-items-center">
-                {categories.map((c, i) => (
-                  <CategoryCard key={i} name={c.name} icon={c.icon} bg={c.bg} />
-                ))}
-              </div>
-              <div className="flex justify-center">
-                <ButtonComponent 
-                        style="bg-yellow-main font-quicksand px-25 py-3 rounded-lg font-bold text-lg text-white shadow-[1px_2px_5px_rgba(0,0,0,0.2)] hover:bg-blue-main transition cursor-pointer duration-500"
-                        text="Ver más"/>
-              </div>
-        </section>
+      <section className="my-10 px-4 lg:px-20">
+        <div className="grid lg:grid-cols-6 grid-cols-2 gap-10 mb-6 justify-items-center">
+          {categories.map((c, i) => (
+            <CategoryCard key={i} name={c.name} icon={c.icon} bg={c.bg} />
+          ))}
+        </div>
+        <div className="flex justify-center">
+          <ButtonComponent 
+            style="bg-yellow-main font-quicksand px-25 py-3 rounded-lg font-bold text-lg text-white shadow-[1px_2px_5px_rgba(0,0,0,0.2)] hover:bg-blue-main transition cursor-pointer duration-500"
+            text="Ver más"
+          />
+        </div>
+      </section>
+    </>
   );
 }

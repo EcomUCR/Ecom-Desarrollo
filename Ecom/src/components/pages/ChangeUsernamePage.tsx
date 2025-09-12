@@ -1,6 +1,7 @@
+import ButtonComponent from '../ui/ButtonComponent';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import LandingHeader from '../ui/NavBarAdmin';
+
 
 const ChangeUsernamePage = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const ChangeUsernamePage = () => {
 
   return (
     <div className="flex flex-col min-h-screen bg-blue-main animate-fade-in">
-      <LandingHeader />
+
       <div className="flex flex-1 items-center justify-center p-8">
         <div className="bg-blue-main w-full max-w-lg p-10 rounded-[2rem] text-center shadow-lg">
           <h2 className="text-2xl font-bold text-white mb-2">Actualizar nombre de usuario</h2>
@@ -72,19 +73,18 @@ const ChangeUsernamePage = () => {
           {message && <p className="mb-6 text-white">{message}</p>}
 
           <div className="flex justify-center space-x-4">
-            <button
+            <ButtonComponent
               onClick={() => navigate("/profile")}
-              className="bg-white text-gray-800 font-bold py-3 px-8 rounded-full shadow-md hover:bg-gray-200 transition"
-            >
-              Cancelar
-            </button>
+              style="bg-white text-gray-800 font-bold py-3 px-8 rounded-full shadow-md hover:bg-gray-200 transition"
+              text="Cancelar"
+            />
 
-            <button
+            <ButtonComponent
               onClick={handleUpdateUsername}
-              className="bg-purple-main text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-purple-800 transition"
-            >
-              Actualizar
-            </button>
+              style="bg-purple-main text-white font-bold py-3 px-8 rounded-full shadow-md hover:bg-purple-800 transition"
+              text="Actualizar"
+            />
+
           </div>
         </div>
       </div>

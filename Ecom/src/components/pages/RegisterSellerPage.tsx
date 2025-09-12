@@ -1,5 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import LandingHeader from "../ui/NavBarAdmin";
 import logo from "../../img/logoT.png";
 import { useState } from "react";
 
@@ -81,7 +80,7 @@ export default function RegisterSellerPage({
 
   return (
     <div className="flex flex-col min-h-screen animate-fade-in">
-      <LandingHeader />
+     
       <div className="flex flex-1">
         <div className="hidden lg:flex w-1/3 bg-purple-main items-center justify-center p-8 relative rounded-r-[5rem]">
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center">

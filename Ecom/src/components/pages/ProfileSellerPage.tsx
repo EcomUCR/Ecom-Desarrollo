@@ -3,10 +3,6 @@ import Footer from "../ui/Footer"
 import ProfileSellerNav from "../ui/ProfileSellerNav"
 import ProfileSellerForm from "../ui/ProfileSellerForm";
 
-
-
-
-
 export default function ProfileSellerPage() {
   return (
     <div className="bg-white">

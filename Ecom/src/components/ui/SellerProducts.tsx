@@ -31,9 +31,9 @@ export default function SellerProducts() {
         ))}
       </div>
       <div className="flex justify-center">
-        <button className="bg-yellow-main text-white px-28 py-2 rounded-lg font-bold hover:opacity-90 transition">
+        <Button className="bg-yellow-main text-white px-28 py-2 rounded-lg font-bold hover:opacity-90 transition">
           Ver más
-        </button>
+        </Button>
       </div>
     </section>
   );

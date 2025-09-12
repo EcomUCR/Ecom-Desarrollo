@@ -55,7 +55,7 @@ export default function AdminUserPage() {
         if (!selectedProfile || !newPassword) return;
         setUpdating(true);
         setUpdateMsg("");
-        // Actualiza la contraseña del usuario
+    
         const res = await fetch(`/api/users/${selectedProfile.user_id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
