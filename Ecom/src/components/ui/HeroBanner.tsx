@@ -21,7 +21,7 @@ export default function HeroBanner() {
   }
 
   return (
-    <section className="relative w-screen h-[20rem] overflow-hidden">
+    <section className="relative max-w-full h-[20rem] overflow-hidden">
       <div
         className="flex transition-transform duration-500 ease-in-out h-full"
         style={{ transform: `translateX(-${current * 100}%)` }}

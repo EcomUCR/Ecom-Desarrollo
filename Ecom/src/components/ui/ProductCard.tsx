@@ -1,4 +1,5 @@
-import { IconShoppingCart } from "@tabler/icons-react";
+import { IconHeart, IconShoppingCart } from "@tabler/icons-react";
+import ButtonComponent from "./ButtonComponent";
 
 interface ProductCardProps {
   imageSrc: string;
@@ -29,20 +30,21 @@ export default function ProductCard(props: ProductCardProps) {
           <p className="text-sm text-gray-main/50">{props.brand}</p>
         </div>
         <div className="font-comme">
-          <p className={props.discountPrice? "text-xs text-gray-main/50 line-through": "text-lg text-purple-main"}>
-          {props.price}
+          <p className={props.discountPrice ? "text-xs text-gray-main/50 line-through" : "text-lg text-purple-main"}>
+            {props.price}
           </p>
           {props.discountPrice && (<p className="text-lg text-purple-main">{props.discountPrice}</p>)}
         </div>
       </div>
       {/*Esto es el hover morado */}
       <div className="absolute bottom-0 left-0 w-full h-[32%] bg-purple-main rounded-xl flex flex-col justify-evenly items-center p-2 transform translate-y-full opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 hover:bg-blue-main">
+        <ButtonComponent icon={IconHeart} iconStyle="w-6 h-6 text-purple-main" style="p-2 hover:bg-purple-main rounded-full text-white bg-white-main absolute -top-4 right-2" />
         <IconShoppingCart className="text-white" />
-        <p className="font-quicksand text-white font-bold">Añadir al carrito</p>
-        <p className={props.discountPrice? "font-comme text-xs text-white-main/50 line-through": "text-lg text-yellow-main"}>
-            {props.price}
-            </p>
+        <p className={props.discountPrice ? "font-comme text-xs text-white-main/50 line-through" : "text-lg text-yellow-main"}>
+          {props.price}
+        </p>
         {props.discountPrice && (<p className="text-lg font-comme text-yellow-main">{props.discountPrice}</p>)}
+          <p className="font-quicksand text-white font-bold">Añadir al carrito</p>
       </div>
     </div>
   );

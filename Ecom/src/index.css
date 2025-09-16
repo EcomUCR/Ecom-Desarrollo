@@ -7,12 +7,20 @@
   --font-comme: 'Comme', sans-serif;
   --font-quicksand: 'Quicksand', sans-serif;
   --font-fugaz: 'Fugaz One', cursive;
+  --font-poiret: 'Poiret One', sans-serif;
 
   --color-blue-main: #00B4D8;
   --color-purple-main: #5B2A86;
   --color-yellow-main: #FFD43B;
   --color-white-main: #F8F9FA;
   --color-gray-main: #2B2B2B;
+  
+  --color-main: #5B2A86;
+  --color-contrast-main: #FFD027;
+  --color-contrast-secondary: #FF6F3B;
+  --color-main-dark: #2B2B2B;
+  --color-light-gray: #F8F9F9;
+
 
 }
 

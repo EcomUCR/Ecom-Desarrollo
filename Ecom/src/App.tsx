@@ -6,7 +6,7 @@ import ChangeUsernamePage from "./components/pages/ChangeUsernamePage";
 import ChangePasswordPage from "./components/pages/ChangePasswordPage";
 import AdminUserPage from "./components/pages/AdminUserPage";
 import UserListPage from "./components/pages/UserListPage";
-import UserConfigModal from "./components/ui/UserConfigModal";
+//import UserConfigModal from "./components/ui/UserConfigModal";
 import SellerConfigModal from "./components/ui/SellerConfidModal";
 import SellerPage from "./components/pages/SellerPage";
 import SellerPageContact from "./components/pages/SellerPageContacts";
@@ -20,6 +20,14 @@ import ForgotPassword from "./components/pages/ForgotPassword";
 import ResetPassword from "./components/pages/ResetPassword";
 import SellerOffersPage from "./components/pages/SellerOffersPage";
 
+
+import HomePageRaul from "./componentsRaul/pages/HomePageRaul";
+import LoginRegisterPageRaul from "./componentsRaul/pages/LoginRegisterPageRaul";
+import RegisterSellerPageRaul from "./componentsRaul/pages/RegisterSellerPageRaul";
+import BeSellerPageRaul from "./componentsRaul/pages/BeSellerPageRaul";
+import SellerPageRaul from "./componentsRaul/pages/SellerPageRaul";
+import ProfilePage from "./componentsRaul/pages/ProfilePage";
+
 function App() {
   return (
     <Router>
@@ -31,7 +39,7 @@ function App() {
         <Route path="/change-password" element={<ChangePasswordPage />} />
         <Route path="/admin-users" element={<AdminUserPage />} />
         <Route path="/user-list" element={<UserListPage />} />
-        <Route path="/user-config-modal" element={<UserConfigModal />} />
+        {/*<Route path="/user-config-modal" element={<UserConfigModal />} />*/}
         <Route path="/seller-config-modal" element={<SellerConfigModal />} />
         <Route path="/seller-page" element={<SellerPage />} />
         <Route path="/seller-offers-page" element={<SellerOffersPage />} />
@@ -48,6 +56,13 @@ function App() {
         <Route path="/product-view" element={<ProductView />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password" element={<ResetPassword />} />
+
+        <Route path='/homeRaul' element={<HomePageRaul/>}/>
+        <Route path='/loginRegisterRaul' element={<LoginRegisterPageRaul/>}/>
+        <Route path='/registerSellerRaul' element={<RegisterSellerPageRaul/>}/>
+        <Route path='/beSellerPageRaul' element={<BeSellerPageRaul/>}/>
+        <Route path='/sellerPageRaul' element={<SellerPageRaul/>}/>
+        <Route path='/profile' element={<ProfilePage/>}/>
       </Routes>
     </Router>
   );
