@@ -27,6 +27,7 @@ import RegisterSellerPageRaul from "./componentsRaul/pages/RegisterSellerPageRau
 import BeSellerPageRaul from "./componentsRaul/pages/BeSellerPageRaul";
 import SellerPageRaul from "./componentsRaul/pages/SellerPageRaul";
 import ProfilePage from "./componentsRaul/pages/ProfilePage";
+import ShoppingCartPage from "./componentsRaul/pages/ShoppingCartPage";
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
         <Route path='/beSellerPageRaul' element={<BeSellerPageRaul/>}/>
         <Route path='/sellerPageRaul' element={<SellerPageRaul/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
+        <Route path='/shoppingcart' element={<ShoppingCartPage/>}/>
       </Routes>
     </Router>
   );
