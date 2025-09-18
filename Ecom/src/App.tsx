@@ -31,6 +31,7 @@ import ShoppingCartPage from "./componentsRaul/pages/ShoppingCartPage";
 import ProductPage from "./componentsRaul/pages/ProductPage";
 import ResetPasswordPage from "./componentsRaul/pages/ResetPasswordPage";
 import ForgotPasswordPage from "./componentsRaul/pages/ForgotPasswordPage";
+import CrudProductPage from "./componentsRaul/pages/CrudProductPage";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
         <Route path='/productPage' element={<ProductPage/>}/>
         <Route path='/resetPassword' element={<ResetPasswordPage/>}/>
         <Route path='/forgotPassword' element={<ForgotPasswordPage/>}/>
+        <Route path='/crudProduct' element={<CrudProductPage/>}/>
       </Routes>
     </Router>
   );
