@@ -28,6 +28,7 @@ import BeSellerPageRaul from "./componentsRaul/pages/BeSellerPageRaul";
 import SellerPageRaul from "./componentsRaul/pages/SellerPageRaul";
 import ProfilePage from "./componentsRaul/pages/ProfilePage";
 import ShoppingCartPage from "./componentsRaul/pages/ShoppingCartPage";
+import ProductPage from "./componentsRaul/pages/ProductPage";
 
 function App() {
   return (
@@ -64,7 +65,8 @@ function App() {
         <Route path='/beSellerPageRaul' element={<BeSellerPageRaul/>}/>
         <Route path='/sellerPageRaul' element={<SellerPageRaul/>}/>
         <Route path='/profile' element={<ProfilePage/>}/>
-        <Route path='/shoppingcart' element={<ShoppingCartPage/>}/>
+        <Route path='/shoppingCart' element={<ShoppingCartPage/>}/>
+        <Route path='/productPage' element={<ProductPage/>}/>
       </Routes>
     </Router>
   );
