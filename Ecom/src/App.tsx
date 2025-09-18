@@ -32,6 +32,7 @@ import ProductPage from "./componentsRaul/pages/ProductPage";
 import ResetPasswordPage from "./componentsRaul/pages/ResetPasswordPage";
 import ForgotPasswordPage from "./componentsRaul/pages/ForgotPasswordPage";
 import CrudProductPage from "./componentsRaul/pages/CrudProductPage";
+import AdminPage from "./componentsRaul/pages/AdminPage";
 
 function App() {
   return (
@@ -73,6 +74,7 @@ function App() {
         <Route path='/resetPassword' element={<ResetPasswordPage/>}/>
         <Route path='/forgotPassword' element={<ForgotPasswordPage/>}/>
         <Route path='/crudProduct' element={<CrudProductPage/>}/>
+        <Route path='/admin' element={<AdminPage/>}/>
       </Routes>
     </Router>
   );

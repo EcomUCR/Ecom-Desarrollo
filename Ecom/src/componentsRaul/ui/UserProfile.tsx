@@ -3,7 +3,7 @@ import ButtonComponent from "./ButtonComponent";
 
 import foto from "../../img/perfil.png";
 import banner from "../../img/banner.png";
-import { IconPhone, IconSquareRoundedPlus } from "@tabler/icons-react";
+import { IconEdit, IconPhone, IconSquareRoundedPlus } from "@tabler/icons-react";
 
 interface UserProfileProps {
     type: "user" | "seller";
@@ -86,39 +86,63 @@ export default function UserProfile({ type }: UserProfileProps) {
             )}
 
             {type === "seller" && (
-                <div className="flex w-full flex-col justify-center gap-4 mt-10">
-                    <div className="flex justify-center items-center gap-10">
-                        <img src={foto} alt="" className="w-auto h-40 rounded-full" />
-                        <img src={banner} alt="" className="w-auto h-20 rounded-full" />
+                <div className="flex w-full flex-col justify-center gap-4 mt-10 font-quicksand">
+                    <div className="flex justify-center gap-10">
+                        <figure className="flex flex-col justify-between">
+                            <div className="flex items-center gap-2">
+                                <p>Logo de tienda</p>
+                                <ButtonComponent icon={<IconEdit />} iconStyle=""/>
+                            </div>
+                            <img src={foto} alt="" className="w-auto h-40 rounded-full" />
+                        </figure>
+                        <figure className="flex flex-col gap-10">
+                            <div className="flex items-center gap-2">
+                                <p>Banner de la tienda</p>
+                                <ButtonComponent icon={<IconEdit />} iconStyle=""/>
+                            </div>
+                            <img src={banner} alt="" className="w-auto h-20 rounded-full" />
+                        </figure>
                     </div>
 
                     <div className="w-[70%] mx-auto">
                         <form className="flex flex-col gap-5 pt-10">
                             <section className="flex flex-col gap-5">
                                 <div className="flex gap-2">
-                                    <input
-                                        type="text"
-                                        placeholder="Nombre de la tienda"
-                                        className="bg-main-dark/20 rounded-xl px-3 py-2 w-full"
-                                    />
-                                    <input
-                                        type="text"
-                                        placeholder="Correo"
-                                        className="bg-main-dark/20 rounded-xl px-3 py-2 w-full"
-                                        disabled
-                                    />
+                                    <label htmlFor="" className="flex flex-col w-full">
+                                        Nombre de la tienda
+                                        <input
+                                            type="text"
+                                            placeholder="Nombre de la tienda"
+                                            className="bg-main-dark/20 rounded-xl px-3 py-2 w-full"
+                                        />
+                                    </label>
+                                    <label htmlFor="" className="flex flex-col w-full">
+                                        Correo electrónico
+                                        <input
+                                            type="text"
+                                            placeholder="Correo"
+                                            className="bg-main-dark/20 rounded-xl px-3 py-2 w-full"
+                                            disabled
+                                        />
+                                    </label>
                                 </div>
                                 <div className="flex gap-2">
-                                    <textarea
-                                        placeholder="Descripción de la tienda"
-                                        rows={4}
-                                        className="bg-main-dark/20 rounded-xl px-3 py-2 w-[50%]"
-                                    />
-                                    <textarea
-                                        placeholder="Dirección de la tienda"
-                                        rows={4}
-                                        className="bg-main-dark/20 rounded-xl px-3 py-2 w-[50%]"
-                                    />
+                                    <label htmlFor="" className="flex flex-col w-full">
+                                        Descripción de la tienda
+                                        <textarea
+                                            placeholder="Descripción de la tienda"
+                                            rows={4}
+                                            className="bg-main-dark/20 rounded-xl px-3 py-2"
+                                        />
+                                    </label>
+                                    <label htmlFor="" className="flex flex-col w-full">
+                                        Dirección de la tienda
+                                        <textarea
+                                            placeholder="Dirección de la tienda"
+                                            rows={4}
+                                            className="bg-main-dark/20 rounded-xl px-3 py-2"
+                                        />
+                                    </label>
                                 </div>
                             </section>
                             <section>
@@ -128,13 +152,17 @@ export default function UserProfile({ type }: UserProfileProps) {
                                 </div>
                             </section>
                             <section>
-                                <div className="w-1/2 bg-main-dark/20 rounded-xl px-3 flex items-center gap-2">
-                                    <IconPhone className="text-contrast-secondary" />
-                                    <input
-                                        type="text"
-                                        placeholder="+506 8888-8888"
-                                        className="w-full h-full py-2 focus:outline-none"
-                                    />
+                                <div className="w-1/2">
+                                    Número telefónico
+                                    <label htmlFor="" className="bg-main-dark/20 rounded-xl px-3 flex items-center gap-2">
+                                        <IconPhone className="text-contrast-secondary" />
+                                        <input
+                                            type="text"
+                                            placeholder="+506 8888-8888"
+                                            className="w-full h-full py-2 focus:outline-none"
+                                        />
+                                    </label>
+
                                 </div>
                             </section>
                             <label className="flex items-center gap-2 pt-5">
