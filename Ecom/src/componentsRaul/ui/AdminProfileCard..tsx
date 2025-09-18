@@ -7,7 +7,7 @@ interface ProfileCardProps{
     state:boolean;
 }
 {/*Hay que implementar las props con props:ProfileCardProps para que se lleven por default*/}
-export default function ProfileCard(){
+export default function AdminProfileCard(){
     return(
         <div className="flex w-full py-2 px-10 bg-main-dark/10 rounded-full hover:bg-main-dark/20 ">
             <p className="w-1/12">1.1</p>

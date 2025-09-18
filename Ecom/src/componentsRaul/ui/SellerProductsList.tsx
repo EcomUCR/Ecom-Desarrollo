@@ -7,16 +7,16 @@ import FeaturedProductCard from "./FeaturedProductCard";
 
 export default function SellerProductsList() {
     return (
-        <div className="mx-10">
-            <section className="flex justify-between font-quicksand items-center ">
-                <h1 className="text-2xl">Lista de productos</h1>
+        <div className="mx-10  border-l-2 border-main-dark/20 pl-4">
+            <section className="flex justify-between font-quicksand items-center px-10">
+                <h1 className="text-2xl font-semibold">Lista de productos</h1>
                 <div className="bg-main-dark/10 flex items-center gap-2 px-1 py-1 rounded-full">
                     <input type="text" name="" id="" />
                     <ButtonComponent icon={<IconSearch />} iconStyle="text-white" style="bg-gradient-to-br to-contrast-main from-contrast-secondary rounded-full w-12 h-8 flex items-center justify-center"/>
                 </div>
                 <ButtonComponent text="Registrar nuevo producto" style="bg-contrast-secondary rounded-full px-4 py-2 text-white font-semibold hover:bg-gradient-to-br from-contrast-main via-contrast-secondary to-main transition-all duration-400"/>
             </section>
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center py-10 border-b-2 border-main">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  justify-items-center py-10 border-b-2 border-main">
                 {/* Aquí debe de ir un arreglo de productos que se van a mostrar */}
                 <ProductCard shop="Razer" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit/>
                 <ProductCard shop="Razer" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit/>

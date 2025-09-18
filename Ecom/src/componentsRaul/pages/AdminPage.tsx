@@ -1,7 +1,7 @@
 import { IconSearch } from "@tabler/icons-react";
 import ButtonComponent from "../ui/ButtonComponent";
 import NavBar from "../ui/NavBar";
-import ProfileCard from "../ui/ProfileCard.";
+import AdminProfileCard from "../ui/AdminProfileCard.";
 
 export default function AdminPage() {
     return (
@@ -33,9 +33,9 @@ export default function AdminPage() {
                         <p className="w-1/12"></p>
                     </div>
                     {/*Aquí debe de haber un array de perfiles */}
-                    <ProfileCard />
-                    <ProfileCard />
-                    <ProfileCard />
+                    <AdminProfileCard />
+                    <AdminProfileCard />
+                    <AdminProfileCard />
 
                     {/*Aquí abajo debería estar la sección para cambiar de pagina de perfiles pero no se ha
                     implementado aún */}

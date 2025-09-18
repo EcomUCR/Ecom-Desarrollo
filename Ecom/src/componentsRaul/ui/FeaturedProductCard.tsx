@@ -14,8 +14,8 @@ export default function FeaturedProductCard(props: FeaturedProductCardProps) {
     return (
         <figure className="relative w-full max-w-lg p-4 bg-light-gray rounded-2xl shadow-md overflow-hidden flex font-quicksand">
             {props.edit && <div className="absolute top-3 right-3 w-9 h-9 bg-contrast-main/70 rounded-full flex items-center cursor-pointer justify-center hover:bg-contrast-secondary hover:text-white transition-all duration-400"><IconEdit /></div> }
-            <div className="w-1/2">
-                <img className="w-full h-full object-cover rounded-2xl" src={props.img} alt={props.title} />
+            <div className="w-1/2 flex items-center">
+                <img className="w-full h-full object-cover rounded-2xl hover:scale-105 transition-all duration-300" src={props.img} alt={props.title} />
             </div>
             <div className="flex flex-col justify-between w-1/2 pl-6 py-1">
                 <p className="font-light font-poiret">{props.shop}</p>
