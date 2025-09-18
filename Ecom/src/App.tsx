@@ -29,6 +29,8 @@ import SellerPageRaul from "./componentsRaul/pages/SellerPageRaul";
 import ProfilePage from "./componentsRaul/pages/ProfilePage";
 import ShoppingCartPage from "./componentsRaul/pages/ShoppingCartPage";
 import ProductPage from "./componentsRaul/pages/ProductPage";
+import ForgotPasswordPage from "./componentsRaul/pages/ResetPasswordPage";
+import ResetPasswordPage from "./componentsRaul/pages/ResetPasswordPage";
 
 function App() {
   return (
@@ -67,6 +69,7 @@ function App() {
         <Route path='/profile' element={<ProfilePage/>}/>
         <Route path='/shoppingCart' element={<ShoppingCartPage/>}/>
         <Route path='/productPage' element={<ProductPage/>}/>
+        <Route path='/resetPassword' element={<ResetPasswordPage/>}/>
       </Routes>
     </Router>
   );
