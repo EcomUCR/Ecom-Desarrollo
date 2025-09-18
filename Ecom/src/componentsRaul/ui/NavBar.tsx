@@ -1,6 +1,7 @@
 //Comentarios agregados por Raul
 import { IconHeart, IconMenu2, IconSearch, IconShoppingBag, IconUser } from "@tabler/icons-react";
 import logo from "../../img/tucaShopLogo.png";
+import ButtonComponent from "./ButtonComponent";
 export default function NavBar() {
     return (
         <nav className="bg-main px-10 pt-2">
@@ -13,10 +14,8 @@ export default function NavBar() {
                     </a>
                 </div>
                 <div className="flex items-center bg-white rounded-full px-0.5 w-1/3">
-                    <input type="text" className="w-full h-10 p-4" placeholder="Buscar" />
-                    <button className="bg-gradient-to-br from-contrast-main to-contrast-secondary rounded-full w-15 h-9 flex items-center justify-center">
-                        <IconSearch className="text-white h-6 w-auto stroke-3" />
-                    </button>
+                    <input type="text" className="w-full h-10 p-4 rounded-full focus:outline-none" placeholder="Buscar" />
+                    <ButtonComponent style="bg-gradient-to-br from-contrast-main to-contrast-secondary rounded-full w-15 h-9 flex items-center justify-center" icon={<IconSearch className="text-white h-6 w-auto stroke-3" />}/>
                 </div>
                 <div className="w-1/3 flex justify-end">
                     <ul className="flex gap-5 p-2 text-white font-medium">
