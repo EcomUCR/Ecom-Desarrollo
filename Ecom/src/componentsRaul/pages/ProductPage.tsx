@@ -7,7 +7,7 @@ import StarRatingComponent from "../ui/StarRatingComponent";
 import ButtonComponent from "../ui/ButtonComponent";
 import FeaturedProductsSlider from "../ui/FeaturedProductsSlider";
 import ProductCard from "../ui/ProductCard";
-import { IconArrowBackUp, IconHeart, IconShare } from "@tabler/icons-react";
+import { IconArrowBackUp, IconBrandFacebook, IconBrandInstagram, IconBrandTiktok, IconBrandWhatsapp, IconBrandX, IconHeart, IconLink, IconShare } from "@tabler/icons-react";
 
 type BorderColors = {
     description: string;
@@ -39,7 +39,7 @@ const featuredProducts = [
         discountPrice: "50.000",
         rating: 4.5,
         img: audifonos
-    },  
+    },
     {
         id: 1,
         shop: "Razer",
@@ -71,13 +71,14 @@ const featuredProducts = [
 
 export default function ProductPage() {
     const [activeTab, setActiveTab] = useState<keyof BorderColors>("description");
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
         <div>
             <NavBar />
             <section className="flex px-10 pt-5 font-quicksand">
                 {/*Este botón es para volver a la pagina donde se estaba */}
-                <ButtonComponent icon={<IconArrowBackUp/>} text="Volver" style="flex text-sm px-2 items-center gap-2 rounded-full pt-5"/>
+                <ButtonComponent icon={<IconArrowBackUp />} text="Volver" style="flex text-sm px-2 items-center gap-2 rounded-full pt-5" />
             </section>
             <section className="flex px-10 pt-10 font-quicksand">
                 <div className="w-3/12">
@@ -90,9 +91,19 @@ export default function ProductPage() {
                         </div>
                     </div>
                     <div className="border-t-2 border-main pt-10">
-                        <div className="flex border border-contrast-secondary rounded-full px-2 py-2">
-                            <ButtonComponent icon={<IconHeart/>} text="Agregar a la lista de deseos" style="flex text-sm px-2 gap-2 items-center hover:font-semibold" iconStyle="text-contrast-secondary"/>
-                            <ButtonComponent icon={<IconShare/>} text="Compartir" style="flex text-sm px-2 items-center gap-2 hover:font-semibold rounded-full" iconStyle="text-contrast-secondary"/>
+                        <div className="flex relative border border-contrast-secondary rounded-full px-3 py-2">
+                            <ButtonComponent icon={<IconHeart />} text="Agregar a la lista de deseos" style="flex text-sm px-2 gap-2 items-center hover:font-semibold" iconStyle="text-contrast-secondary" />
+                            <ButtonComponent icon={<IconShare />} text="Compartir" style="flex text-sm px-2 items-center gap-2 hover:font-semibold rounded-full" iconStyle="text-contrast-secondary" onClick={() => setIsModalOpen(prev => !prev)} />
+                            <div className="absolute left-15 top-30">
+                                <ul className="flex gap-3">
+                                    <li className={`relative bottom-10 left-27 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-0 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconLink  /></li>
+                                    <li className={`relative bottom-0 left-24 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-25 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconBrandWhatsapp  /></li>
+                                    <li className={`relative -bottom-1 left-24 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-50 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconBrandFacebook  /></li>
+                                    <li className={`relative bottom-5 left-23 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-75 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconBrandInstagram  /></li>
+                                    <li className={`relative bottom-17 left-15 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-100 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconBrandTiktok  /></li>
+                                    <li className={`relative bottom-30 -left-1 bg-main hover:bg-contrast-secondary p-2 rounded-full text-white transform transition-all duration-300 shadow-md delay-125 ${isModalOpen ? "scale-100" : "scale-0"}`}><IconBrandX  /></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -175,13 +186,18 @@ export default function ProductPage() {
             </section>
             <section className="my-10 px-10">
                 <h2 className="text-2xl font-semibold font-quicksand">Productos Similares</h2>
-                <div className="flex justify-between">
+                <div className="grid grid-cols-5 my-10 space-y-5">
                     {/*Aquí va el array que muestra los productos similares*/}
-                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} />
-                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} />
-                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} />
-                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} />
-                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
+                    <ProductCard shop="Unstable Games" title="Audifonos Razer x Pokemon | Edición Gengar" price="100.000" discountPrice="50.000" img={audifonos} edit={false} />
                 </div>
             </section>
             <Footer />

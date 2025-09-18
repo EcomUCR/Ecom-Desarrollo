@@ -24,7 +24,7 @@ export default function ProductCard(props: ProductCardProps) {
             <div className="flex flex-col justify-center items-center gap-3 h-auto">
                 <p className="font-semibold text-center text-sm">{props.title}</p>
                 {!props.edit &&
-                <div className="flex">
+                <div className="relative w-full flex">
                     <div className="text-center flex flex-col relative w-full gap-3  group-hover:transition-all group-hover:-translate-x-14 transition-all duration-300 ease-in-out">
                         <p className="font-poiret text-sm">{props.shop}</p>
                         <div className="flex flex-col">
@@ -32,8 +32,7 @@ export default function ProductCard(props: ProductCardProps) {
                             {props.discountPrice && <p className="font-comme">₡ {props.discountPrice}</p>}
                         </div>
                     </div>
-                    
-                    <div className="absolute flex flex-col h-17 justify-between transform translate-x-7 opacity-0 group-hover:opacity-100 bg-contrast-main text-white font-semibold p-2 rounded-xl hover:bg-gradient-to-br from-contrast-main to-contrast-secondary items-center transition-all duration-300 cursor-pointer">
+                    <div className="absolute flex flex-col h-17 justify-between transform translate-x-23 opacity-0 group-hover:opacity-100 bg-contrast-main text-white font-semibold p-2 rounded-xl hover:bg-gradient-to-br from-contrast-main to-contrast-secondary items-center transition-all duration-300 cursor-pointer">
                         <IconShoppingBag />
                         <ButtonComponent style="w-full text-xs" text={"Añadir al carrito"} />
                     </div>
