@@ -39,7 +39,7 @@ const featuredProducts = [
         discountPrice: "50.000",
         rating: 4.5,
         img: audifonos
-    },
+    },  
     {
         id: 1,
         shop: "Razer",
@@ -125,7 +125,7 @@ export default function ProductPage() {
                             onClick={() => setActiveTab("details")}
                             style={activeTab === "details" ? "bg-contrast-secondary p-4 m-1 rounded-full text-white font-bold" : "pr-6 text-main-dark/50 hover:text-main hover:font-semibold"} />
                     </div>
-                    {/* Aquí se encontrarán lás ventanas de las tabs */}
+                    {/* Aquí se encontrarán las ventanas de las tabs */}
                     <div>
                         {activeTab === "description" && (
                             <div>
