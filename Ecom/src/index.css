@@ -21,6 +21,10 @@
   --color-main-dark: #2B2B2B;
   --color-light-gray: #F8F9F9;
 
+  --bg-transparent {
+    background-color: transparent;
+  }
+
 
 }
 
