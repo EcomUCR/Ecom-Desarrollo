@@ -7,7 +7,7 @@ import ChangePasswordPage from "./components/pages/ChangePasswordPage";
 import AdminUserPage from "./components/pages/AdminUserPage";
 import UserListPage from "./components/pages/UserListPage";
 //import UserConfigModal from "./components/ui/UserConfigModal";
-import SellerConfigModal from "./components/ui/SellerConfidModal";
+import SellerConfigModal from "./components/ui/SellerConfigModal";
 import SellerPage from "./components/pages/SellerPage";
 import SellerPageContact from "./components/pages/SellerPageContacts";
 import RegisterSellerPage from "./components/pages/RegisterSellerPage";

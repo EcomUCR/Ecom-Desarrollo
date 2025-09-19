@@ -1,5 +1,5 @@
-import { Button } from '../ui/button';
-import SellerForm from '../ui/SellerForm';
+import { Button } from './button';
+import SellerForm from './SellerForm';
 import ModalButton from './ModalButton';
 import backArrowIcon from '../../img/backArrow.png';
 

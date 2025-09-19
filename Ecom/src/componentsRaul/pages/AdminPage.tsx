@@ -2,6 +2,8 @@ import { IconSearch } from "@tabler/icons-react";
 import ButtonComponent from "../ui/ButtonComponent";
 import NavBar from "../ui/NavBar";
 import AdminProfileCard from "../ui/AdminProfileCard.";
+import SellerModal from "../ui/SellerModal";
+import UserModal from "../ui/UserModal";
 
 export default function AdminPage() {
     return (
@@ -11,8 +13,8 @@ export default function AdminPage() {
                 <h1 className="text-2xl font-semibold pl-10">Lista de usuarios</h1>
                 <div className="flex justify-between px-20 pt-10">
                     <div className="flex bg-main-dark/10 items-center rounded-full px-1">
-                        <input placeholder="Buscar" type="text" name="" id="" className="rounded-full py-1 px-2"/>
-                        <ButtonComponent icon={<IconSearch />} style="bg-contrast-secondary text-white py-1 px-3 rounded-full"/>
+                        <input placeholder="Buscar" type="text" name="" id="" className="rounded-full py-1 px-2" />
+                        <ButtonComponent icon={<IconSearch />} style="bg-contrast-secondary text-white py-1 px-3 rounded-full" />
                     </div>
                     <div>
                         {/*Este no debe ser un input, deve ser un select con las opciones de User, Seller y Admin */}
@@ -23,7 +25,7 @@ export default function AdminPage() {
                     </div>
                 </div>
                 <div className="pt-8 space-y-4">
-                    <div className="flex w-full text-lg font-semibold bg-main-dark/20 rounded-full px-10 py-4 justify-between">
+                    <div className="flex w-full text-lg font-semibold bg-main-dark/40 rounded-full px-10 py-4 justify-between">
                         <p className="w-1/12">UUID</p>
                         <p className="w-2/12">Username</p>
                         <p className="w-3/12">Email</p>
@@ -36,11 +38,10 @@ export default function AdminPage() {
                     <AdminProfileCard />
                     <AdminProfileCard />
                     <AdminProfileCard />
-
                     {/*Aquí abajo debería estar la sección para cambiar de pagina de perfiles pero no se ha
                     implementado aún */}
                 </div>
             </section>
         </div>
     );
-}
+} 
