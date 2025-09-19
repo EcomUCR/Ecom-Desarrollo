@@ -4,7 +4,7 @@ import logo from "../../img/tucaShopLogo.png";
 import ButtonComponent from "./ButtonComponent";
 export default function NavBar() {
     return (
-        <nav className="bg-main px-10 pt-2">
+        <nav className="bg-main px-10 pt-2 2xl:px-80">
             {/*Esta es la parte superior del navbar*/}
             <div className="flex justify-between items-center">
                 <div className="w-1/3">
@@ -34,22 +34,22 @@ export default function NavBar() {
             {/*Aquí empieza la parte inferior del navbar*/}
             <div>
                 <ul className="flex justify-center gap-10 p-3 text-white text-sm font-light">
-                    <li className="flex items-center ">
+                    <li className="flex items-center  hover:-translate-y-1 transform transition-all duration-300">
                         {/*ItemList para desplegar las categorías*/}
                         <IconMenu2 className="h-5 w-5"/>
-                        <select className="bg-transparent border-white focus:outline-none">
-                            <option value="#">Categorías</option>
-                            <option value="#">Categoría 1</option>
-                            <option value="#">Categoría 2</option>
-                            <option value="#">Categoría 3</option>
+                        <select className="bg-transparent border-white focus:outline-none hover:cursor-pointer">
+                            <option disabled value="" selected hidden>Categorías</option>
+                            <option className="text-main-dark" value="#">Categoría 1</option>
+                            <option className="text-main-dark" value="#">Categoría 2</option>
+                            <option className="text-main-dark" value="#">Categoría 3</option>
                         </select>
                     </li>
-                    <li><a href="#">Explorar</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                    <li><a href="#">Lo más vendido</a></li>
-                    <li><a href="#">Tiendas</a></li>
-                    <li><a href="#">Vender</a></li>
-                    <li><a href="#">Conócenos</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Explorar</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Ofertas</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Lo más vendido</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Tiendas</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Vender</a></li>
+                    <li className="hover:-translate-y-1 transform transition-all duration-300"><a href="#">Conócenos</a></li>
                     <li></li>
                 </ul>
             </div>
