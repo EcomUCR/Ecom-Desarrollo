@@ -1,9 +1,9 @@
 import HeaderSlider from "../../../components/navigation/HeaderSlider";
 import NavBar from "../../../components/layout/NavBar"
 
-import audifonos from "../../img/resources/audifonos.jpg";
-import smallBanner1 from "../../img/resources/smallBanner1.png";
-import smallBanner2 from "../../img/resources/smallBanner2.png";
+import audifonos from "../../../img/resources/audifonos.jpg";
+import smallBanner1 from "../../../img/resources/SmallBanner1.png";
+import smallBanner2 from "../../../img/resources/SmallBanner2.png";
 import FeaturedProductsSlider from "../../../components/data-display/FeaturedProductsSlider";
 
 import CategorySlider from "../../../components/data-display/CategorySlider";
