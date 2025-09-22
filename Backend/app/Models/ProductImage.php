@@ -12,4 +12,10 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // 🔹 Devolver URL completa automáticamente
+    public function getUrlAttribute($value)
+    {
+        return asset('storage/' . $value);
+    }
 }

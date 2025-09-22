@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\OpenAIController;
 
@@ -33,10 +34,10 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.update');
 
 // Productos públicos (solo lectura)
-Route::get('/products', [ProductController::class, 'index']);              // todos los productos
-Route::get('/products/search', [ProductController::class, 'search']);      // buscar
-Route::get('/products/{id}', [ProductController::class, 'show']);          // detalle
-Route::get('/products/vendor/{vendorId}', [ProductController::class, 'byVendor']); // productos por vendor
+Route::get('/products', [ProductController::class, 'index']);              
+Route::get('/products/search', [ProductController::class, 'search']);      
+Route::get('/products/{id}', [ProductController::class, 'show']);          
+Route::get('/products/vendor/{vendorId}', [ProductController::class, 'byVendor']); 
 
 
 /*
@@ -62,12 +63,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('vendors', VendorController::class);
     Route::get('/vendors/{id}/products', [VendorController::class, 'products']);
 
-    // Productos (CRUD completo)
+    // Productos (CRUD protegido)
     Route::post('/products', [ProductController::class, 'store']);
     Route::put('/products/{id}', [ProductController::class, 'update']);
     Route::delete('/products/{id}', [ProductController::class, 'destroy']);
 
-    //Conexion con openAI
-    Route::post('/openai/product-description', [OpenAIController::class, 'generateDescription']);
+    // Product Images (gestión individual)
+    Route::delete('/product-images/{id}', [ProductImageController::class, 'destroy']);
+    Route::put('/product-images/{id}', [ProductImageController::class, 'update']);
 
+    // Conexión con OpenAI
+    Route::post('/openai/product-description', [OpenAIController::class, 'generateDescription']);
 });

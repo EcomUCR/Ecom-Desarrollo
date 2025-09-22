@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use App\Models\Category;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -39,7 +39,7 @@ class ProductController extends Controller
             'status'      => 'required|boolean',
             'categories'  => 'array',
             'categories.*'=> 'exists:categories,id',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $vendorId = Auth::user()->vendor->id;
@@ -59,13 +59,15 @@ class ProductController extends Controller
             $product->categories()->sync($validated['categories']);
         }
 
-        // Imagen
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $product->images()->create([
-                'url'   => $path,
-                'order' => 1,
-            ]);
+        // Subir imágenes (múltiples)
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('products', 'public');
+                $product->images()->create([
+                    'url'   => $path,
+                    'order' => $index + 1,
+                ]);
+            }
         }
 
         return response()->json($product->load(['categories', 'images']), 201);
@@ -85,10 +87,15 @@ class ProductController extends Controller
             'status'      => 'required|boolean',
             'categories'  => 'array',
             'categories.*'=> 'exists:categories,id',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'images.*'    => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
         $product = Product::findOrFail($id);
+
+        // 🔹 Validar que el producto sea del vendor logueado
+        if ($product->vendor_id !== Auth::user()->vendor->id) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
 
         $product->update([
             'name'        => $validated['name'],
@@ -99,16 +106,23 @@ class ProductController extends Controller
             'status'      => $validated['status'],
         ]);
 
+        // Categorías
         if (!empty($validated['categories'])) {
             $product->categories()->sync($validated['categories']);
         }
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'public');
-            $product->images()->create([
-                'url'   => $path,
-                'order' => 1,
-            ]);
+        // Reemplazar imágenes (opcional)
+        if ($request->hasFile('images')) {
+            // Borrar imágenes anteriores
+            $product->images()->delete();
+
+            foreach ($request->file('images') as $index => $file) {
+                $path = $file->store('products', 'public');
+                $product->images()->create([
+                    'url'   => $path,
+                    'order' => $index + 1,
+                ]);
+            }
         }
 
         return response()->json($product->load(['categories', 'images']), 200);
@@ -120,6 +134,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
+
+        if ($product->vendor_id !== Auth::user()->vendor->id) {
+            return response()->json(['error' => 'No autorizado'], 403);
+        }
+
         $product->delete();
 
         return response()->json(['message' => 'Producto eliminado correctamente']);
