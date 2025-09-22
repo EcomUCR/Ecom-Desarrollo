@@ -1,20 +1,18 @@
-interface ButtonComponentProps{
-    text?: string;
-    style: string;
-    onClick?: () => void;
-    disabled?: boolean;
-    icon?: React.ComponentType<{ className?: string }>;
-    iconStyle?: string;
+import type { JSX } from "react";
+
+interface ButtonProps{
+    text?:string;
+    style?:string;
+    icon?:JSX.Element;
+    iconStyle?:string;
+    onClick?:()=>void;
 }
-export default function ButtonComponent(props: ButtonComponentProps){
+export default function ButtonComponent(props : ButtonProps) {
+    const { text, style, icon, iconStyle, onClick } = props;
     return(
-        <button
-            className={props.style}
-            onClick={props.onClick}
-            disabled={props.disabled}
-        >
-            {props.icon && <props.icon className={props.iconStyle} />}
-            {props.text}
+        <button className={style} onClick={onClick}>
+            {icon && <span className={iconStyle}>{icon}</span>}
+            {text}
         </button>
-    );
+);
 }
