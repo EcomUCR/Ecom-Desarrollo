@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Footer from "../../../components/layout/Footer";
 import NavBar from "../../../components/layout/NavBar";
-import audifonos from "../../img/resources/audifonos.jpg";
+import audifonos from "../../../img/resources/audifonos.jpg";
 import FormShopping from "../../../components/forms/FormShopping";
 import StarRatingComponent from "../../../components/ui/StarRatingComponent";
 import ButtonComponent from "../../../components/ui/ButtonComponent";
