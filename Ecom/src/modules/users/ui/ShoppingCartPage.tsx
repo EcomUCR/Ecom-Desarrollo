@@ -2,7 +2,7 @@ import Footer from "../../../components/layout/Footer";
 import FormShopping from "../../../components/forms/FormShopping";
 import NavBar from "../../../components/layout/NavBar";
 import ProductCardShopping from "../../../components/data-display/ProductCardShopping";;
-import banner2 from '../../img/resourcesRaul/SmallBanner2.png';
+import banner2 from '../../img/resources/SmallBanner2.png';
 
 export default function ShoppingCartPage() {
     return (

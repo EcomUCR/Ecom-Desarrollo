@@ -1,6 +1,6 @@
 import { IconSettings } from "@tabler/icons-react";
-import { Switch } from "../../../components/ui/switch";
-import ButtonComponent from "../../../components/ui/ButtonComponent";
+import { Switch } from "../../../../components/ui/switch";
+import ButtonComponent from "../../../../components/ui/ButtonComponent";
 
 interface ProfileCardProps{
     uuid:string;

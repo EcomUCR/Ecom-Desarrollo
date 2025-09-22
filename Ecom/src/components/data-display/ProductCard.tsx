@@ -7,7 +7,7 @@ interface ProductCardProps {
     price: string;
     discountPrice: string;
     img: string;
-    edit?: boolean
+    edit: boolean
 }
 export default function ProductCard(props: ProductCardProps) {
     return (

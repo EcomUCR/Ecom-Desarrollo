@@ -1,6 +1,6 @@
 
-import audifonos from '../../img/resourcesRaul/audifonos.jpg';
-import ProductCard from '../../../components/data-display/ProductCard';
+import audifonos from '../../img/resources/audifonos.jpg';
+import ProductCard from '../../../../components/data-display/ProductCard';
 export default function SellerOffersPage() {
     return (
         <div className="mx-10 my-5">

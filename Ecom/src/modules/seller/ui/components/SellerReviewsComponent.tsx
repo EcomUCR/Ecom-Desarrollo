@@ -1,4 +1,4 @@
-import LargeReviewComponent from "../../../components/data-display/LargeReviewComponent";;
+import LargeReviewComponent from "../../../../components/data-display/LargeReviewComponent";;
 
 export default function SellerReviewsComponent() {
     return (

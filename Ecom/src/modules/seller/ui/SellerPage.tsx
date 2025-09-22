@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import Footer from "../../../components/layout/Footer";
 import NavBar from "../../../components/layout/NavBar";
-import NavBarSeller from "../components/NavBarSeller";
+import NavBarSeller from "./components/NavBarSeller";
 
 import banner from '../../img/resources/banner.png';
-import HomeSeller from "../components/SellerHomeComponent";
-import SellerOffers from "../components/SellerOffersComponent";
-import SellerContactComponent from "../components/SellerContactComponent";
-import SellerReviewsComponent from "../components/SellerReviewsComponent";
+import HomeSeller from "./components/SellerHomeComponent";
+import SellerOffers from "./components/SellerOffersComponent";
+import SellerContactComponent from "./components/SellerContactComponent";
+import SellerReviewsComponent from "./components/SellerReviewsComponent";
 
 export default function SellerPage() {
     const [view, setView] = useState<'home' | 'offers' | 'contact' | 'reviews'>('home');

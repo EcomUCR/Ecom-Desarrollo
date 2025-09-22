@@ -1,11 +1,11 @@
 import { IconChevronRight } from "@tabler/icons-react";
-import ProductCard from "../../../components/data-display/ProductCard";
-import ButtonComponent from "../../../components/ui/ButtonComponent";
+import ProductCard from "../../../../components/data-display/ProductCard";
+import ButtonComponent from "../../../../components/ui/ButtonComponent";
 
 import audifonos from '../../img/resources/audifonos.jpg';
 import img1 from '../../img/resources/foto1.png';
 import img2 from '../../img/resources/foto2.png';
-import FeaturedProductsSlider from "../../../components/data-display/FeaturedProductsSlider";
+import FeaturedProductsSlider from "../../../../components/data-display/FeaturedProductsSlider";
 
 const featuredProducts = [
     {
