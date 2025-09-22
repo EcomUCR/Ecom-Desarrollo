@@ -1,7 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../navigation/carousel";
 import CategoryCard from "./CategoryCard";
 import { IconHeart } from "@tabler/icons-react";
-import bg from '../../img/resourcesRaul/Home.png';
+import bg from '../../img/resources/Home.png';
 
 export default function CategorySlider() {
     return (
